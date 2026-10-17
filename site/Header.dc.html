@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<script src="zef-data.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;overflow-x:clip}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-stopped{overflow:clip}
+body{margin:0;background:#f0eeee;color:#170a0b;font-family:'Instrument Sans',system-ui,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+a:hover{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+input,select,textarea{font:inherit;color:inherit}
+img{display:block;max-width:100%}
+h1,h2,h3,h4,p{margin:0}
+::selection{background:#8c1c22;color:#f7f4f4}
+@keyframes zefPage{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+</style>
+</helmet>
+<div style="position:fixed;top:0;left:0;right:0;z-index:100;pointer-events:none;color:{{ fg }};transition:color .35s">
+  <div style="height:{{ utilH }};overflow:hidden;transition:height .45s cubic-bezier(.16,1,.3,1);pointer-events:auto">
+    <div style="height:34px;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:0 clamp(16px,3vw,44px);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid {{ utilLine }};transition:border-color .35s">
+      <a href="Showroom.dc.html?s=grand-mall" style="display:flex;align-items:center;gap:10px;opacity:.85" style-hover="opacity:1">
+        <span style="width:6px;height:6px;border-radius:50%;background:{{ openDot }}"></span>
+        <span>Grand Mall, Megenagna</span>
+        <span style="opacity:.6">{{ hoursToday }}</span>
+      </a>
+      <div style="display:flex;align-items:center;gap:22px">
+        <a href="Business.dc.html" style="opacity:.85" style-hover="opacity:1">For Business</a>
+        <a href="Help.dc.html" style="opacity:.85" style-hover="opacity:1">Help</a>
+        <a href="tel:+251116686979" style="opacity:.85" style-hover="opacity:1">+251 11 668 6979</a>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;justify-content:center;padding:{{ wrapPad }};transition:padding .55s cubic-bezier(.16,1,.3,1)">
+    <div ref="{{ barRef }}" onMouseLeave="{{ barLeave }}" style="pointer-events:auto;position:relative;width:100%;max-width:{{ barMax }};height:{{ barH }};border-radius:{{ barR }};background-color:{{ barBg }};backdrop-filter:blur({{ blur }}) saturate(1.4);-webkit-backdrop-filter:blur({{ blur }}) saturate(1.4);border:1px solid {{ barLine }};box-shadow:{{ barShadow }};display:flex;align-items:center;gap:20px;padding:{{ barPad }};transition:max-width .55s cubic-bezier(.16,1,.3,1),height .55s cubic-bezier(.16,1,.3,1),border-radius .55s cubic-bezier(.16,1,.3,1),padding .55s cubic-bezier(.16,1,.3,1),background-color .35s,border-color .35s,box-shadow .35s">
+      <a href="Home.dc.html" aria-label="Zefmesh Home Depot, home" style="position:relative;flex:none;display:block;height:{{ logoH }};aspect-ratio:505/151;margin-right:8px;transition:height .55s cubic-bezier(.16,1,.3,1)">
+        <img src="assets/logo.svg" alt="" style="position:absolute;inset:0;width:100%;height:100%;opacity:{{ logoColorOp }};transition:opacity .35s">
+        <img src="assets/logo-light.svg" alt="" style="position:absolute;inset:0;width:100%;height:100%;opacity:{{ logoLightOp }};transition:opacity .35s">
+      </a>
+
+      <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+        <nav aria-label="Primary" onMouseLeave="{{ navLeave }}" style="position:relative;flex:1;display:flex;justify-content:center;align-items:center;gap:2px">
+          <span aria-hidden="true" style="position:absolute;top:50%;left:{{ pillL }};width:{{ pillW }};height:36px;margin-top:-18px;border-radius:18px;background:{{ pillBg }};opacity:{{ pillOp }};transition:left .38s cubic-bezier(.16,1,.3,1),width .38s cubic-bezier(.16,1,.3,1),opacity .25s,background .3s;pointer-events:none"></span>
+          <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="7">
+            <a href="{{ n.href }}" onMouseEnter="{{ n.enter }}" onFocus="{{ n.enter }}" aria-haspopup="{{ n.popup }}" style="position:relative;z-index:1;display:flex;align-items:center;gap:6px;height:36px;padding:0 13px;font-size:14px;letter-spacing:-.005em;white-space:nowrap">
+              <span>{{ n.label }}</span>
+              <span style="display:{{ n.caretShow }};width:5px;height:5px;border-right:1.3px solid currentColor;border-bottom:1.3px solid currentColor;transform:translateY(-2px) rotate({{ n.caretRot }});transition:transform .3s;opacity:.7"></span>
+              <span style="position:absolute;left:13px;right:13px;bottom:3px;height:1px;background:currentColor;transform:scaleX({{ n.activeX }});transform-origin:left;transition:transform .4s cubic-bezier(.16,1,.3,1)"></span>
+            </a>
+          </sc-for>
+        </nav>
+      </sc-if>
+      <sc-if value="{{ notWide }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1"></div>
+      </sc-if>
+
+      <div style="display:flex;align-items:center;gap:6px;flex:none">
+        <button onClick="{{ openSearch }}" onMouseEnter="{{ searchEnter }}" aria-label="Search" style="display:grid;place-items:center;width:40px;height:40px;border-radius:50%" style-hover="background:rgba(127,116,117,.16)">
+          <span style="position:relative;width:15px;height:15px;display:block">
+            <span style="position:absolute;left:0;top:0;width:11px;height:11px;border:1.5px solid currentColor;border-radius:50%"></span>
+            <span style="position:absolute;left:9.5px;top:9.5px;width:6px;height:1.5px;background:currentColor;transform:rotate(45deg);transform-origin:0 50%"></span>
+          </span>
+        </button>
+        <button onClick="{{ openDrawer }}" onMouseEnter="{{ closeSoon }}" aria-label="{{ listAria }}" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 10px 0 12px;border-radius:20px;font-size:14px" style-hover="background:rgba(127,116,117,.16)">
+          <sc-if value="{{ listLabel }}" hint-placeholder-val="{{ true }}"><span>Quote list</span></sc-if>
+          <span ref="{{ badgeRef }}" style="display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:11px;background:#8c1c22;color:#f7f4f4;font-size:11.5px;font-weight:600">{{ count }}</span>
+        </button>
+        <sc-if value="{{ showCta }}" hint-placeholder-val="{{ true }}">
+          <a href="Quote.dc.html" onMouseEnter="{{ closeSoon }}" style="display:inline-flex;align-items:center;gap:10px;height:42px;padding:0 18px;border-radius:21px;background:{{ ctaBg }};color:{{ ctaFg }};font-size:14px;font-weight:500;white-space:nowrap;transition:background .3s,color .3s" style-hover="background:#8c1c22;color:#f7f4f4">Request a quote <span aria-hidden="true">→</span></a>
+        </sc-if>
+        <sc-if value="{{ notWide }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ toggleMobile }}" aria-label="{{ burgerLabel }}" style="position:relative;width:42px;height:42px;border-radius:50%;border:1px solid currentColor;margin-left:4px">
+            <span style="position:absolute;left:12px;right:12px;top:{{ burgerTop1 }};height:1.5px;background:currentColor;transform:rotate({{ burgerRot1 }});transition:transform .5s cubic-bezier(.16,1,.3,1),top .5s cubic-bezier(.16,1,.3,1)"></span>
+            <span style="position:absolute;left:12px;right:12px;top:{{ burgerTop2 }};height:1.5px;background:currentColor;transform:rotate({{ burgerRot2 }});transition:transform .5s cubic-bezier(.16,1,.3,1),top .5s cubic-bezier(.16,1,.3,1)"></span>
+          </button>
+        </sc-if>
+      </div>
+
+      <div data-lenis-prevent="" onMouseEnter="{{ panelEnter }}" style="position:absolute;left:0;right:0;top:100%;padding-top:{{ panelGap }};opacity:{{ panelOp }};visibility:{{ panelVis }};transform:translateY({{ panelY }});pointer-events:{{ panelPe }};transition:opacity .25s,transform .35s cubic-bezier(.16,1,.3,1),visibility .35s;color:#170a0b">
+        <div style="height:{{ panelH }};overflow:hidden;background:#f7f4f4;border:1px solid rgba(23,10,11,.08);border-radius:{{ panelR }};box-shadow:0 40px 70px -30px rgba(20,6,7,.35);transition:height .4s cubic-bezier(.16,1,.3,1)">
+          <div ref="{{ innerRef }}">
+
+            <sc-if value="{{ mRooms }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;grid-template-columns:240px minmax(0,1fr) minmax(220px,300px);gap:40px;padding:28px 28px 22px">
+                <div style="display:flex;flex-direction:column">
+                  <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364;margin-bottom:10px">Shop by room</span>
+                  <sc-for list="{{ megaRooms }}" as="r" hint-placeholder-count="5">
+                    <a href="{{ r.href }}" onMouseEnter="{{ r.hover }}" onFocus="{{ r.hover }}" style="display:flex;justify-content:space-between;align-items:baseline;padding:9px 0 9px {{ r.pl }};border-bottom:1px solid #dcd6d6;font-size:24px;letter-spacing:-.03em;line-height:1.15;color:{{ r.color }};transition:color .25s,padding .4s cubic-bezier(.16,1,.3,1)">
+                      <span>{{ r.name }}</span>
+                      <span aria-hidden="true" style="font-size:14px;color:#8e8485">→</span>
+                    </a>
+                  </sc-for>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:22px;min-width:0">
+                  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px">
+                    <span style="font-family:'Instrument Serif',serif;font-style:italic;font-size:30px;letter-spacing:-.02em;line-height:1">{{ megaRoom.name }}</span>
+                    <a href="{{ megaRoom.href }}" style="font-size:13.5px;border-bottom:1px solid currentColor;padding-bottom:1px" style-hover="color:#8c1c22">All {{ megaRoom.lower }} furniture</a>
+                  </div>
+                  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:26px 24px">
+                    <sc-for list="{{ megaRoom.groups }}" as="g" hint-placeholder-count="3">
+                      <div style="display:flex;flex-direction:column;gap:9px">
+                        <a href="{{ g.href }}" style="font-size:14.5px;font-weight:600" style-hover="color:#8c1c22">{{ g.name }}</a>
+                        <sc-for list="{{ g.subs }}" as="s" hint-placeholder-count="3">
+                          <a href="{{ s.href }}" style="display:flex;justify-content:space-between;gap:10px;font-size:14px;color:#4a3336" style-hover="color:#8c1c22">
+                            <span>{{ s.name }}</span>
+                          </a>
+                        </sc-for>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+                <a href="{{ megaRoom.href }}" style="position:relative;display:block;aspect-ratio:4/5;max-height:340px;overflow:hidden;background:#dad4d4;color:#f7f4f4">
+                  <sc-for list="{{ megaRooms }}" as="r" hint-placeholder-count="0">
+                    <img src="{{ r.img }}" loading="lazy" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:{{ r.op }};transform:scale({{ r.sc }});transition:opacity .45s,transform 1.4s cubic-bezier(.16,1,.3,1)">
+                  </sc-for>
+                  <span style="position:absolute;inset:auto 0 0 0;padding:40px 16px 14px;background:linear-gradient(transparent,rgba(20,6,7,.65));font-size:13.5px;line-height:1.4">{{ megaRoom.blurb }}</span>
+                </a>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 22px;padding:14px 28px;border-top:1px solid #dcd6d6;font-size:13.5px">
+                <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364">Also</span>
+                <a href="Products.dc.html" style-hover="color:#8c1c22">All products</a>
+                <a href="Shop.dc.html" style-hover="color:#8c1c22">All furniture by room</a>
+                <a href="Sale.dc.html" style="color:#8c1c22">On sale now</a>
+                <a href="Collections.dc.html" style-hover="color:#8c1c22">Collections</a>
+                <a href="Business.dc.html" style-hover="color:#8c1c22">Bulk for business</a>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ mCats }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;padding:28px">
+                <sc-for list="{{ megaCats }}" as="c" hint-placeholder-count="0">
+                  <a href="{{ c.href }}" style="display:grid;grid-template-columns:72px minmax(0,1fr);gap:14px;align-items:center;padding:8px;margin:-8px;border-radius:10px;transition:background .25s" style-hover="background:#ebe7e7">
+                    <span style="display:block;aspect-ratio:1;overflow:hidden;background:#dad4d4;border-radius:6px"><img src="{{ c.img }}" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></span>
+                    <span style="display:flex;flex-direction:column;gap:2px;min-width:0">
+                      <span style="font-size:15.5px;font-weight:500;letter-spacing:-.01em">{{ c.label }}</span>
+                      <span style="font-size:12.5px;color:#6e6364">{{ c.meta }}</span>
+                    </span>
+                  </a>
+                </sc-for>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 28px;border-top:1px solid #dcd6d6;font-size:13.5px">
+                <span style="color:#6e6364">Search and filter every piece by room, category, finish and price.</span>
+                <a href="Products.dc.html" style="display:inline-flex;align-items:center;height:36px;padding:0 16px;border-radius:18px;background:#170a0b;color:#f7f4f4;font-weight:500" style-hover="background:#8c1c22;color:#f7f4f4">Browse all products →</a>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ mCols }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;padding:28px 28px 20px">
+                <sc-for list="{{ megaCols }}" as="c" hint-placeholder-count="0">
+                  <a href="{{ c.href }}" style="display:flex;flex-direction:column;gap:10px">
+                    <span style="display:block;aspect-ratio:3/4;overflow:hidden;background:#dad4d4"><img src="{{ c.img }}" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.16,1,.3,1)" style-hover="transform:scale(1.06)"></span>
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364">{{ c.kicker }}</span>
+                    <span style="font-size:17px;font-weight:500;letter-spacing:-.015em;margin-top:-4px">{{ c.name }}</span>
+                  </a>
+                </sc-for>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding:14px 28px;border-top:1px solid #dcd6d6;font-size:13.5px">
+                <span style="color:#6e6364">Named series and room sets, including office sets.</span>
+                <a href="Collections.dc.html" style="border-bottom:1px solid currentColor" style-hover="color:#8c1c22">All collections</a>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ mMore }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px 28px;padding:24px 28px">
+                <a href="Inspiration.dc.html" style="display:flex;flex-direction:column;gap:2px;padding:12px 0;border-bottom:1px solid #dcd6d6" style-hover="color:#8c1c22"><span style="font-size:18px;font-weight:500;letter-spacing:-.015em">Inspiration</span><span style="font-size:13px;color:#6e6364">Room ideas, projects and news</span></a>
+                <a href="Inspiration.dc.html?type=guides" style="display:flex;flex-direction:column;gap:2px;padding:12px 0;border-bottom:1px solid #dcd6d6" style-hover="color:#8c1c22"><span style="font-size:18px;font-weight:500;letter-spacing:-.015em">Buying guides</span><span style="font-size:13px;color:#6e6364">Mesh or leather, MDF or wood</span></a>
+                <a href="About.dc.html" style="display:flex;flex-direction:column;gap:2px;padding:12px 0;border-bottom:1px solid #dcd6d6" style-hover="color:#8c1c22"><span style="font-size:18px;font-weight:500;letter-spacing:-.015em">About Zefmesh</span><span style="font-size:13px;color:#6e6364">Who we are and how we work</span></a>
+                <a href="About.dc.html#workshop" style="display:flex;flex-direction:column;gap:2px;padding:12px 0;border-bottom:1px solid #dcd6d6" style-hover="color:#8c1c22"><span style="font-size:18px;font-weight:500;letter-spacing:-.015em">Our workshop</span><span style="font-size:13px;color:#6e6364">How the furniture is made</span></a>
+                <a href="Showrooms.dc.html" style="display:flex;flex-direction:column;gap:2px;padding:12px 0;border-bottom:1px solid #dcd6d6" style-hover="color:#8c1c22"><span style="font-size:18px;font-weight:500;letter-spacing:-.015em">Showrooms</span><span style="font-size:13px;color:#6e6364">Grand Mall and Jakros</span></a>
+                <a href="Custom.dc.html" style="display:flex;flex-direction:column;gap:2px;padding:12px 0;border-bottom:1px solid #dcd6d6" style-hover="color:#8c1c22"><span style="font-size:18px;font-weight:500;letter-spacing:-.015em">Custom &amp; Branded</span><span style="font-size:13px;color:#6e6364">Your size, your logo</span></a>
+                <a href="Help.dc.html" style="display:flex;flex-direction:column;gap:2px;padding:12px 0;border-bottom:1px solid #dcd6d6" style-hover="color:#8c1c22"><span style="font-size:18px;font-weight:500;letter-spacing:-.015em">Help &amp; FAQ</span><span style="font-size:13px;color:#6e6364">Quotes, delivery, payment, care</span></a>
+                <a href="Contact.dc.html" style="display:flex;flex-direction:column;gap:2px;padding:12px 0;border-bottom:1px solid #dcd6d6" style-hover="color:#8c1c22"><span style="font-size:18px;font-weight:500;letter-spacing:-.015em">Contact</span><span style="font-size:13px;color:#6e6364">Phone, WhatsApp, email</span></a>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ mBiz }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(260px,.9fr);gap:40px;padding:28px">
+                <div>
+                  <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364">Sectors</span>
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 24px;margin-top:10px">
+                    <sc-for list="{{ megaSectors }}" as="s" hint-placeholder-count="6">
+                      <a href="{{ s.href }}" style="display:flex;flex-direction:column;gap:2px;padding:10px 0;border-bottom:1px solid #dcd6d6" style-hover="color:#8c1c22">
+                        <span style="font-size:17px;font-weight:500;letter-spacing:-.015em">{{ s.name }}</span>
+                        <span style="font-size:12.5px;color:#6e6364">{{ s.needs }}</span>
+                      </a>
+                    </sc-for>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:12px;font-size:15px">
+                  <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364;margin-bottom:4px">For buyers and specifiers</span>
+                  <a href="Business.dc.html" style-hover="color:#8c1c22">How business orders work</a>
+                  <a href="Projects.dc.html" style-hover="color:#8c1c22">Projects</a>
+                  <a href="Custom.dc.html" style-hover="color:#8c1c22">Custom &amp; Branded</a>
+                  <a href="Catalogue.dc.html" style-hover="color:#8c1c22">Catalogue with Item IDs</a>
+                  <a href="Materials.dc.html" style-hover="color:#8c1c22">Materials and finishes</a>
+                  <a href="Delivery.dc.html" style-hover="color:#8c1c22">Delivery and installation</a>
+                </div>
+                <div style="display:flex;flex-direction:column;justify-content:space-between;gap:24px;padding:24px;background:#140607;color:#f7f4f4;border-radius:12px">
+                  <p style="font-size:24px;line-height:1.1;letter-spacing:-.025em">Ordering 10 or more? Send the list as <span style="font-family:'Instrument Serif',serif;font-style:italic">one project quote.</span></p>
+                  <a href="Quote.dc.html?type=business" style="align-self:flex-start;display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 18px;border-radius:22px;background:#f7f4f4;color:#170a0b;font-size:14px;font-weight:500" style-hover="background:#8c1c22;color:#f7f4f4">Request a project quote →</a>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ mSearch }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:22px 28px 26px">
+                <div style="display:flex;align-items:center;gap:16px;border-bottom:1px solid #170a0b;padding-bottom:10px">
+                  <input ref="{{ searchRef }}" value="{{ query }}" onInput="{{ onQuery }}" onKeyDown="{{ onSearchKey }}" placeholder="Search pieces, rooms or an Item ID such as ZMOF-0770" aria-label="Search" style="flex:1;min-width:0;border:0;outline:0;background:transparent;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.02em;padding:6px 0">
+                  <button onClick="{{ closeNow }}" style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#6e6364" style-hover="color:#170a0b">Esc</button>
+                </div>
+                <sc-if value="{{ hasResults }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 32px;margin-top:16px">
+                    <sc-for list="{{ results }}" as="r" hint-placeholder-count="0">
+                      <a href="{{ r.href }}" style="display:flex;align-items:center;gap:14px;padding:10px 8px;margin:0 -8px;border-radius:8px;background:{{ r.bg }}" style-hover="background:#ebe7e7">
+                        <span style="flex:none;width:44px;height:44px;border-radius:6px;overflow:hidden;background:#dad4d4;display:grid;place-items:center;font-family:'JetBrains Mono',monospace;font-size:10px;color:#6e6364">
+                          <sc-if value="{{ r.hasImg }}" hint-placeholder-val="{{ false }}"><img src="{{ r.img }}" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></sc-if>
+                          <sc-if value="{{ r.noImg }}" hint-placeholder-val="{{ true }}"><span>{{ r.abbr }}</span></sc-if>
+                        </span>
+                        <span style="display:flex;flex-direction:column;min-width:0">
+                          <span style="font-size:15.5px;font-weight:500">{{ r.label }}</span>
+                          <span style="font-size:12.5px;color:#6e6364">{{ r.type }} · {{ r.meta }}</span>
+                        </span>
+                      </a>
+                    </sc-for>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ hasQuery }}" hint-placeholder-val="{{ false }}">
+                  <a href="{{ allHref }}" style="display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:14px;padding:14px 16px;border-radius:12px;background:{{ allBg }};font-size:14.5px" style-hover="background:#ebe7e7">
+                    <span>See every result for “{{ query2 }}” in All products</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#6e6364">Enter ↵</span>
+                  </a>
+                </sc-if>
+                <sc-if value="{{ noQuery }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:18px">
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364;margin-right:8px">People search for</span>
+                    <sc-for list="{{ popular }}" as="p" hint-placeholder-count="5">
+                      <button onClick="{{ p.pick }}" style="height:34px;padding:0 14px;border-radius:17px;border:1px solid #c7bebe;font-size:13.5px" style-hover="border-color:#170a0b">{{ p.label }}</button>
+                    </sc-for>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+                  <p style="margin-top:18px;font-size:15px;color:#4a3336">Nothing matches “{{ query }}”. Try a room, a material, or <a href="Custom.dc.html" style="border-bottom:1px solid currentColor">ask about a custom piece</a>.</p>
+                </sc-if>
+              </div>
+            </sc-if>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div onClick="{{ closeDrawer }}" style="position:fixed;inset:0;z-index:140;background:rgba(20,6,7,.42);opacity:{{ drawerOp }};pointer-events:{{ drawerPe }};transition:opacity .35s"></div>
+<aside data-lenis-prevent="" aria-label="Quote list" aria-hidden="{{ drawerHidden }}" style="position:fixed;top:0;right:0;bottom:0;z-index:150;width:min(460px,100%);background:#f7f4f4;color:#170a0b;display:flex;flex-direction:column;transform:translateX({{ drawerX }});visibility:{{ drawerVis }};transition:transform .5s cubic-bezier(.16,1,.3,1),visibility .5s;box-shadow:-30px 0 60px -30px rgba(20,6,7,.35)">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:22px 24px;border-bottom:1px solid #dcd6d6">
+    <div style="display:flex;align-items:baseline;gap:10px">
+      <span style="font-size:22px;letter-spacing:-.025em;font-weight:500">Your quote list</span>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#6e6364">{{ count }} {{ pieceWord }}</span>
+    </div>
+    <button onClick="{{ closeDrawer }}" style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#6e6364;padding:8px 0" style-hover="color:#170a0b">Close</button>
+  </div>
+  <div style="flex:1;overflow-y:auto;padding:8px 24px">
+    <sc-for list="{{ items }}" as="it" hint-placeholder-count="0">
+      <div style="display:grid;grid-template-columns:72px minmax(0,1fr);gap:16px;padding:16px 0;border-bottom:1px solid #dcd6d6">
+        <a href="{{ it.href }}" style="display:block;aspect-ratio:4/5;overflow:hidden;background:#dad4d4"><img src="{{ it.img }}" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></a>
+        <div style="display:flex;flex-direction:column;gap:6px;min-width:0">
+          <div style="display:flex;justify-content:space-between;gap:12px">
+            <a href="{{ it.href }}" style="font-size:15.5px;font-weight:500;line-height:1.25" style-hover="color:#8c1c22">{{ it.name }}</a>
+            <button onClick="{{ it.remove }}" aria-label="Remove" style="flex:none;font-size:12.5px;color:#6e6364;align-self:flex-start" style-hover="color:#8c1c22">Remove</button>
+          </div>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#6e6364">{{ it.sku }} · {{ it.finish }}</span>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px">
+            <div style="display:flex;align-items:center;border:1px solid #c7bebe;border-radius:17px;height:34px">
+              <button onClick="{{ it.dec }}" aria-label="Fewer" style="width:34px;height:32px;font-size:16px">−</button>
+              <span style="min-width:24px;text-align:center;font-size:14px;font-variant-numeric:tabular-nums">{{ it.qty }}</span>
+              <button onClick="{{ it.inc }}" aria-label="More" style="width:34px;height:32px;font-size:16px">+</button>
+            </div>
+            <span style="font-size:13.5px;color:{{ it.priceColor }}">{{ it.price }}</span>
+          </div>
+        </div>
+      </div>
+    </sc-for>
+    <sc-if value="{{ emptyList }}" hint-placeholder-val="{{ true }}">
+      <div style="padding:40px 0;display:flex;flex-direction:column;gap:18px">
+        <p style="font-size:26px;line-height:1.1;letter-spacing:-.025em">Your list is empty. <span style="font-family:'Instrument Serif',serif;font-style:italic">Start with a room.</span></p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <sc-for list="{{ roomLinks }}" as="r" hint-placeholder-count="5">
+            <a href="{{ r.href }}" style="height:36px;display:inline-flex;align-items:center;padding:0 15px;border-radius:18px;border:1px solid #c7bebe;font-size:14px" style-hover="border-color:#170a0b">{{ r.name }}</a>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+  <sc-if value="{{ hasItems }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:20px 24px 24px;border-top:1px solid #dcd6d6;display:flex;flex-direction:column;gap:12px;background:#f0eeee">
+      <p style="font-size:13.5px;color:#4a3336;line-height:1.45">No payment online. Send the list and we reply with prices, a delivery or pick-up date, or a showroom visit within one working day.</p>
+      <a href="Quote.dc.html" style="display:flex;align-items:center;justify-content:center;gap:10px;height:54px;border-radius:27px;background:#170a0b;color:#f7f4f4;font-size:15px;font-weight:500" style-hover="background:#8c1c22;color:#f7f4f4">Send as one request →</a>
+    </div>
+  </sc-if>
+</aside>
+
+<div data-lenis-prevent="" aria-hidden="{{ mobileHidden }}" style="position:fixed;inset:0;z-index:95;background:#140607;color:#f7f4f4;clip-path:{{ mobileClip }};transition:clip-path .7s cubic-bezier(.7,0,.13,1);overflow-y:auto;display:flex;flex-direction:column;padding:96px 20px 0">
+  <div style="display:flex;align-items:center;gap:12px;border-bottom:1px solid #4a3336;padding-bottom:10px">
+    <input value="{{ query }}" onInput="{{ onQuery }}" onKeyDown="{{ onSearchKey }}" placeholder="Search pieces or Item IDs" aria-label="Search" style="flex:1;min-width:0;background:transparent;border:0;outline:0;font-size:20px;padding:8px 0;color:#f7f4f4">
+  </div>
+  <sc-if value="{{ hasResults }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;padding:8px 0">
+      <sc-for list="{{ results }}" as="r" hint-placeholder-count="3">
+        <a href="{{ r.href }}" style="display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid #2e1a1c;font-size:16px"><span>{{ r.label }}</span><span style="font-size:12.5px;color:#a29899">{{ r.type }}</span></a>
+      </sc-for>
+    </div>
+  </sc-if>
+  <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#a29899;margin:26px 0 6px">Shop by room</span>
+  <sc-for list="{{ mobileRooms }}" as="r" hint-placeholder-count="5">
+    <div style="border-bottom:1px solid #2e1a1c">
+      <button onClick="{{ r.toggle }}" aria-expanded="{{ r.isOpen }}" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:12px 0;font-size:30px;letter-spacing:-.035em;text-align:left">
+        <span>{{ r.name }}</span><span style="font-size:22px;transform:rotate({{ r.rot }});transition:transform .4s">+</span>
+      </button>
+      <sc-if value="{{ r.isOpen }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:2px;padding:0 0 16px">
+          <sc-for list="{{ r.groups }}" as="g" hint-placeholder-count="2">
+            <a href="{{ g.href }}" style="display:flex;justify-content:space-between;padding:8px 0;font-size:16px;color:#d5cdcd"><span>{{ g.name }}</span><span aria-hidden="true">→</span></a>
+          </sc-for>
+          <a href="{{ r.href }}" style="padding:8px 0;font-size:16px;color:#e9a3a7">All {{ r.lower }} →</a>
+        </div>
+      </sc-if>
+    </div>
+  </sc-for>
+  <div style="display:flex;flex-direction:column;gap:4px;margin-top:26px;font-size:20px;letter-spacing:-.02em">
+    <a href="Products.dc.html">All products</a>
+    <a href="Collections.dc.html">Collections</a>
+    <a href="Showrooms.dc.html">Showrooms</a>
+    <a href="Help.dc.html">Help &amp; FAQ</a>
+    <a href="Business.dc.html">For Business</a>
+    <a href="Custom.dc.html">Custom &amp; Branded</a>
+    <a href="Inspiration.dc.html">Inspiration</a>
+    <a href="About.dc.html">About</a>
+    <a href="Contact.dc.html">Contact</a>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:30px 0;font-size:13.5px;color:#c7bebe">
+    <sc-for list="{{ showrooms }}" as="s" hint-placeholder-count="2">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <span style="color:#f7f4f4;font-weight:500">{{ s.name }}</span>
+        <span>{{ s.addr }}</span>
+        <a href="{{ s.map }}" target="_blank" rel="noreferrer" style="color:#e9a3a7">Directions ↗</a>
+      </div>
+    </sc-for>
+  </div>
+  <div style="position:sticky;bottom:0;margin:auto -20px 0;padding:14px 20px 18px;background:#140607;border-top:1px solid #2e1a1c;display:grid;grid-template-columns:1fr auto auto;gap:8px">
+    <a href="Quote.dc.html" style="display:flex;align-items:center;justify-content:center;height:50px;border-radius:25px;background:#f7f4f4;color:#170a0b;font-size:15px;font-weight:500">Request a quote</a>
+    <a href="https://wa.me/251941444555" target="_blank" rel="noreferrer" style="display:flex;align-items:center;padding:0 16px;height:50px;border-radius:25px;border:1px solid #4a3336;font-size:14px">WhatsApp</a>
+    <a href="tel:+251116686979" style="display:flex;align-items:center;padding:0 16px;height:50px;border-radius:25px;border:1px solid #4a3336;font-size:14px">Call</a>
+  </div>
+</div>
+
+<sc-if value="{{ showWa }}" hint-placeholder-val="{{ false }}">
+  <a href="{{ waHref }}" target="_blank" rel="noreferrer" style="position:fixed;right:clamp(14px,2vw,28px);bottom:clamp(14px,2vw,28px);z-index:90;display:flex;align-items:center;gap:10px;height:48px;padding:0 18px 0 16px;border-radius:24px;background:{{ waBg }};color:{{ waFg }};font-size:14px;font-weight:500;box-shadow:0 14px 30px -12px rgba(20,6,7,.45);transform:translateY({{ waY }});transition:transform .5s cubic-bezier(.16,1,.3,1),background .3s,color .3s" style-hover="background:#1f6f45;color:#f7f4f4">
+    <span style="width:8px;height:8px;border-radius:50%;background:#3ccf7d;box-shadow:0 0 0 4px rgba(60,207,125,.22)"></span>WhatsApp us
+  </a>
+</sc-if>
+
+<div role="status" aria-live="polite" style="position:fixed;left:50%;bottom:24px;z-index:400;display:flex;align-items:center;gap:14px;max-width:calc(100vw - 32px);padding:10px 10px 10px 18px;background:#170a0b;color:#f7f4f4;border-radius:28px;font-size:14px;box-shadow:0 18px 50px rgba(0,0,0,.22);transform:translate(-50%,{{ toastY }});opacity:{{ toastOp }};transition:transform .6s cubic-bezier(.16,1,.3,1),opacity .3s;pointer-events:{{ toastPe }}">
+  <span style="flex:none;width:8px;height:8px;border-radius:50%;background:#b0262d;box-shadow:0 0 0 4px rgba(140,28,34,.3)"></span>
+  <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ toastText }}</span>
+  <sc-if value="{{ toastHasLink }}" hint-placeholder-val="{{ false }}">
+    <button onClick="{{ openDrawer }}" style="flex:none;height:34px;padding:0 14px;border-radius:17px;background:#f7f4f4;color:#170a0b;font-weight:500;font-size:13.5px">View list</button>
+  </sc-if>
+  <sc-if value="{{ toastNoLink }}" hint-placeholder-val="{{ true }}"><span style="width:6px"></span></sc-if>
+</div>
+
+<sc-if value="{{ intro }}" hint-placeholder-val="{{ false }}">
+  <div ref="{{ preRef }}" onClick="{{ skipIntro }}" aria-label="Loading" style="position:fixed;inset:0;z-index:2000;background:#f0eeee;color:#170a0b;overflow:hidden;pointer-events:auto;cursor:pointer">
+    <div data-pre="meta" style="position:absolute;top:24px;left:clamp(16px,3vw,44px);right:clamp(16px,3vw,44px);display:flex;justify-content:space-between;gap:16px;font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364">
+      <img src="assets/logo.svg" alt="Zefmesh Home Depot" style="height:30px;width:auto"><span style="align-self:center">Furniture made in Addis Ababa</span><span>9.0192° N, 38.7525° E</span>
+    </div>
+    <div data-pre="frame" style="position:absolute;left:50%;top:44%;width:clamp(180px,20vw,300px);aspect-ratio:4/5;transform:translate(-50%,-50%);overflow:hidden;background:#dad4d4;clip-path:inset(100% 0 0 0)">
+      <sc-for list="{{ preImgs }}" as="u" hint-placeholder-count="0">
+        <div data-pre="img" style="position:absolute;inset:0;clip-path:inset(100% 0 0 0)"><img src="{{ u }}" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+      </sc-for>
+    </div>
+    <div style="position:absolute;left:clamp(16px,3vw,44px);right:clamp(16px,3vw,44px);bottom:18px;display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap">
+      <div style="display:flex;flex-wrap:wrap;overflow:clip;font-size:clamp(40px,7vw,120px);line-height:.95;letter-spacing:-.05em;font-weight:500;padding-bottom:.08em">
+        <span data-pre="w" style="display:inline-block;transform:translateY(110%)">Made&nbsp;</span>
+        <span data-pre="w" style="display:inline-block;transform:translateY(110%)">slowly,&nbsp;</span>
+        <span data-pre="w" style="display:inline-block;transform:translateY(110%);font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;letter-spacing:-.02em">in Addis.</span>
+      </div>
+      <div style="overflow:clip;font-size:clamp(64px,14vw,240px);line-height:.8;letter-spacing:-.06em;font-weight:500;font-variant-numeric:tabular-nums">
+        <span data-pre="num" style="display:inline-block">000</span>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;page&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;&quot;, &quot;tsType&quot;: &quot;string&quot;}, &quot;hideWa&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;}}">
+const E_OUT = 'cubic-bezier(.16,1,.3,1)';
+const E_ZEF = 'cubic-bezier(.7,0,.13,1)';
+const ORDER = ['rooms', 'cats', 'cols', 'biz', 'more', 'search'];
+const PRE = ['1555041469-a586c61ea9bc', '1505693416388-ac5ce068fe85', '1617806118233-18e1de247200', '1592078615290-033ee584e267', '1611486212557-88be5ff6f941', '1587702068694-a909ef4aa346', '1540574163026-643ea20ade25', '1600121848594-d8644e57abab'];
+
+class Component extends DCLogic {
+  state = (() => {
+    let intro = false;
+    try { intro = !new URLSearchParams(location.search).has('nopreload') && !sessionStorage.getItem('zef_intro'); } catch (e) {}
+    const w = window.innerWidth;
+    return { ready: !!window.ZEF, scrolled: false, dark: false, wide: w >= 900, compact: w < 1240, cta: w >= 1100 || w < 900, narrow: w < 760, menu: 'rooms', open: false, megaRoom: 0,
+      pill: { l: 0, w: 0, on: false }, panelH: 0, drawer: false, mobile: false, mRoom: -1, query: '', sel: -1,
+      toast: { text: '', link: false, on: false }, count: 0, items: [], intro };
+  })();
+
+  componentDidMount() {
+    this.boot = () => (window.ZEF ? this.init() : (this.bootT = setTimeout(this.boot, 30)));
+    this.boot();
+    this.onResize = () => { const w = window.innerWidth; this.setState({ wide: w >= 900, compact: w < 1240, cta: w >= 1100 || w < 900, narrow: w < 760 }); this.queue(); };
+    this.onScroll = () => this.queue();
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    window.addEventListener('resize', this.onResize);
+    this.onKey = (e) => {
+      if (e.key === 'Escape') this.closeAll();
+      const typing = /INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName || '');
+      if (e.key === '/' && !typing) { e.preventDefault(); const ps = document.querySelector('[data-page-search]'); ps ? ps.focus() : this.openMenu('search'); }
+    };
+    window.addEventListener('keydown', this.onKey);
+    this.onDocClick = (e) => this.intercept(e);
+    document.addEventListener('click', this.onDocClick);
+    this.onDown = (e) => { if (this.state.open && this.barEl && !this.barEl.contains(e.target)) this.setState({ open: false }); };
+    document.addEventListener('mousedown', this.onDown);
+    this.onOver = (e) => this.prefetch(e);
+    document.addEventListener('mouseover', this.onOver, { passive: true });
+    this.onShow = (e) => { if (e.persisted && this.exitAnim) this.exitAnim.cancel(); this.closeAll(); };
+    window.addEventListener('pageshow', this.onShow);
+    this.initLenis();
+    this.iv = setInterval(() => this.queue(), 600);
+    if (this.state.intro) requestAnimationFrame(() => requestAnimationFrame(() => this.runIntro()));
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.bootT); clearInterval(this.iv);
+    window.removeEventListener('scroll', this.onScroll); window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('keydown', this.onKey); document.removeEventListener('click', this.onDocClick);
+    document.removeEventListener('mousedown', this.onDown); document.removeEventListener('mouseover', this.onOver);
+    window.removeEventListener('pageshow', this.onShow); window.removeEventListener('zef:list', this.onList);
+    this.mo && this.mo.disconnect(); this.io && this.io.disconnect(); this.ro && this.ro.disconnect();
+    cancelAnimationFrame(this.lenisRaf); this.lenis && this.lenis.destroy();
+  }
+
+  componentDidUpdate(_, prev) {
+    prev = prev || {};
+    if (this.state.open && this.state.menu !== prev.menu && this.innerEl) {
+      const dx = (this.state.dir || 0) * 14;
+      this.innerEl.animate([{ opacity: 0, transform: `translateX(${dx}px)` }, { opacity: 1, transform: 'none' }], { duration: 260, easing: E_OUT });
+    }
+    if (this.state.open && this.state.menu === 'search' && (!prev.open || prev.menu !== 'search')) setTimeout(() => this.searchEl && this.searchEl.focus(), 40);
+    const locked = this.state.drawer || this.state.mobile || this.state.intro;
+    const was = prev.drawer || prev.mobile || prev.intro;
+    if (locked !== was) locked ? this.lenis && this.lenis.stop() : this.lenis && this.lenis.start();
+  }
+
+  init() {
+    this.onList = (e) => {
+      this.setState(this.listState());
+      if (e.detail && e.detail.action === 'add') {
+        this.toast(`${e.detail.name} added to your quote list`, true);
+        this.badgeEl && this.badgeEl.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.45)' }, { transform: 'scale(1)' }], { duration: 480, easing: E_OUT });
+      }
+    };
+    window.addEventListener('zef:list', this.onList);
+    this.setState({ ready: true, ...this.listState() });
+    this.initReveal();
+    this.queue();
+    if (location.hash.length > 1) setTimeout(() => { const t = document.getElementById(location.hash.slice(1)); t && this.scrollToEl(t); }, 500);
+  }
+
+  listState() {
+    const Z = window.ZEF;
+    const items = Z.list.get().map((i) => {
+      const p = Z.product(i.slug);
+      const pr = Z.priceInfo(p);
+      return {
+        slug: i.slug, name: p.name, sku: p.sku, img: Z.img(p.img, 200), href: Z.href.product(p.slug), qty: i.qty,
+        finish: (Z.FINISHES[i.finish] || ['Standard'])[0], price: pr.now, priceColor: pr.kind === 'request' ? '#6e6364' : '#170a0b',
+        inc: () => Z.list.set(i.slug, { qty: i.qty + 1 }), dec: () => Z.list.set(i.slug, { qty: i.qty - 1 }), remove: () => Z.list.remove(i.slug),
+      };
+    });
+    return { items, count: items.reduce((a, i) => a + i.qty, 0) };
+  }
+
+  /* ---------------------------------------------------------- scroll state */
+  queue() { if (!this.raf) this.raf = requestAnimationFrame(() => this.update()); }
+  update() {
+    this.raf = 0;
+    const y = window.scrollY;
+    const scrolled = y > 40;
+    const probe = scrolled ? 40 : (this.state.narrow ? 38 : 72);
+    let dark = false;
+    document.querySelectorAll('[data-dark]').forEach((s) => { const r = s.getBoundingClientRect(); if (r.top <= probe && r.bottom >= probe) dark = true; });
+    if (scrolled !== this.state.scrolled || dark !== this.state.dark) this.setState({ scrolled, dark });
+  }
+  /* parallax runs on the compositor via scroll-driven animations; no per-frame DOM writes */
+  parallax() {
+    if (!window.ViewTimeline || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const run = (el, kf, opt) => {
+      try { return el.animate(kf, { timeline: new ViewTimeline({ subject: opt.subject || el }), fill: 'both', easing: 'linear', ...(opt.range || {}) }); }
+      catch (e) { try { return el.animate(kf, { timeline: new ViewTimeline({ subject: opt.subject || el }), fill: 'both', easing: 'linear' }); } catch (x) {} }
+    };
+    document.querySelectorAll('[data-parallax],[data-depth],[data-drift],[data-scrub-fill]').forEach((el) => {
+      if (el.__zp) return;
+      el.__zp = 1;
+      if (el.hasAttribute('data-parallax') && el.firstElementChild) {
+        const a = (parseFloat(el.dataset.parallax) || 0.1) * 50;
+        const sc = 1 + a / 40;
+        run(el.firstElementChild, [{ transform: `translateY(${a}%) scale(${sc})` }, { transform: `translateY(${-a}%) scale(${sc})` }], { subject: el });
+      }
+      if (el.hasAttribute('data-depth')) {
+        const d = parseFloat(el.dataset.depth) || 14;
+        run(el, [{ transform: `perspective(1200px) translateY(${d * 4}px) rotateX(${d}deg) scale(.93)`, opacity: 0.35 }, { transform: 'perspective(1200px) translateY(0px) rotateX(0deg) scale(1)', opacity: 1 }], { range: { rangeStart: 'entry 0%', rangeEnd: 'cover 42%' } });
+      }
+      if (el.hasAttribute('data-drift')) {
+        const a = parseFloat(el.dataset.drift) || 30;
+        run(el, [{ transform: `translateX(${a * 0.15}%)` }, { transform: `translateX(${-a}%)` }], {});
+      }
+      if (el.hasAttribute('data-scrub-fill')) {
+        run(el, [{ backgroundSize: '0% 100%, 100% 100%' }, { backgroundSize: '100% 100%, 100% 100%' }], { range: { rangeStart: 'cover 12%', rangeEnd: 'cover 52%' } });
+      }
+    });
+  }
+
+  initLenis() {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const start = () => {
+      if (!window.Lenis || this.lenis) return;
+      this.lenis = new window.Lenis({ lerp: 0.12, smoothWheel: true, wheelMultiplier: 1 });
+      window.__zefLenis = this.lenis;
+      this.lenis.on('scroll', () => this.queue());
+      const loop = (t) => { this.lenis && this.lenis.raf(t); this.lenisRaf = requestAnimationFrame(loop); };
+      this.lenisRaf = requestAnimationFrame(loop);
+      if (this.state.intro || this.state.drawer || this.state.mobile) this.lenis.stop();
+    };
+    if (window.Lenis) return start();
+    const s = document.createElement('script');
+    s.src = 'https://unpkg.com/lenis@1.1.20/dist/lenis.min.js';
+    s.onload = start;
+    document.head.appendChild(s);
+  }
+
+  /* ------------------------------------------------------------ reveals */
+  initReveal() {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    this.io = new IntersectionObserver((ents) => ents.forEach((en) => {
+      if (!en.isIntersecting) return;
+      this.io.unobserve(en.target);
+      const kids = en.target.hasAttribute('data-stagger') ? [...en.target.children] : [en.target];
+      kids.forEach((k, i) => {
+        k.style.opacity = '';
+        k.animate([{ opacity: 0, transform: 'translateY(26px)' }, { opacity: 1, transform: 'none' }], { duration: 620, delay: Math.min(i, 8) * 55, easing: E_OUT, fill: 'backwards' });
+      });
+    }), { rootMargin: '0px 0px -6% 0px', threshold: 0.06 });
+    const scan = () => document.querySelectorAll('[data-reveal],[data-stagger]').forEach((el) => {
+      if (el.__zr) return;
+      const st = el.hasAttribute('data-stagger');
+      if (st && !el.children.length) return;
+      el.__zr = 1;
+      if (el.getBoundingClientRect().top < window.innerHeight * 0.94) return;
+      (st ? [...el.children] : [el]).forEach((k) => (k.style.opacity = '0'));
+      this.io.observe(el);
+    });
+    scan(); this.parallax();
+    this.mo = new MutationObserver(() => { clearTimeout(this.scanT); this.scanT = setTimeout(() => { scan(); this.parallax(); }, 80); });
+    this.mo.observe(document.body, { childList: true, subtree: true });
+  }
+
+  /* --------------------------------------------------- page transitions */
+  intercept(e) {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const a = e.target.closest && e.target.closest('a[href]');
+    if (!a || a.target === '_blank' || a.hasAttribute('download')) return;
+    const raw = a.getAttribute('href');
+    if (raw && raw[0] === '#' && raw.length > 1) {
+      const t = document.getElementById(raw.slice(1));
+      if (t) { e.preventDefault(); this.closeAll(); this.scrollToEl(t); history.replaceState(null, '', raw); }
+      return;
+    }
+    if (!raw || raw[0] === '#' || /^(tel:|mailto:|https?:|javascript:)/.test(raw)) return;
+    const url = new URL(raw, location.href);
+    if (url.pathname === location.pathname && url.search === location.search && url.hash) {
+      const t = document.getElementById(url.hash.slice(1));
+      if (t) { e.preventDefault(); this.closeAll(); this.scrollToEl(t); return; }
+    }
+    if (url.origin !== location.origin || !/\.dc\.html$/.test(url.pathname)) return;
+    e.preventDefault();
+    const Z = window.ZEF;
+    if (Z && !Z.isBuilt(url.pathname)) {
+      const name = decodeURIComponent(url.pathname.split('/').pop()).replace('.dc.html', '');
+      this.toast(`The ${name} page is in the next build batch`, false);
+      return;
+    }
+    if (url.href === location.href) {
+      this.closeAll();
+      this.lenis ? this.lenis.scrollTo(0, { duration: 0.8 }) : window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    this.go(url.href);
+  }
+  scrollToEl(t) {
+    if (this.lenis) this.lenis.scrollTo(t, { offset: -96, duration: 1.1 });
+    else window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 96, behavior: 'smooth' });
+  }
+  go(href) {
+    this.setState({ open: false, drawer: false, mobile: false });
+    const page = document.querySelector('[data-page]');
+    if (!page || matchMedia('(prefers-reduced-motion: reduce)').matches) { location.href = href; return; }
+    this.exitAnim = page.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(-12px)' }], { duration: 170, easing: 'cubic-bezier(.7,0,.84,0)', fill: 'forwards' });
+    this.exitAnim.onfinish = () => { location.href = href; };
+  }
+  prefetch(e) {
+    const a = e.target.closest && e.target.closest('a[href]');
+    if (!a) return;
+    const raw = a.getAttribute('href');
+    if (!raw || !/\.dc\.html/.test(raw) || /^https?:/.test(raw)) return;
+    this.pf = this.pf || new Set();
+    const file = raw.split('?')[0];
+    if (this.pf.has(file) || (window.ZEF && !window.ZEF.isBuilt(file))) return;
+    this.pf.add(file);
+    const l = document.createElement('link'); l.rel = 'prefetch'; l.href = file; document.head.appendChild(l);
+  }
+
+  /* ------------------------------------------------------------- menus */
+  openMenu(key) {
+    clearTimeout(this.closeT); clearTimeout(this.openT);
+    const dir = Math.sign(ORDER.indexOf(key) - ORDER.indexOf(this.state.menu));
+    const apply = () => this.setState({ menu: key, open: true, dir, query: key === 'search' ? this.state.query : this.state.query });
+    if (this.state.open || key === 'search') apply(); else this.openT = setTimeout(apply, 70);
+  }
+  closeMenu(d = 140) {
+    clearTimeout(this.openT);
+    if (this.state.menu === 'search' && this.state.open) return;
+    clearTimeout(this.closeT);
+    this.closeT = setTimeout(() => this.setState({ open: false }), d);
+  }
+  closeAll() { clearTimeout(this.openT); this.setState({ open: false, drawer: false, mobile: false }); }
+
+  toast(text, link) {
+    clearTimeout(this.toastT);
+    this.setState({ toast: { text, link, on: true } });
+    this.toastT = setTimeout(() => this.setState({ toast: { ...this.state.toast, on: false } }), 3400);
+  }
+
+  /* ------------------------------------------------------------- intro */
+  runIntro() {
+    const el = this.preEl;
+    if (!el) return this.finishIntro();
+    const $ = (s) => [...el.querySelectorAll(`[data-pre="${s}"]`)];
+    $('w').forEach((w, i) => w.animate([{ transform: 'translateY(110%)' }, { transform: 'none' }], { duration: 1100, delay: 100 + i * 60, easing: E_OUT, fill: 'both' }));
+    $('meta').forEach((m) => m.animate([{ opacity: 0, transform: 'translateY(12px)' }, { opacity: 1, transform: 'none' }], { duration: 800, delay: 200, easing: E_OUT, fill: 'both' }));
+    const frame = $('frame')[0];
+    frame.animate([{ clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0% 0 0 0)' }], { duration: 1000, delay: 300, easing: E_ZEF, fill: 'both' });
+    const imgs = $('img');
+    imgs.forEach((f, i) => {
+      const d = 550 + i * 300;
+      f.animate([{ clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0% 0 0 0)' }], { duration: 420, delay: d, easing: 'cubic-bezier(.65,0,.35,1)', fill: 'both' });
+      f.firstElementChild && f.firstElementChild.animate([{ transform: 'scale(1.4)' }, { transform: 'scale(1)' }], { duration: 800, delay: d, easing: 'cubic-bezier(.33,1,.68,1)', fill: 'both' });
+    });
+    const num = $('num')[0];
+    const t0 = performance.now() + 300;
+    let lastTxt = '';
+    const tick = () => {
+      if (!this.state.intro) return;
+      const p = Math.min(1, Math.max(0, (performance.now() - t0) / 2600));
+      const e = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+      const txt = String(Math.round(e * 100)).padStart(3, '0');
+      if (txt !== lastTxt) { num.firstChild ? (num.firstChild.nodeValue = txt) : (num.textContent = txt); lastTxt = txt; }
+      if (p < 1) this.tickT = setTimeout(tick, 70);
+    };
+    tick();
+    this.introT = setTimeout(() => this.introOut(), Math.max(3000, 550 + imgs.length * 300 + 150));
+  }
+  introOut() {
+    const el = this.preEl;
+    if (!el) return this.finishIntro();
+    const $ = (s) => [...el.querySelectorAll(`[data-pre="${s}"]`)];
+    [...$('num'), ...$('w')].forEach((w, i) => w.animate([{ transform: 'none' }, { transform: 'translateY(-110%)' }], { duration: 650, delay: i * 30, easing: 'cubic-bezier(.7,0,.84,0)', fill: 'forwards' }));
+    $('meta').forEach((m) => m.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 400, fill: 'forwards' }));
+    const frame = $('frame')[0];
+    const r = frame.getBoundingClientRect();
+    frame.getAnimations().forEach((a) => a.cancel());
+    Object.assign(frame.style, { clipPath: 'none', transform: 'none', aspectRatio: 'auto', left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px' });
+    frame.animate([{ left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px' }, { left: '0px', top: '0px', width: innerWidth + 'px', height: innerHeight + 'px' }], { duration: 1200, delay: 300, easing: E_ZEF, fill: 'forwards' });
+    const home = (this.props.page || '') === 'home';
+    const out = el.animate(home ? [{ opacity: 1 }, { opacity: 0 }] : [{ transform: 'none' }, { transform: 'translateY(-100%)' }], { duration: home ? 450 : 900, delay: 1500, easing: home ? 'linear' : E_ZEF, fill: 'forwards' });
+    out.onfinish = () => this.finishIntro();
+  }
+  finishIntro() {
+    clearTimeout(this.introT);
+    try { sessionStorage.setItem('zef_intro', '1'); } catch (e) {}
+    this.setState({ intro: false });
+  }
+
+  renderVals() {
+    const Z = window.ZEF;
+    const s = this.state;
+    const page = this.props.page || '';
+    const menuLight = s.open;
+    const dark = s.dark && !menuLight && !s.mobile;
+    const mobileDark = s.mobile;
+    const fg = mobileDark ? '#f7f4f4' : dark ? '#f7f4f4' : '#170a0b';
+    const pill = s.scrolled;
+    const logoLight = fg === '#f7f4f4';
+    const barBg = menuLight ? 'rgba(247,244,244,.97)' : pill ? (dark ? 'rgba(20,6,7,.55)' : 'rgba(240,238,238,.74)') : 'rgba(240,238,238,0)';
+    const barLine = menuLight || pill ? (dark ? 'rgba(255,255,255,.1)' : 'rgba(23,10,11,.08)') : 'rgba(23,10,11,0)';
+    const activeKey = { home: '', shop: 'rooms', room: 'rooms', group: 'rooms', category: 'rooms', product: 'rooms', quote: '' }[page] || '';
+
+    const NAV = [
+      ['rooms', 'Shop by Room', 'Shop.dc.html'], ['cats', 'Products', 'Products.dc.html'], ['cols', 'Collections', 'Collections.dc.html'],
+      ['biz', 'For Business', 'Business.dc.html'], [null, 'Inspiration', 'Inspiration.dc.html'], [null, 'About', 'About.dc.html'], [null, 'Contact', 'Contact.dc.html'],
+    ];
+    const navItems = (s.compact ? [...NAV.slice(0, 4), ['more', 'More', 'About.dc.html']] : NAV).map(([key, label, href], i) => ({
+      label, href, popup: key ? 'true' : 'false', caretShow: key ? 'block' : 'none',
+      caretRot: key && s.open && s.menu === key ? '225deg' : '45deg',
+      activeX: key && key === activeKey ? 1 : 0,
+      enter: (e) => {
+        const el = e.currentTarget;
+        this.setState({ pill: { l: el.offsetLeft, w: el.offsetWidth, on: true } });
+        key ? this.openMenu(key) : this.closeMenu(60);
+      },
+    }));
+
+    let rooms = [], megaRoom = { groups: [] }, megaRooms = [], megaCats = [], megaCols = [], megaSectors = [], results = [], mobileRooms = [], showrooms = [], roomLinks = [];
+    let hoursToday = '', openDot = '#8e8485';
+    if (Z) {
+      rooms = Z.ROOMS;
+      megaRooms = rooms.map((r, i) => ({
+        name: r.name, count: r.count, href: Z.href.room(r.slug), img: Z.img(r.img, 700),
+        op: i === s.megaRoom ? 1 : 0, sc: i === s.megaRoom ? 1 : 1.08, color: i === s.megaRoom ? '#170a0b' : '#8e8485', pl: i === s.megaRoom ? '10px' : '0px',
+        hover: () => this.setState({ megaRoom: i }),
+      }));
+      const mr = rooms[s.megaRoom];
+      megaRoom = {
+        name: mr.name, lower: mr.name.toLowerCase(), count: mr.count, blurb: mr.blurb, href: Z.href.room(mr.slug),
+        groups: mr.groups.map((g) => ({ name: g.name, href: Z.href.group(mr.slug, g.slug), subs: g.subs.map((x) => ({ name: x.name, count: x.count, href: Z.href.sub(mr.slug, g.slug, x.slug) })) })),
+      };
+      const CATS = [['Office chairs', 'office', 'seating'], ['Desks & tables', 'office', 'desks-tables'], ['Sofas & armchairs', 'living-room', 'sofas-chairs'], ['Coffee & side tables', 'living-room', 'tables'], ['Beds', 'bedroom', 'beds'], ['Wardrobes & storage', 'bedroom', 'storage'], ['Dining tables', 'dining', 'tables'], ['Chairs & stools', 'dining', 'chairs-stools']];
+      megaCats = CATS.map(([label, r, g]) => { const G = Z.group(r, g); return G ? { label, href: Z.href.group(r, g), img: Z.img(G.img, 240), meta: Z.room(r).name } : null; }).filter(Boolean);
+      megaCols = Z.COLLECTIONS.map((c) => ({ ...c, img: Z.img(c.img, 500), href: Z.href.page('Collection', 'c=' + c.slug) }));
+      megaSectors = Z.SECTORS.map((x) => ({ ...x, href: Z.href.page('Sector', 's=' + x.slug) }));
+      results = Z.search(s.query).map((r, i) => ({ ...r, hasImg: !!r.img, noImg: !r.img, abbr: r.type.slice(0, 3).toUpperCase(), bg: i === s.sel ? '#ebe7e7' : 'transparent' }));
+      mobileRooms = rooms.map((r, i) => ({
+        name: r.name, lower: r.name.toLowerCase(), href: Z.href.room(r.slug), isOpen: s.mRoom === i, rot: s.mRoom === i ? '45deg' : '0deg',
+        toggle: () => this.setState({ mRoom: s.mRoom === i ? -1 : i }),
+        groups: r.groups.map((g) => ({ name: g.name, count: g.count, href: Z.href.group(r.slug, g.slug) })),
+      }));
+      showrooms = Z.SHOWROOMS;
+      roomLinks = rooms.map((r) => ({ name: r.name, href: Z.href.room(r.slug) }));
+      hoursToday = Z.openNow(Z.SHOWROOMS[0]);
+      openDot = /^Open/.test(hoursToday) ? '#3ccf7d' : '#b0262d';
+    }
+    const q = s.query.trim();
+    const popular = ['Executive chairs', 'ZMOF-0770', 'Sofa', 'Dining table', 'Mesh'].map((label) => ({ label, pick: () => this.setState({ query: label, sel: -1 }) }));
+
+    return {
+      fg, utilH: s.scrolled || s.narrow || s.mobile ? '0px' : '34px', utilLine: dark ? 'rgba(247,244,244,.14)' : 'rgba(23,10,11,.08)',
+      hoursToday, openDot,
+      wrapPad: pill ? '10px 12px 0' : '0px', barMax: pill ? '1240px' : '100%', barH: pill ? '58px' : (s.narrow ? '64px' : '76px'), barR: pill ? '29px' : '0px',
+      barBg, barLine, blur: pill || menuLight ? '16px' : '0px', barShadow: pill ? '0 14px 36px -18px rgba(20,6,7,.28)' : '0 0 0 0 rgba(0,0,0,0)',
+      barPad: pill ? '0 8px 0 24px' : '0 clamp(16px,3vw,44px)',
+      logoH: pill ? '30px' : s.narrow ? '32px' : '38px', logoColorOp: logoLight ? 0 : 1, logoLightOp: logoLight ? 1 : 0,
+      wide: s.wide, notWide: !s.wide, notNarrow: !s.narrow, listLabel: !s.compact, showCta: !s.narrow && s.cta,
+      drawerVis: s.drawer ? 'visible' : 'hidden',
+      navItems, pillL: s.pill.l + 'px', pillW: s.pill.w + 'px', pillOp: s.pill.on ? 1 : 0, pillBg: dark ? 'rgba(247,244,244,.14)' : 'rgba(23,10,11,.06)',
+      navLeave: () => this.setState({ pill: { ...this.state.pill, on: false } }),
+      barLeave: () => this.closeMenu(160), panelEnter: () => clearTimeout(this.closeT), closeSoon: () => this.closeMenu(60),
+      ctaBg: dark ? '#f7f4f4' : '#170a0b', ctaFg: dark ? '#170a0b' : '#f7f4f4',
+      count: s.count, listAria: `Quote list, ${s.count} pieces`,
+      openSearch: () => (s.wide ? (s.open && s.menu === 'search' ? this.setState({ open: false }) : this.openMenu('search')) : this.setState({ mobile: true })),
+      searchEnter: () => this.closeMenu(60),
+      openDrawer: () => this.setState({ drawer: true, open: false, mobile: false }),
+      closeDrawer: () => this.setState({ drawer: false }),
+      toggleMobile: () => this.setState({ mobile: !s.mobile }),
+      burgerLabel: s.mobile ? 'Close menu' : 'Open menu',
+      burgerTop1: s.mobile ? '20px' : '16px', burgerTop2: s.mobile ? '20px' : '24px', burgerRot1: s.mobile ? '45deg' : '0deg', burgerRot2: s.mobile ? '-45deg' : '0deg',
+      panelGap: pill ? '8px' : '0px', panelR: pill ? '20px' : '0 0 20px 20px', panelOp: s.open ? 1 : 0, panelVis: s.open ? 'visible' : 'hidden',
+      panelY: s.open ? '0px' : '-8px', panelPe: s.open ? 'auto' : 'none', panelH: s.panelH + 'px',
+      mMore: s.menu === 'more', mRooms: s.menu === 'rooms', mCats: s.menu === 'cats', mCols: s.menu === 'cols', mBiz: s.menu === 'biz', mSearch: s.menu === 'search',
+      megaRooms, megaRoom, megaCats, megaCols, megaSectors,
+      query: s.query, results, hasResults: results.length > 0, noQuery: !q, noResults: !!q && !results.length, popular,
+      onQuery: (e) => this.setState({ query: e.target.value, sel: -1 }),
+      hasQuery: !!q, query2: q, allHref: Z ? Z.href.products(q) : 'Products.dc.html', allBg: s.sel === -1 && q ? '#ebe7e7' : 'transparent', total: Z ? Z.PRODUCTS.length : '',
+      onSearchKey: (e) => {
+        if (e.key === 'ArrowDown') { e.preventDefault(); this.setState({ sel: Math.min(results.length - 1, s.sel + 1) }); }
+        if (e.key === 'ArrowUp') { e.preventDefault(); this.setState({ sel: Math.max(-1, s.sel - 1) }); }
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          const t = s.sel >= 0 ? results[s.sel] : null;
+          if (t) this.go(new URL(t.href, location.href).href);
+          else if (q && Z) this.go(new URL(Z.href.products(q), location.href).href);
+        }
+      },
+      closeNow: () => this.setState({ open: false }),
+      drawerOp: s.drawer ? 1 : 0, drawerPe: s.drawer ? 'auto' : 'none', drawerX: s.drawer ? '0%' : '104%', drawerHidden: s.drawer ? 'false' : 'true',
+      items: s.items, hasItems: s.items.length > 0, emptyList: s.items.length === 0, pieceWord: s.count === 1 ? 'piece' : 'pieces', roomLinks,
+      mobileHidden: s.mobile ? 'false' : 'true', mobileClip: s.mobile ? 'circle(150% at calc(100% - 40px) 38px)' : 'circle(0px at calc(100% - 40px) 38px)',
+      mobileRooms, showrooms,
+      showWa: !this.props.hideWa && !s.intro, waHref: 'https://wa.me/251941444555?text=' + encodeURIComponent('Hello Zefmesh, I am looking at ' + document.title + ' ' + location.href),
+      waY: s.drawer || s.mobile ? '120px' : '0px', waBg: s.dark ? '#f7f4f4' : '#170a0b', waFg: s.dark ? '#170a0b' : '#f7f4f4',
+      toastText: s.toast.text, toastHasLink: s.toast.link, toastNoLink: !s.toast.link, toastY: s.toast.on ? '0px' : 'calc(100% + 60px)', toastOp: s.toast.on ? 1 : 0, toastPe: s.toast.on ? 'auto' : 'none',
+      intro: s.intro, preImgs: Z ? PRE.map((id, i) => Z.img(id, i === PRE.length - 1 ? 1800 : 700)) : [],
+      skipIntro: () => { clearTimeout(this.introT); const el = this.preEl; if (!el) return this.finishIntro(); const a = el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 260, fill: 'forwards' }); a.onfinish = () => this.finishIntro(); },
+      barRef: this.barRef, innerRef: this.innerRef, searchRef: this.searchRef, badgeRef: this.badgeRef, preRef: this.preRef,
+    };
+  }
+
+  barRef = (el) => { this.barEl = el; };
+  searchRef = (el) => { this.searchEl = el; };
+  badgeRef = (el) => { this.badgeEl = el; };
+  preRef = (el) => { this.preEl = el; };
+  innerRef = (el) => {
+    if (!el || el === this.innerEl) return;
+    this.innerEl = el;
+    this.ro && this.ro.disconnect();
+    this.ro = new ResizeObserver(() => requestAnimationFrame(() => { const h = el.offsetHeight; if (h !== this.state.panelH) this.setState({ panelH: h }); }));
+    this.ro.observe(el);
+  };
+}
+
+</script>
+</body>
+</html>

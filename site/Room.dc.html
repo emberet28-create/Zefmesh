@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Furniture in Addis Ababa | Zefmesh Furniture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<script src="zef-data.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#f0eeee;color:#170a0b;font-family:'Instrument Sans',system-ui,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+a:hover{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+select{font:inherit;color:inherit}
+img{display:block;max-width:100%}
+h1,h2,h3,h4,p{margin:0}
+@keyframes zefPage{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<dc-import name="Header" page="room" hint-size="100%,0px"></dc-import>
+<main data-page="" data-screen-label="Room" style="animation:zefPage .45s cubic-bezier(.16,1,.3,1) both">
+
+  <section data-dark="1" style="position:relative;height:84svh;min-height:580px;overflow:hidden;background:#140607;color:#f7f4f4">
+    <div data-parallax="0.08" style="position:absolute;inset:0;overflow:hidden"><img src="{{ heroImg }}" loading="lazy" alt="{{ heroAlt }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,6,7,.55) 0%,rgba(20,6,7,.05) 35%,rgba(20,6,7,.2) 60%,rgba(20,6,7,.85) 100%)"></div>
+    <nav aria-label="Rooms" style="position:absolute;top:122px;left:clamp(16px,3vw,44px);right:clamp(16px,3vw,44px);display:flex;gap:6px;overflow-x:auto;scrollbar-width:none">
+      <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5">
+        <a href="{{ t.href }}" aria-current="{{ t.current }}" style="flex:none;display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 16px;border-radius:19px;background:{{ t.bg }};color:{{ t.fg }};border:1px solid rgba(247,244,244,.28);font-size:14px;transition:background .25s,color .25s" style-hover="background:#f7f4f4;color:#170a0b">{{ t.name }}</a>
+      </sc-for>
+    </nav>
+    <div style="position:absolute;left:clamp(16px,3vw,44px);right:clamp(16px,3vw,44px);bottom:clamp(24px,4vw,48px);display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:28px 48px">
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <nav aria-label="Breadcrumb" style="display:flex;gap:8px;font-size:13px;color:#e4c9ca">
+          <a href="Home.dc.html" style-hover="color:#f7f4f4">Home</a><span>/</span><a href="Shop.dc.html" style-hover="color:#f7f4f4">Shop by room</a><span>/</span><span style="color:#f7f4f4">{{ roomName }}</span>
+        </nav>
+        <h1 style="font-size:clamp(56px,10vw,184px);line-height:.84;letter-spacing:-.06em;font-weight:500">{{ h1 }}</h1>
+      </div>
+      <div style="flex:0 1 420px;display:flex;flex-direction:column;gap:16px">
+        <p style="font-size:15.5px;line-height:1.55;color:#ece2e2;text-wrap:pretty">{{ intro }}</p>
+        <a href="#pieces" style="align-self:flex-start;display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 22px;border-radius:24px;background:#f7f4f4;color:#170a0b;font-size:14.5px;font-weight:500;transition:background .3s,color .3s" style-hover="background:#8c1c22;color:#f7f4f4">See every piece ↓</a>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:clamp(48px,6vw,88px) clamp(16px,3vw,44px) 0">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px">
+      <sc-for list="{{ groups }}" as="g" hint-placeholder-count="0">
+        <a href="{{ g.href }}" style="position:relative;display:block;aspect-ratio:16/10;overflow:hidden;background:#2a1618;color:#f7f4f4">
+          <img src="{{ g.img }}" alt="{{ g.name }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.16,1,.3,1)" style-hover="transform:scale(1.06)">
+          <span style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(20,6,7,.75));pointer-events:none"></span>
+          <span style="position:absolute;left:18px;right:18px;bottom:16px;display:flex;justify-content:space-between;align-items:flex-end;gap:12px;pointer-events:none">
+            <span style="display:flex;flex-direction:column;gap:4px">
+              <span style="font-size:clamp(22px,2vw,30px);letter-spacing:-.03em;font-weight:500;line-height:1">{{ g.name }}</span>
+              <span style="font-size:13px;color:#e4c9ca">{{ g.subsText }}</span>
+            </span>
+            <span style="font-size:18px">→</span>
+          </span>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="pieces" style="padding:clamp(48px,6vw,88px) clamp(16px,3vw,44px) clamp(64px,8vw,120px);scroll-margin-top:80px">
+    <div style="display:flex;flex-wrap:wrap;gap:32px clamp(24px,3vw,48px);align-items:flex-start">
+      <aside aria-label="Filters" style="flex:0 0 250px;display:{{ asideShow }};flex-direction:column;gap:28px;position:sticky;top:96px;max-height:calc(100vh - 110px);overflow-y:auto;padding-right:6px;scrollbar-width:thin" data-lenis-prevent="">
+        <button onClick="{{ toggleSale }}" role="switch" aria-checked="{{ saleAria }}" style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;background:{{ saleBg }};color:{{ saleFg }};transition:background .25s,color .25s;text-align:left">
+          <span style="display:flex;flex-direction:column"><span style="font-size:15px;font-weight:500">On sale only</span><span style="font-size:12.5px;opacity:.7">Pieces with a price shown</span></span>
+          <span style="position:relative;flex:none;width:38px;height:22px;border-radius:11px;background:{{ knobTrack }};transition:background .25s"><span style="position:absolute;top:3px;left:{{ knobL }};width:16px;height:16px;border-radius:50%;background:#f7f4f4;transition:left .3s cubic-bezier(.16,1,.3,1)"></span></span>
+        </button>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364;margin-bottom:6px">Category</span>
+          <sc-for list="{{ tree }}" as="g" hint-placeholder-count="2">
+            <div style="display:flex;flex-direction:column;gap:2px;padding-bottom:10px">
+              <a href="{{ g.href }}" style="font-size:14.5px;font-weight:600;padding:4px 0" style-hover="color:#8c1c22">{{ g.name }}</a>
+              <sc-for list="{{ g.subs }}" as="s" hint-placeholder-count="3">
+                <button onClick="{{ s.toggle }}" role="checkbox" aria-checked="{{ s.aria }}" style="display:flex;align-items:center;gap:10px;padding:5px 0;font-size:14px;text-align:left;color:#2b1a1b">
+                  <span style="flex:none;width:16px;height:16px;border-radius:4px;border:1.5px solid {{ s.boxLine }};background:{{ s.boxBg }};display:grid;place-items:center;transition:background .2s,border-color .2s"><span style="width:7px;height:4px;border-left:1.5px solid #f7f4f4;border-bottom:1.5px solid #f7f4f4;transform:rotate(-45deg) translate(1px,-1px);opacity:{{ s.tick }}"></span></span>
+                  <span style="flex:1">{{ s.name }}</span>
+                </button>
+              </sc-for>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364">Finish</span>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <sc-for list="{{ finishes }}" as="f" hint-placeholder-count="6">
+              <button onClick="{{ f.toggle }}" title="{{ f.name }}" aria-pressed="{{ f.aria }}" style="width:30px;height:30px;border-radius:50%;background:{{ f.hex }};box-shadow:{{ f.ring }};transition:box-shadow .2s"></button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:2px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364;margin-bottom:6px">Availability &amp; business</span>
+          <sc-for list="{{ flags }}" as="f" hint-placeholder-count="3">
+            <button onClick="{{ f.toggle }}" role="checkbox" aria-checked="{{ f.aria }}" style="display:flex;align-items:center;gap:10px;padding:5px 0;font-size:14px;text-align:left;color:#2b1a1b">
+              <span style="flex:none;width:16px;height:16px;border-radius:4px;border:1.5px solid {{ f.boxLine }};background:{{ f.boxBg }};display:grid;place-items:center"><span style="width:7px;height:4px;border-left:1.5px solid #f7f4f4;border-bottom:1.5px solid #f7f4f4;transform:rotate(-45deg) translate(1px,-1px);opacity:{{ f.tick }}"></span></span>
+              <span style="flex:1">{{ f.label }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </aside>
+
+      <div style="flex:1 1 560px;min-width:0;display:flex;flex-direction:column;gap:22px">
+        <div style="position:sticky;top:{{ barTop }};z-index:5;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;background:#f0eeee;border-bottom:1px solid #dcd6d6">
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px">
+            <span style="font-size:15px;font-weight:500;margin-right:6px">{{ toolbarLabel }}</span>
+            <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+              <button onClick="{{ toggleFilters }}" style="height:34px;padding:0 14px;border-radius:17px;border:1px solid #170a0b;font-size:13.5px">{{ filtersLabel }}</button>
+            </sc-if>
+            <sc-for list="{{ applied }}" as="a" hint-placeholder-count="0">
+              <button onClick="{{ a.remove }}" style="display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 12px;border-radius:16px;background:#170a0b;color:#f7f4f4;font-size:13px" style-hover="background:#8c1c22">{{ a.label }}<span aria-hidden="true">×</span></button>
+            </sc-for>
+            <sc-if value="{{ hasApplied }}" hint-placeholder-val="{{ false }}">
+              <button onClick="{{ clear }}" style="font-size:13px;color:#6e6364;border-bottom:1px solid currentColor;margin-left:4px" style-hover="color:#8c1c22">Clear all</button>
+            </sc-if>
+          </div>
+          <label style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:#6e6364">Sort
+            <select value="{{ sort }}" onChange="{{ onSort }}" style="height:36px;padding:0 12px;border-radius:18px;border:1px solid #c7bebe;background:#f7f4f4;font-size:13.5px;color:#170a0b">
+              <option value="featured">Featured</option>
+              <option value="new">Newest</option>
+              <option value="stock">In stock first</option>
+              <option value="name">Name A–Z</option>
+            </select>
+          </label>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:36px 18px">
+          <sc-for list="{{ products }}" as="p" hint-placeholder-count="0">
+            <dc-import name="ProductCard" p="{{ p }}" hint-size="100%,440px"></dc-import>
+          </sc-for>
+        </div>
+        <sc-if value="{{ none }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:60px 0;display:flex;flex-direction:column;align-items:flex-start;gap:16px">
+            <p style="font-size:26px;letter-spacing:-.025em">No pieces match these filters.</p>
+            <button onClick="{{ clear }}" style="height:44px;padding:0 20px;border-radius:22px;background:#170a0b;color:#f7f4f4;font-size:14px">Clear filters</button>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:clamp(64px,8vw,120px) clamp(16px,3vw,44px);background:#e6e2e2;display:flex;flex-wrap:wrap;gap:40px clamp(40px,6vw,110px)">
+    <div style="flex:1 1 300px;display:flex;flex-direction:column;gap:16px">
+      <span style="display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364"><span style="width:7px;height:7px;border-radius:50%;background:#8c1c22"></span>Questions</span>
+      <h2 data-reveal="" style="font-size:clamp(36px,4vw,64px);line-height:.95;letter-spacing:-.04em;font-weight:500;max-width:12ch">{{ faqTitle }}</h2>
+      <a href="Help.dc.html" style="align-self:flex-start;font-size:14.5px;border-bottom:1px solid currentColor;margin-top:8px" style-hover="color:#8c1c22">Help centre</a>
+    </div>
+    <div style="flex:2 1 520px;border-top:1px solid #c7bebe">
+      <sc-for list="{{ faq }}" as="f" hint-placeholder-count="4">
+        <div style="border-bottom:1px solid #c7bebe">
+          <button onClick="{{ f.toggle }}" aria-expanded="{{ f.aria }}" style="width:100%;display:grid;grid-template-columns:40px minmax(0,1fr) 34px;align-items:center;gap:14px;padding:22px 0;text-align:left;font-size:clamp(18px,1.6vw,23px);letter-spacing:-.02em;font-weight:500">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#8e8485;font-weight:400">{{ f.n }}</span>
+            <span>{{ f.q }}</span>
+            <span style="position:relative;width:34px;height:34px;border-radius:50%;border:1px solid {{ f.line }};background:{{ f.bg }};color:{{ f.fg }};transition:background .3s,border-color .3s,color .3s"><span style="position:absolute;left:50%;top:50%;width:11px;height:1.5px;margin:-.75px 0 0 -5.5px;background:currentColor"></span><span style="position:absolute;left:50%;top:50%;width:11px;height:1.5px;margin:-.75px 0 0 -5.5px;background:currentColor;transform:rotate({{ f.rot }});transition:transform .4s cubic-bezier(.16,1,.3,1)"></span></span>
+          </button>
+          <div style="display:grid;grid-template-rows:{{ f.rows }};transition:grid-template-rows .45s cubic-bezier(.16,1,.3,1)">
+            <div style="overflow:hidden"><p style="padding:0 48px 24px 54px;max-width:720px;font-size:16.5px;line-height:1.6;color:#4a3336">{{ f.a }}</p></div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="padding:clamp(64px,8vw,120px) clamp(16px,3vw,44px)">
+    <h2 data-reveal="" style="font-size:clamp(30px,3vw,48px);line-height:1;letter-spacing:-.035em;font-weight:500;margin-bottom:28px">Related reading and sets</h2>
+    <div data-stagger="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:18px">
+      <sc-for list="{{ related }}" as="x" hint-placeholder-count="0">
+        <a href="{{ x.href }}" style="display:grid;grid-template-columns:110px minmax(0,1fr);gap:16px;align-items:center;padding:12px;border:1px solid #dcd6d6;border-radius:14px;background:#f7f4f4;transition:border-color .25s" style-hover="border-color:#170a0b">
+          <span style="display:block;aspect-ratio:1;overflow:hidden;border-radius:8px;background:#dad4d4"><img src="{{ x.img }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover"></span>
+          <span style="display:flex;flex-direction:column;gap:4px;min-width:0">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#8c1c22">{{ x.kind }}</span>
+            <span style="font-size:18px;line-height:1.2;letter-spacing:-.015em;font-weight:500">{{ x.title }}</span>
+            <span style="font-size:13.5px;color:#6e6364;line-height:1.4">{{ x.sub }}</span>
+          </span>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <section data-dark="1" style="background:#140607;color:#f7f4f4;padding:clamp(56px,7vw,100px) clamp(16px,3vw,44px);display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between;align-items:flex-end">
+    <div style="flex:1 1 420px;display:flex;flex-direction:column;gap:18px">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#a29899">On display</span>
+      <p style="font-size:clamp(28px,3.2vw,52px);line-height:1.02;letter-spacing:-.04em;max-width:20ch">See {{ lower }} pieces at <span style="font-family:'Instrument Serif',serif;font-style:italic;letter-spacing:-.02em">{{ displayAt }}</span>.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <sc-for list="{{ showrooms }}" as="s" hint-placeholder-count="2">
+          <a href="{{ s.map }}" target="_blank" rel="noreferrer" style="display:inline-flex;align-items:center;height:40px;padding:0 16px;border-radius:20px;border:1px solid #4a3336;font-size:13.5px" style-hover="background:#f7f4f4;color:#170a0b">{{ s.name }} · Directions ↗</a>
+        </sc-for>
+      </div>
+    </div>
+    <div style="flex:0 1 420px;display:flex;flex-direction:column;gap:16px;padding:28px;border-radius:16px;background:#4a0b0f">
+      <p style="font-size:24px;line-height:1.15;letter-spacing:-.025em">Need 10 or more? Bulk pricing starts at 10 units, with your logo from 20.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <a href="Quote.dc.html?type=business" style="display:inline-flex;align-items:center;height:46px;padding:0 20px;border-radius:23px;background:#f7f4f4;color:#170a0b;font-size:14px;font-weight:500" style-hover="background:#140607;color:#f7f4f4">Request a project quote →</a>
+        <a href="Business.dc.html" style="display:inline-flex;align-items:center;height:46px;padding:0 20px;border-radius:23px;border:1px solid rgba(247,244,244,.4);font-size:14px" style-hover="border-color:#f7f4f4">For Business</a>
+      </div>
+    </div>
+  </section>
+</main>
+<dc-import name="Footer" hint-size="100%,900px"></dc-import>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const COLL = { office: 'kality-workspace', 'living-room': 'sheger-living', bedroom: 'wanza', dining: 'wanza', hospitality: 'hotel' };
+const SECT = { office: ['banks', 'government'], hospitality: ['hotels'], dining: ['hotels'] };
+
+class Component extends DCLogic {
+  state = (() => {
+    const q = new URLSearchParams(location.search);
+    return { sale: q.get('sale') === '1', subs: (q.get('sub') || '').split(',').filter(Boolean), fins: [], flags: [], sort: 'featured', faq: 0, narrow: window.innerWidth < 900, showFilters: false };
+  })();
+  setTitle(t) {
+    this.title = t;
+    const apply = () => { if (document.title !== this.title) document.title = this.title; };
+    apply();
+    [0, 150, 600, 1500].forEach((d) => setTimeout(apply, d));
+    const el = document.querySelector('title');
+    if (el && !this.titleMo) { this.titleMo = new MutationObserver(apply); this.titleMo.observe(el, { childList: true, characterData: true, subtree: true }); }
+  }
+  componentDidMount() {
+    this.w = () => (window.ZEF ? this.ready() : (this.t = setTimeout(this.w, 30)));
+    this.w();
+    this.onR = () => this.setState({ narrow: window.innerWidth < 900 });
+    window.addEventListener('resize', this.onR);
+  }
+  componentWillUnmount() { this.titleMo && this.titleMo.disconnect(); clearTimeout(this.t); window.removeEventListener('resize', this.onR); }
+  componentDidUpdate(_, p) {
+    p = p || {};
+    if (p.sale !== this.state.sale || p.subs !== this.state.subs) {
+      const q = new URLSearchParams(location.search);
+      this.state.sale ? q.set('sale', '1') : q.delete('sale');
+      this.state.subs.length ? q.set('sub', this.state.subs.join(',')) : q.delete('sub');
+      history.replaceState(null, '', location.pathname + '?' + q.toString() + location.hash);
+    }
+  }
+  ready() {
+    const r = this.room();
+    this.setTitle(`${r.name} Furniture in Addis Ababa | Zefmesh Furniture`);
+    this.forceUpdate();
+  }
+  room() { const Z = window.ZEF; return Z.room(Z.q('room')) || Z.ROOMS[0]; }
+  toggle(key, val) { const a = this.state[key]; this.setState({ [key]: a.includes(val) ? a.filter((x) => x !== val) : [...a, val] }); }
+
+  renderVals() {
+    const Z = window.ZEF;
+    const s = this.state;
+    const base = { narrow: s.narrow, asideShow: !s.narrow || s.showFilters ? 'flex' : 'none', barTop: s.narrow ? '64px' : '72px', sort: s.sort };
+    if (!Z) return { ...base, tabs: [], groups: [], tree: [], finishes: [], flags: [], applied: [], products: [], faq: [], related: [], showrooms: [] };
+    const r = this.room();
+    const all = Z.productsIn({ room: r.slug });
+    const FLAGS = [['stock', 'In stock', (p) => p.stock === 'In stock'], ['bulk', 'Bulk pricing from 10', (p) => p.tags.includes('bulk')], ['brand', 'Can carry your logo', (p) => p.tags.includes('brand')]];
+    let list = all.filter((p) => (!s.sale || (p.show && p.off)) && (!s.subs.length || s.subs.includes(p.group + '/' + p.sub)) && (!s.fins.length || p.finishes.some((f) => s.fins.includes(f))) && s.flags.every((k) => FLAGS.find((f) => f[0] === k)[2](p)));
+    if (s.sort === 'new') list = [...list].sort((a, b) => b.tags.includes('new') - a.tags.includes('new'));
+    if (s.sort === 'stock') list = [...list].sort((a, b) => (b.stock === 'In stock') - (a.stock === 'In stock'));
+    if (s.sort === 'name') list = [...list].sort((a, b) => a.name.localeCompare(b.name));
+
+    const subName = (key) => { const [g, x] = key.split('/'); return Z.sub(r.slug, g, x)?.name || x; };
+    const applied = [
+      ...(s.sale ? [{ label: 'On sale', remove: () => this.setState({ sale: false }) }] : []),
+      ...s.subs.map((k) => ({ label: subName(k), remove: () => this.toggle('subs', k) })),
+      ...s.fins.map((k) => ({ label: Z.FINISHES[k][0], remove: () => this.toggle('fins', k) })),
+      ...s.flags.map((k) => ({ label: FLAGS.find((f) => f[0] === k)[1], remove: () => this.toggle('flags', k) })),
+    ];
+    const finKeys = [...new Set(all.flatMap((p) => p.finishes))];
+    const box = (on) => ({ boxLine: on ? '#170a0b' : '#c7bebe', boxBg: on ? '#170a0b' : 'transparent', tick: on ? 1 : 0, aria: on ? 'true' : 'false' });
+    const saleCount = all.filter((p) => p.show && p.off).length;
+    const guide = Z.GUIDES.find((g) => g.room === r.slug) || Z.GUIDES[0];
+    const coll = Z.COLLECTIONS.find((c) => c.slug === COLL[r.slug]) || Z.COLLECTIONS[0];
+    const related = [
+      { kind: 'Buying guide', title: guide.title, sub: guide.sum, img: Z.img(guide.img, 300), href: Z.href.guide(guide.slug) },
+      { kind: 'Collection', title: coll.name, sub: coll.blurb, img: Z.img(coll.img, 300), href: Z.href.page('Collection', 'c=' + coll.slug) },
+      ...(SECT[r.slug] || []).map((k) => { const x = Z.SECTORS.find((y) => y.slug === k); return { kind: 'For business', title: 'Furniture for ' + x.name.toLowerCase(), sub: x.needs, img: Z.img(x.img, 300), href: Z.href.page('Sector', 's=' + k) }; }),
+    ];
+    const shows = Z.SHOWROOMS.filter((x) => x.shows.includes(r.slug));
+    return {
+      ...base,
+      heroImg: Z.img(r.hero, 1800, 72), heroAlt: `${r.name} furniture by Zefmesh`, roomName: r.name, h1: r.h1, intro: r.intro, count: r.count, lower: r.name.toLowerCase(),
+      tabs: Z.ROOMS.map((x) => { const on = x.slug === r.slug; return { name: x.name, count: x.count, href: Z.href.room(x.slug), current: on ? 'page' : 'false', bg: on ? '#f7f4f4' : 'rgba(20,6,7,.35)', fg: on ? '#170a0b' : '#f7f4f4' }; }),
+      groups: r.groups.map((g) => ({ name: g.name, count: g.count, href: Z.href.group(r.slug, g.slug), img: Z.img(g.img, 1000), subsText: g.subs.map((x) => x.name).join(' · ') })),
+      toggleSale: () => this.setState({ sale: !s.sale }), saleAria: s.sale ? 'true' : 'false', saleBg: s.sale ? '#8c1c22' : '#e6e2e2', saleFg: s.sale ? '#f7f4f4' : '#170a0b',
+      knobTrack: s.sale ? 'rgba(247,244,244,.35)' : '#c7bebe', knobL: s.sale ? '19px' : '3px', saleCount,
+      tree: r.groups.map((g) => ({ name: g.name, href: Z.href.group(r.slug, g.slug), subs: g.subs.map((x) => { const k = g.slug + '/' + x.slug; return { name: x.name, count: x.count, ...box(s.subs.includes(k)), toggle: () => this.toggle('subs', k) }; }) })),
+      finishes: finKeys.map((k) => ({ name: Z.FINISHES[k][0], hex: Z.FINISHES[k][1], aria: s.fins.includes(k) ? 'true' : 'false', ring: s.fins.includes(k) ? '0 0 0 2px #f0eeee, 0 0 0 3.5px #170a0b' : 'inset 0 0 0 1px rgba(23,10,11,.18)', toggle: () => this.toggle('fins', k) })),
+      flags: FLAGS.map(([k, label, fn]) => ({ label, count: all.filter(fn).length, ...box(s.flags.includes(k)), toggle: () => this.toggle('flags', k) })),
+      applied, hasApplied: applied.length > 0, clear: () => this.setState({ sale: false, subs: [], fins: [], flags: [] }),
+      toolbarLabel: applied.length ? 'Filtered pieces' : `All ${r.name.toLowerCase()} pieces`, shown: list.length, products: list, none: list.length === 0,
+      onSort: (e) => this.setState({ sort: e.target.value }),
+      toggleFilters: () => this.setState({ showFilters: !s.showFilters }), filtersLabel: s.showFilters ? 'Hide filters' : 'Filters',
+      faqTitle: `${r.name} questions`,
+      faq: r.faq.map(([q, a], k) => { const on = s.faq === k; return { n: String(k + 1).padStart(2, '0'), q, a, aria: on ? 'true' : 'false', rows: on ? '1fr' : '0fr', rot: on ? '0deg' : '90deg', bg: on ? '#8c1c22' : 'transparent', fg: on ? '#f7f4f4' : '#170a0b', line: on ? '#8c1c22' : '#c7bebe', toggle: () => this.setState({ faq: on ? -1 : k }) }; }),
+      related,
+      showrooms: shows.map((x) => ({ name: x.name, map: x.map })), displayAt: shows.map((x) => x.name.replace(' showroom', '')).join(' and '),
+    };
+  }
+}
+
+</script>
+</body>
+</html>

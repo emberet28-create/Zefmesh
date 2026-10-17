@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Your Quote List | Zefmesh Furniture</title>
+<meta name="robots" content="noindex, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<script src="zef-data.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#f0eeee;color:#170a0b;font-family:'Instrument Sans',system-ui,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+a:hover{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+input,select,textarea{font:inherit;color:inherit}
+img{display:block;max-width:100%}
+h1,h2,h3,h4,p{margin:0}
+@keyframes zefPage{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<dc-import name="Header" page="quote" hide-wa="{{ true }}" hint-size="100%,0px"></dc-import>
+<main data-page="" data-screen-label="Quote list" style="animation:zefPage .45s cubic-bezier(.16,1,.3,1) both">
+
+  <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+    <section style="padding:calc(110px + clamp(24px,3vw,48px)) clamp(16px,3vw,44px) 0">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:28px 48px;padding-bottom:28px;border-bottom:1px solid #170a0b">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364">{{ countLabel }}</span>
+          <h1 style="font-size:clamp(48px,7vw,120px);line-height:.88;letter-spacing:-.055em;font-weight:500">Your quote <span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;letter-spacing:-.025em">list</span></h1>
+        </div>
+        <ol style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;flex:0 1 640px;font-size:14px;line-height:1.45">
+          <li style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#8c1c22">01 · Today</span><span>You send the list. No payment, no account.</span></li>
+          <li style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#8c1c22">02 · Within a working day</span><span>We reply with prices and any discount for each piece.</span></li>
+          <li style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#8c1c22">03 · Your choice</span><span>Delivery, pick-up, or a visit to a showroom or the workshop.</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <section style="padding:clamp(28px,3vw,44px) clamp(16px,3vw,44px) clamp(72px,9vw,130px);display:flex;flex-wrap:wrap;gap:40px clamp(28px,4vw,64px);align-items:flex-start">
+      <div style="flex:1.3 1 480px;min-width:0;display:flex;flex-direction:column">
+        <sc-if value="{{ hasPre }}" hint-placeholder-val="{{ false }}">
+          <div role="status" style="display:flex;align-items:center;gap:12px;padding:14px 16px;margin-bottom:8px;border-radius:12px;background:#e3eedd;color:#1f4a24;font-size:14.5px">
+            <span style="flex:none;width:8px;height:8px;border-radius:50%;background:#3a9d64"></span>
+            <span><b style="font-weight:600">{{ preName }}</b> is selected. Add your details and send, and we reply with the price within one working day.</span>
+          </div>
+        </sc-if>
+        <sc-for list="{{ items }}" as="it" hint-placeholder-count="0">
+          <div style="display:grid;grid-template-columns:96px minmax(0,1fr);gap:20px;padding:22px 0;border-bottom:1px solid #c7bebe">
+            <a href="{{ it.href }}" style="display:block;aspect-ratio:4/5;overflow:hidden;background:#dad4d4"><img src="{{ it.img }}" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></a>
+            <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+              <div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap">
+                <div style="display:flex;flex-direction:column;gap:3px">
+                  <a href="{{ it.href }}" style="font-size:19px;font-weight:500;letter-spacing:-.015em;line-height:1.2" style-hover="color:#8c1c22">{{ it.name }}</a>
+                  <span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#6e6364">{{ it.sku }} · {{ it.sub }}</span>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px">
+                  <span style="font-size:15px;font-weight:500;color:{{ it.priceColor }}">{{ it.price }}</span>
+                  <span style="font-size:12px;color:#6e6364">{{ it.priceSub }}</span>
+                </div>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px">
+                <div style="display:flex;align-items:center;border:1px solid #c7bebe;border-radius:18px;height:36px">
+                  <button onClick="{{ it.dec }}" aria-label="Fewer" style="width:36px;height:34px">−</button>
+                  <span style="min-width:26px;text-align:center;font-size:14px;font-variant-numeric:tabular-nums">{{ it.qty }}</span>
+                  <button onClick="{{ it.inc }}" aria-label="More" style="width:36px;height:34px">+</button>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px">
+                  <sc-for list="{{ it.fins }}" as="f" hint-placeholder-count="2">
+                    <button onClick="{{ f.pick }}" title="{{ f.name }}" aria-pressed="{{ f.aria }}" style="width:24px;height:24px;border-radius:50%;background:{{ f.hex }};box-shadow:{{ f.ring }}"></button>
+                  </sc-for>
+                  <span style="font-size:13px;color:#4a3336;margin-left:4px">{{ it.finish }}</span>
+                </div>
+                <button onClick="{{ it.remove }}" style="margin-left:auto;font-size:13px;color:#6e6364;border-bottom:1px solid currentColor" style-hover="color:#8c1c22">Remove</button>
+              </div>
+              <input value="{{ it.note }}" onChange="{{ it.onNote }}" placeholder="Note for this piece (size, fabric, logo…)" aria-label="Note" style="width:100%;border:0;border-bottom:1px solid #dcd6d6;background:transparent;padding:6px 0 8px;font-size:14px;outline:none">
+            </div>
+          </div>
+        </sc-for>
+        <sc-if value="{{ empty }}" hint-placeholder-val="{{ true }}">
+          <div style="padding:40px 0;display:flex;flex-direction:column;gap:20px;border-bottom:1px solid #c7bebe">
+            <p style="font-size:clamp(26px,2.6vw,40px);line-height:1.05;letter-spacing:-.03em">Your list is empty. <span style="font-family:'Instrument Serif',serif;font-style:italic">Start with a room.</span></p>
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <sc-for list="{{ rooms }}" as="r" hint-placeholder-count="5">
+                <a href="{{ r.href }}" style="display:inline-flex;align-items:center;height:40px;padding:0 16px;border-radius:20px;border:1px solid #c7bebe;font-size:14px" style-hover="border-color:#170a0b">{{ r.name }}</a>
+              </sc-for>
+            </div>
+            <p style="font-size:14.5px;color:#4a3336">Planning an office or a hotel? You can also send the form with a description and floor plan details in the notes.</p>
+          </div>
+        </sc-if>
+        <div style="display:flex;flex-direction:column;gap:18px;margin-top:40px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364">Often added with these</span>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,180px),1fr));gap:24px 14px">
+            <sc-for list="{{ suggest }}" as="p" hint-placeholder-count="0">
+              <dc-import name="ProductCard" p="{{ p }}" hint-size="100%,360px"></dc-import>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <form ref="{{ formRef }}" onSubmit="{{ submit }}" style="flex:1 1 400px;max-width:620px;position:sticky;top:92px;display:flex;flex-direction:column;gap:22px;padding:clamp(22px,2.4vw,34px);background:#f7f4f4;border:1px solid #dcd6d6;border-radius:22px">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+          <h2 style="font-size:26px;letter-spacing:-.03em;font-weight:500">Send your request</h2>
+          <div role="radiogroup" aria-label="Buying for" style="position:relative;display:inline-flex;padding:4px;border-radius:22px;background:#e6e2e2">
+            <span style="position:absolute;top:4px;bottom:4px;left:{{ segL }};width:calc(50% - 4px);border-radius:18px;background:#170a0b;transition:left .45s cubic-bezier(.16,1,.3,1)"></span>
+            <button type="button" role="radio" aria-checked="{{ homeAria }}" onClick="{{ setHome }}" style="position:relative;z-index:1;height:36px;width:96px;border-radius:18px;font-size:13.5px;color:{{ homeFg }};transition:color .3s">For home</button>
+            <button type="button" role="radio" aria-checked="{{ bizAria }}" onClick="{{ setBiz }}" style="position:relative;z-index:1;height:36px;width:96px;border-radius:18px;font-size:13.5px;color:{{ bizFg }};transition:color .3s">For business</button>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:18px 20px">
+          <label style="display:flex;flex-direction:column;gap:4px">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#6e6364">Your name *</span>
+            <input value="{{ f_name }}" onInput="{{ on_name }}" autocomplete="name" aria-invalid="{{ inv_name }}" style="border:0;border-bottom:1px solid {{ line_name }};background:transparent;padding:8px 0 10px;font-size:17px;outline:none">
+            <span style="font-size:12.5px;color:#8c1c22;min-height:0">{{ err_name }}</span>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:4px">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#6e6364">Phone *</span>
+            <span style="display:flex;align-items:baseline;gap:8px;border-bottom:1px solid {{ line_phone }}">
+              <span style="font-size:17px;color:#6e6364">+251</span>
+              <input value="{{ f_phone }}" onInput="{{ on_phone }}" inputmode="tel" autocomplete="tel-national" placeholder="9X XXX XXXX" aria-invalid="{{ inv_phone }}" style="flex:1;min-width:0;border:0;background:transparent;padding:8px 0 10px;font-size:17px;outline:none">
+            </span>
+            <span style="font-size:12.5px;color:#8c1c22">{{ err_phone }}</span>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:4px">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#6e6364">Email (optional)</span>
+            <input value="{{ f_email }}" onInput="{{ on_email }}" inputmode="email" autocomplete="email" aria-invalid="{{ inv_email }}" style="border:0;border-bottom:1px solid {{ line_email }};background:transparent;padding:8px 0 10px;font-size:17px;outline:none">
+            <span style="font-size:12.5px;color:#8c1c22">{{ err_email }}</span>
+          </label>
+          <sc-if value="{{ isBiz }}" hint-placeholder-val="{{ false }}">
+            <label style="display:flex;flex-direction:column;gap:4px">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#6e6364">Company *</span>
+              <input value="{{ f_company }}" onInput="{{ on_company }}" autocomplete="organization" aria-invalid="{{ inv_company }}" style="border:0;border-bottom:1px solid {{ line_company }};background:transparent;padding:8px 0 10px;font-size:17px;outline:none">
+              <span style="font-size:12.5px;color:#8c1c22">{{ err_company }}</span>
+            </label>
+          </sc-if>
+        </div>
+
+        <fieldset style="border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px">
+          <legend style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#6e6364;margin-bottom:10px;padding:0">How would you like to get it?</legend>
+          <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">
+            <sc-for list="{{ methods }}" as="m" hint-placeholder-count="3">
+              <button type="button" onClick="{{ m.pick }}" aria-pressed="{{ m.aria }}" style="display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:12px;border-radius:12px;text-align:left;background:{{ m.bg }};color:{{ m.fg }};box-shadow:inset 0 0 0 1px {{ m.line }};transition:background .25s,color .25s">
+                <span style="font-size:14.5px;font-weight:500">{{ m.label }}</span>
+                <span style="font-size:12px;opacity:.7;line-height:1.35">{{ m.sub }}</span>
+              </button>
+            </sc-for>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:14px 20px;margin-top:6px">
+            <sc-if value="{{ isDelivery }}" hint-placeholder-val="{{ true }}">
+              <label style="display:flex;flex-direction:column;gap:4px">
+                <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#6e6364">Deliver to *</span>
+                <select value="{{ f_area }}" onChange="{{ on_area }}" aria-invalid="{{ inv_area }}" style="border:0;border-bottom:1px solid {{ line_area }};background:transparent;padding:8px 0 10px;font-size:16px;outline:none">
+                  <option value="">Choose a sub-city</option>
+                  <option value="Addis Ketema">Addis Ketema</option>
+                  <option value="Akaky Kaliti">Akaky Kaliti</option>
+                  <option value="Arada">Arada</option>
+                  <option value="Bole">Bole</option>
+                  <option value="Gullele">Gullele</option>
+                  <option value="Kirkos">Kirkos</option>
+                  <option value="Kolfe Keranio">Kolfe Keranio</option>
+                  <option value="Lemi Kura">Lemi Kura</option>
+                  <option value="Lideta">Lideta</option>
+                  <option value="Nifas Silk-Lafto">Nifas Silk-Lafto</option>
+                  <option value="Yeka">Yeka</option>
+                  <option value="Outside Addis Ababa">Outside Addis Ababa</option>
+                </select>
+                <span style="font-size:12.5px;color:#8c1c22">{{ err_area }}</span>
+              </label>
+            </sc-if>
+            <sc-if value="{{ isShowroom }}" hint-placeholder-val="{{ false }}">
+              <label style="display:flex;flex-direction:column;gap:4px">
+                <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#6e6364">{{ placeLabel }}</span>
+                <select value="{{ f_place }}" onChange="{{ on_place }}" style="border:0;border-bottom:1px solid #c7bebe;background:transparent;padding:8px 0 10px;font-size:16px;outline:none">
+                  <option value="grand-mall">Grand Mall, Megenagna</option>
+                  <option value="jakros">Jakros</option>
+                  <option value="workshop">Workshop, Kality</option>
+                </select>
+              </label>
+            </sc-if>
+            <label style="display:flex;flex-direction:column;gap:4px">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#6e6364">{{ dateLabel }}</span>
+              <input type="date" value="{{ f_date }}" onInput="{{ on_date }}" min="{{ minDate }}" aria-invalid="{{ inv_date }}" style="border:0;border-bottom:1px solid {{ line_date }};background:transparent;padding:8px 0 10px;font-size:16px;outline:none">
+              <span style="font-size:12.5px;color:#8c1c22">{{ err_date }}</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset style="border:0;margin:0;padding:0">
+          <legend style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#6e6364;margin-bottom:10px;padding:0">How should we reply?</legend>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <sc-for list="{{ replies }}" as="r" hint-placeholder-count="3">
+              <button type="button" onClick="{{ r.pick }}" aria-pressed="{{ r.aria }}" style="height:38px;padding:0 16px;border-radius:19px;font-size:14px;background:{{ r.bg }};color:{{ r.fg }};box-shadow:inset 0 0 0 1px {{ r.line }};transition:background .2s,color .2s">{{ r.label }}</button>
+            </sc-for>
+          </div>
+        </fieldset>
+
+        <label style="display:flex;flex-direction:column;gap:4px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#6e6364">{{ notesLabel }}</span>
+          <textarea value="{{ f_notes }}" onInput="{{ on_notes }}" rows="3" placeholder="{{ notesPh }}" style="border:0;border-bottom:1px solid {{ line_notes }};background:transparent;padding:8px 0 10px;font-size:16px;outline:none;resize:vertical;min-height:72px"></textarea>
+          <span style="font-size:12.5px;color:#8c1c22">{{ err_notes }}</span>
+        </label>
+
+        <button type="button" onClick="{{ toggleConsent }}" role="checkbox" aria-checked="{{ consentAria }}" style="display:flex;align-items:flex-start;gap:10px;text-align:left;font-size:13.5px;color:#4a3336;line-height:1.45">
+          <span style="flex:none;margin-top:2px;width:18px;height:18px;border-radius:5px;border:1.5px solid {{ consentLine }};background:{{ consentBg }};display:grid;place-items:center"><span style="width:8px;height:4px;border-left:1.5px solid #f7f4f4;border-bottom:1.5px solid #f7f4f4;transform:rotate(-45deg) translate(1px,-1px);opacity:{{ consentTick }}"></span></span>
+          <span>Zefmesh may contact me on WhatsApp about this request. We only use your details to answer it.</span>
+        </button>
+
+        <button type="submit" disabled="{{ sending }}" style="display:flex;align-items:center;justify-content:center;gap:12px;height:60px;border-radius:30px;background:{{ sendBg }};color:#f7f4f4;font-size:16px;font-weight:500;transition:background .3s" style-hover="background:#8c1c22">{{ sendLabel }}</button>
+        <p style="font-size:12.5px;color:#6e6364;text-align:center">No payment online. By sending you agree to our <a href="Terms.dc.html" style="border-bottom:1px solid currentColor">terms of sale</a> and <a href="Privacy.dc.html" style="border-bottom:1px solid currentColor">privacy policy</a>.</p>
+      </form>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+    <section data-dark="1" style="min-height:100svh;background:#140607;color:#f7f4f4;padding:calc(110px + clamp(36px,5vw,80px)) clamp(16px,3vw,44px) clamp(56px,7vw,100px);display:flex;flex-direction:column;justify-content:space-between;gap:56px">
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <span style="display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#e9a3a7"><span style="width:8px;height:8px;border-radius:50%;background:#3ccf7d"></span>Reference {{ ref }}</span>
+        <h1 style="font-size:clamp(60px,11vw,200px);line-height:.84;letter-spacing:-.06em;font-weight:500">Request <span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;letter-spacing:-.025em">sent.</span></h1>
+        <p style="font-size:clamp(18px,1.5vw,22px);line-height:1.5;color:#e4c9ca;max-width:46ch">{{ sentLine }}</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:14px">
+        <div style="display:flex;flex-direction:column;gap:12px;padding:22px;border:1px solid #2e1a1c;border-radius:16px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#a29899">What happens next</span>
+          <p style="font-size:15.5px;line-height:1.55;color:#d5cdcd">A consultant checks each piece, confirms prices and any discount, and replies by {{ replyBy }} within one working day. Quotes are valid for 14 days.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;padding:22px;border:1px solid #2e1a1c;border-radius:16px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#a29899">Need it sooner?</span>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <a href="{{ waHref }}" target="_blank" rel="noreferrer" style="display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 18px;border-radius:22px;background:#f7f4f4;color:#170a0b;font-size:14px;font-weight:500" style-hover="background:#1f6f45;color:#f7f4f4"><span style="width:7px;height:7px;border-radius:50%;background:#3ccf7d"></span>WhatsApp with {{ ref2 }}</a>
+            <a href="tel:+251116686979" style="display:inline-flex;align-items:center;height:44px;padding:0 18px;border-radius:22px;border:1px solid #4a3336;font-size:14px" style-hover="border-color:#f7f4f4">Call +251 11 668 6979</a>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;padding:22px;border:1px solid #2e1a1c;border-radius:16px;font-size:15px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#a29899">While you wait</span>
+          <a href="Showrooms.dc.html" style="display:flex;justify-content:space-between" style-hover="color:#e9a3a7">Visit a showroom <span>→</span></a>
+          <a href="Inspiration.dc.html?type=guides" style="display:flex;justify-content:space-between" style-hover="color:#e9a3a7">Read the buying guides <span>→</span></a>
+          <a href="Terms.dc.html" style="display:flex;justify-content:space-between" style-hover="color:#e9a3a7">Terms of sale <span>→</span></a>
+          <a href="Shop.dc.html" style="display:flex;justify-content:space-between" style-hover="color:#e9a3a7">Keep browsing <span>→</span></a>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+</main>
+<dc-import name="Footer" hint-size="100%,900px"></dc-import>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const AREAS = ['Addis Ketema', 'Akaky Kaliti', 'Arada', 'Bole', 'Gullele', 'Kirkos', 'Kolfe Keranio', 'Lemi Kura', 'Lideta', 'Nifas Silk-Lafto', 'Yeka', 'Outside Addis Ababa'];
+const FIELDS = ['name', 'phone', 'email', 'company', 'area', 'date', 'notes'];
+
+class Component extends DCLogic {
+  state = (() => {
+    const q = new URLSearchParams(location.search);
+    return { tick: 0, type: q.get('type') === 'business' ? 'business' : 'home', method: 'delivery', place: 'grand-mall', reply: 'whatsapp', consent: true,
+      f: { name: '', phone: '', email: '', company: '', area: '', date: '', notes: '' }, err: {}, status: 'idle', ref: '', sentCount: 0 };
+  })();
+  componentDidMount() {
+    this.onList = () => this.setState({ tick: this.state.tick + 1 });
+    window.addEventListener('zef:list', this.onList);
+    this.w = () => (window.ZEF ? this.ready() : (this.t = setTimeout(this.w, 30)));
+    this.w();
+  }
+  ready() {
+    const Z = window.ZEF;
+    const u = new URLSearchParams(location.search);
+    const slug = u.get('add');
+    const p = slug && Z.product(slug);
+    if (p) {
+      const fin = p.finishes.includes(u.get('finish')) ? u.get('finish') : undefined;
+      if (!Z.list.has(slug)) Z.list.add(slug, { qty: parseInt(u.get('qty'), 10) || 1, finish: fin });
+      ['add', 'qty', 'finish'].forEach((k) => u.delete(k));
+      const qs = u.toString();
+      history.replaceState(null, '', location.pathname + (qs ? '?' + qs : ''));
+      this.setState({ pre: p.name, preSlug: slug });
+      setTimeout(() => { const f = this.formEl; if (!f || window.innerWidth >= 900) return; const L = window.__zefLenis; L ? L.scrollTo(f, { offset: -90 }) : window.scrollTo({ top: f.getBoundingClientRect().top + window.scrollY - 90, behavior: 'smooth' }); }, 500);
+      setTimeout(() => { const n = this.formEl && this.formEl.querySelector('input'); n && window.innerWidth >= 900 && n.focus({ preventScroll: true }); }, 600);
+    }
+    this.forceUpdate();
+  }
+  formRef = (el) => { this.formEl = el; };
+  componentWillUnmount() { window.removeEventListener('zef:list', this.onList); clearTimeout(this.t); clearTimeout(this.sendT); }
+  validate(items) {
+    const { f, type, method } = this.state;
+    const e = {};
+    if (f.name.trim().length < 2) e.name = 'Add your name so we know who to ask for.';
+    const ph = f.phone.replace(/[\s\-()]/g, '').replace(/^\+?251/, '').replace(/^0/, '');
+    if (!/^[79]\d{8}$/.test(ph)) e.phone = 'Use a mobile number such as 91 234 5678.';
+    if (f.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email)) e.email = 'This email address looks incomplete.';
+    if (type === 'business' && !f.company.trim()) e.company = 'Add the company name for the invoice.';
+    if (method === 'delivery' && !f.area) e.area = 'Choose where we should deliver.';
+    if (method === 'visit' && !f.date) e.date = 'Pick a day for your visit.';
+    if (!items.length && f.notes.trim().length < 10) e.notes = 'Your list is empty. Add pieces, or describe what you need here.';
+    return e;
+  }
+  renderVals() {
+    const Z = window.ZEF;
+    const s = this.state;
+    const set = (k) => (e) => { const v = e.target.value; this.setState({ f: { ...this.state.f, [k]: v }, err: { ...this.state.err, [k]: '' } }); };
+    const fieldVals = {};
+    FIELDS.forEach((k) => {
+      fieldVals['f_' + k] = s.f[k]; fieldVals['on_' + k] = set(k); fieldVals['err_' + k] = s.err[k] || '';
+      fieldVals['inv_' + k] = s.err[k] ? 'true' : 'false'; fieldVals['line_' + k] = s.err[k] ? '#8c1c22' : '#c7bebe';
+    });
+    const base = { ...fieldVals, formRef: this.formRef, hasPre: !!s.pre && s.status !== 'sent' && !!window.ZEF && window.ZEF.list.has(s.preSlug), preName: s.pre || '', notSent: s.status !== 'sent', sent: s.status === 'sent', items: [], rooms: [], suggest: [], methods: [], replies: [], areas: AREAS.map((v) => ({ v })) };
+    if (!Z) return base;
+    const raw = Z.list.get();
+    const items = raw.map((i) => {
+      const p = Z.product(i.slug);
+      const pr = Z.priceInfo(p);
+      return {
+        name: p.name, sku: p.sku, sub: Z.sub(p.room, p.group, p.sub).name, img: Z.img(p.img, 300), href: Z.href.product(p.slug), qty: i.qty, note: i.note || '',
+        finish: (Z.FINISHES[i.finish] || ['Standard'])[0],
+        price: pr.now, priceColor: pr.kind === 'request' ? '#4a3336' : '#170a0b', priceSub: pr.kind === 'request' ? 'We confirm it' : i.qty > 1 ? `each · ${i.qty} pieces` : 'each',
+        fins: p.finishes.map((k) => ({ name: Z.FINISHES[k][0], hex: Z.FINISHES[k][1], aria: k === i.finish ? 'true' : 'false', ring: k === i.finish ? '0 0 0 2px #f0eeee, 0 0 0 3.5px #170a0b' : 'inset 0 0 0 1px rgba(23,10,11,.2)', pick: () => Z.list.set(i.slug, { finish: k }) })),
+        inc: () => Z.list.set(i.slug, { qty: i.qty + 1 }), dec: () => Z.list.set(i.slug, { qty: i.qty - 1 }), remove: () => Z.list.remove(i.slug),
+        onNote: (e) => Z.list.set(i.slug, { note: e.target.value }),
+      };
+    });
+    const count = raw.reduce((a, i) => a + i.qty, 0);
+    const inRooms = [...new Set(raw.map((i) => Z.product(i.slug).room))];
+    const suggest = Z.PRODUCTS.filter((p) => !raw.some((i) => i.slug === p.slug) && (!inRooms.length || inRooms.includes(p.room))).filter((p, k, a) => a.findIndex((x) => x.sub === p.sub) === k).slice(0, 4);
+    const pick = (on) => ({ bg: on ? '#170a0b' : 'transparent', fg: on ? '#f7f4f4' : '#170a0b', line: on ? '#170a0b' : '#c7bebe', aria: on ? 'true' : 'false' });
+    const M = [['delivery', 'Delivery', 'We deliver and assemble'], ['pickup', 'Pick up', 'Collect from us'], ['visit', 'See it first', 'Visit, then decide']];
+    const R = [['whatsapp', 'WhatsApp'], ['call', 'Phone call'], ['email', 'Email']];
+    const d = new Date(); d.setDate(d.getDate() + 1);
+    const biz = s.type === 'business';
+    const ref = s.ref;
+    return {
+      ...base,
+      countLabel: count ? `${count} ${count === 1 ? 'piece' : 'pieces'} · nothing to pay now` : 'Nothing to pay now',
+      items, empty: !items.length, rooms: Z.ROOMS.map((r) => ({ name: r.name, href: Z.href.room(r.slug) })), suggest,
+      segL: biz ? 'calc(50%)' : '4px', homeAria: biz ? 'false' : 'true', bizAria: biz ? 'true' : 'false', homeFg: biz ? '#170a0b' : '#f7f4f4', bizFg: biz ? '#f7f4f4' : '#170a0b',
+      setHome: () => this.setState({ type: 'home' }), setBiz: () => this.setState({ type: 'business' }), isBiz: biz,
+      methods: M.map(([k, label, sub]) => ({ label, sub, ...pick(s.method === k), pick: () => this.setState({ method: k, err: { ...s.err, area: '', date: '' } }) })),
+      isDelivery: s.method === 'delivery', isShowroom: s.method !== 'delivery',
+      placeLabel: s.method === 'pickup' ? 'Pick up from' : 'Where would you like to visit?', f_place: s.place, on_place: (e) => this.setState({ place: e.target.value }),
+      dateLabel: s.method === 'visit' ? 'Day of your visit *' : s.method === 'pickup' ? 'Preferred pick-up day' : 'Preferred delivery day', minDate: d.toISOString().slice(0, 10),
+      replies: R.map(([k, label]) => ({ label, ...pick(s.reply === k), pick: () => this.setState({ reply: k }) })),
+      notesLabel: biz ? 'Project details' : 'Anything else?', notesPh: biz ? 'Number of staff, floor size, deadline, tender reference…' : 'Stairs, lift, fabric questions, a custom size…',
+      toggleConsent: () => this.setState({ consent: !s.consent }), consentAria: s.consent ? 'true' : 'false', consentBg: s.consent ? '#170a0b' : 'transparent', consentLine: s.consent ? '#170a0b' : '#c7bebe', consentTick: s.consent ? 1 : 0,
+      sending: s.status === 'sending', sendLabel: s.status === 'sending' ? 'Sending…' : items.length ? `Send request for ${count} ${count === 1 ? 'piece' : 'pieces'} →` : 'Send request →', sendBg: s.status === 'sending' ? '#6e6364' : '#170a0b',
+      submit: (e) => {
+        e.preventDefault();
+        if (s.status === 'sending') return;
+        const err = this.validate(raw);
+        if (Object.keys(err).length) { this.setState({ err }); return; }
+        this.setState({ status: 'sending', err: {} });
+        this.sendT = setTimeout(() => {
+          const refNo = 'Q-' + (1000 + Math.floor(Math.random() * 9000));
+          try { localStorage.setItem('zef_last_quote', JSON.stringify({ ref: refNo, at: Date.now(), items: raw, form: s.f, type: s.type, method: s.method, place: s.place, reply: s.reply })); } catch (x) {}
+          Z.list.clear();
+          this.setState({ status: 'sent', ref: refNo, sentCount: count });
+          window.scrollTo(0, 0);
+          document.title = 'Request Sent | Zefmesh Furniture';
+        }, 1100);
+      },
+      ref, ref2: ref,
+      sentLine: s.sentCount ? `We have your list of ${s.sentCount} ${s.sentCount === 1 ? 'piece' : 'pieces'}. Keep the reference; it is on every message we send you about this order.` : 'We have your request. Keep the reference; it is on every message we send you about it.',
+      replyBy: { whatsapp: 'WhatsApp', call: 'phone', email: 'email' }[s.reply],
+      waHref: 'https://wa.me/251941444555?text=' + encodeURIComponent(`Hello Zefmesh, about my quote request ${ref}.`),
+    };
+  }
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Contact Zefmesh Furniture: Phone, WhatsApp, Showrooms</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<script src="zef-data.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#f0eeee;color:#170a0b;font-family:'Instrument Sans',system-ui,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+a:hover{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+input,textarea{font:inherit;color:inherit}
+img{display:block;max-width:100%}
+h1,h2,h3,h4,p{margin:0}
+@keyframes zefPage{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<dc-import name="Header" page="contact" hint-size="100%,0px"></dc-import>
+<main data-page="" data-screen-label="Contact" style="animation:zefPage .45s cubic-bezier(.16,1,.3,1) both">
+
+  <section style="padding:calc(110px + clamp(24px,4vw,56px)) clamp(16px,3vw,44px) clamp(56px,7vw,96px);display:flex;flex-wrap:wrap;gap:40px clamp(40px,6vw,110px);align-items:flex-start">
+    <div style="flex:1 1 380px;display:flex;flex-direction:column;gap:22px">
+      <nav aria-label="Breadcrumb" style="display:flex;gap:8px;font-size:13px;color:#6e6364"><a href="Home.dc.html" style-hover="color:#8c1c22">Home</a><span>/</span><span style="color:#170a0b">Contact</span></nav>
+      <h1 style="font-size:clamp(56px,8vw,140px);line-height:.86;letter-spacing:-.06em;font-weight:500">Contact <span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;letter-spacing:-.025em">us</span></h1>
+      <p style="font-size:17px;line-height:1.55;color:#4a3336;max-width:40ch">Call or message us during showroom hours and we answer straight away. Messages sent after hours are answered the next working morning.</p>
+    </div>
+    <div style="flex:1.2 1 460px;border-top:1px solid #170a0b">
+      <sc-for list="{{ channels }}" as="c" hint-placeholder-count="4">
+        <a href="{{ c.href }}" target="{{ c.target }}" rel="noreferrer" onMouseEnter="{{ c.enter }}" onMouseLeave="{{ c.leave }}" style="display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:16px;padding:22px 0;border-bottom:1px solid #c7bebe">
+          <span style="display:flex;flex-direction:column;gap:4px;transform:translateX({{ c.x }});transition:transform .5s cubic-bezier(.16,1,.3,1)">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364">{{ c.label }}</span>
+            <span style="font-size:clamp(24px,2.6vw,40px);letter-spacing:-.03em;line-height:1.05;color:{{ c.color }};transition:color .25s">{{ c.value }}</span>
+            <span style="font-size:14px;color:#4a3336">{{ c.note }}</span>
+          </span>
+          <span style="width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:{{ c.bg }};color:{{ c.fg }};font-size:18px;transition:background .25s,color .25s">↗</span>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="padding:0 clamp(16px,3vw,44px) clamp(56px,7vw,96px)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:16px">
+      <sc-for list="{{ showrooms }}" as="s" hint-placeholder-count="0">
+        <div data-depth="8" style="display:flex;flex-direction:column;gap:14px;padding:22px;border-radius:18px;background:#140607;color:#f7f4f4;transform-origin:50% 100%">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap">
+            <a href="{{ s.href }}" style="font-size:26px;letter-spacing:-.03em;font-weight:500" style-hover="color:#e9a3a7">{{ s.name }}</a>
+            <span style="display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#c7bebe"><span style="width:7px;height:7px;border-radius:50%;background:{{ s.dot }}"></span>{{ s.today }}</span>
+          </div>
+          <span style="font-size:15px;color:#d5cdcd">{{ s.addr }}</span>
+          <span style="font-size:14px;line-height:1.5;color:#a29899">{{ s.how }}</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;color:#a29899">{{ s.hours }}</span>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px">
+            <a href="{{ s.map }}" target="_blank" rel="noreferrer" style="display:inline-flex;align-items:center;height:40px;padding:0 16px;border-radius:20px;background:#f7f4f4;color:#170a0b;font-size:13.5px;font-weight:500" style-hover="background:#8c1c22;color:#f7f4f4">Directions ↗</a>
+            <a href="tel:+251116686979" style="display:inline-flex;align-items:center;height:40px;padding:0 16px;border-radius:20px;border:1px solid #4a3336;font-size:13.5px" style-hover="border-color:#f7f4f4">Call</a>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="padding:clamp(56px,7vw,96px) clamp(16px,3vw,44px);background:#f7f4f4;border-top:1px solid #dcd6d6;display:flex;flex-wrap:wrap;gap:40px clamp(40px,6vw,110px);align-items:flex-start">
+    <div style="flex:1 1 300px;display:flex;flex-direction:column;gap:16px">
+      <h2 data-reveal="" style="font-size:clamp(36px,4vw,64px);line-height:.95;letter-spacing:-.04em;font-weight:500">Write to us</h2>
+      <p style="font-size:16px;line-height:1.55;color:#4a3336;max-width:38ch">For prices on specific pieces, the <a href="Quote.dc.html" style="border-bottom:1px solid currentColor">quote list</a> is faster. Use this form for anything else.</p>
+      <a href="Help.dc.html" style="align-self:flex-start;font-size:14.5px;border-bottom:1px solid currentColor" style-hover="color:#8c1c22">Read the help centre first</a>
+    </div>
+    <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+      <form onSubmit="{{ submit }}" style="flex:1.4 1 480px;display:flex;flex-direction:column;gap:22px">
+        <div role="radiogroup" aria-label="Topic" style="display:flex;flex-wrap:wrap;gap:8px">
+          <sc-for list="{{ topics }}" as="t" hint-placeholder-count="4">
+            <button type="button" role="radio" onClick="{{ t.pick }}" aria-checked="{{ t.aria }}" style="height:40px;padding:0 18px;border-radius:20px;font-size:14px;background:{{ t.bg }};color:{{ t.fg }};box-shadow:inset 0 0 0 1px {{ t.line }};transition:background .2s,color .2s">{{ t.label }}</button>
+          </sc-for>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:18px 20px">
+          <label style="display:flex;flex-direction:column;gap:4px"><span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#6e6364">Name *</span><input value="{{ fName }}" onInput="{{ onName }}" autocomplete="name" style="border:0;border-bottom:1px solid {{ lName }};background:transparent;padding:8px 0 10px;font-size:17px;outline:none"><span style="font-size:12.5px;color:#8c1c22">{{ eName }}</span></label>
+          <label style="display:flex;flex-direction:column;gap:4px"><span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#6e6364">Phone or email *</span><input value="{{ fReach }}" onInput="{{ onReach }}" autocomplete="tel" style="border:0;border-bottom:1px solid {{ lReach }};background:transparent;padding:8px 0 10px;font-size:17px;outline:none"><span style="font-size:12.5px;color:#8c1c22">{{ eReach }}</span></label>
+        </div>
+        <label style="display:flex;flex-direction:column;gap:4px"><span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#6e6364">Message *</span><textarea value="{{ fMsg }}" onInput="{{ onMsg }}" rows="4" style="border:0;border-bottom:1px solid {{ lMsg }};background:transparent;padding:8px 0 10px;font-size:16.5px;outline:none;resize:vertical"></textarea><span style="font-size:12.5px;color:#8c1c22">{{ eMsg }}</span></label>
+        <button type="submit" style="align-self:flex-start;height:56px;padding:0 28px;border-radius:28px;background:{{ sendBg }};color:#f7f4f4;font-size:15px;font-weight:500" style-hover="background:#8c1c22">{{ sendLabel }}</button>
+      </form>
+    </sc-if>
+    <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+      <div role="status" style="flex:1.4 1 480px;display:flex;flex-direction:column;gap:14px;padding:28px;border-radius:18px;background:#e3eedd;color:#1f4a24">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase">Reference {{ ref }}</span>
+        <p style="font-size:26px;line-height:1.15;letter-spacing:-.025em;color:#170a0b">Thank you. We have your message and reply within one working day.</p>
+        <a href="Products.dc.html" style="align-self:flex-start;font-size:14.5px;border-bottom:1px solid currentColor;color:#170a0b">Keep browsing</a>
+      </div>
+    </sc-if>
+  </section>
+</main>
+<dc-import name="Footer" hint-size="100%,900px"></dc-import>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const TOPICS = ['For my home', 'For a business', 'Custom or branded', 'After-sales'];
+class Component extends DCLogic {
+  state = { hover: -1, topic: 0, f: { name: '', reach: '', msg: '' }, err: {}, status: 'idle', ref: '' };
+  componentDidMount() { this.w = () => (window.ZEF ? this.forceUpdate() : (this.t = setTimeout(this.w, 30))); this.w(); }
+  componentWillUnmount() { clearTimeout(this.t); clearTimeout(this.st); }
+  renderVals() {
+    const Z = window.ZEF;
+    const s = this.state;
+    const set = (k) => (e) => this.setState({ f: { ...this.state.f, [k]: e.target.value }, err: { ...this.state.err, [k]: '' } });
+    const CH = [
+      ['Phone', '+251 11 668 6979', 'Mon–Sat 9:00–19:00 · Sun 10:00–17:00', 'tel:+251116686979', ''],
+      ['WhatsApp', '+251 94 144 4555', 'Send photos, floor plans or a list', 'https://wa.me/251941444555', '_blank'],
+      ['Telegram', '@zefmesh', 'Sale alerts and new pieces', 'https://t.me/zefmesh', '_blank'],
+      ['Email', 'sales@zefmesh.com', 'Tenders and business orders', 'mailto:sales@zefmesh.com', ''],
+    ];
+    const channels = CH.map(([label, value, note, href, target], k) => { const on = s.hover === k; return { label, value, note, href, target, x: on ? '10px' : '0px', color: on ? '#8c1c22' : '#170a0b', bg: on ? '#8c1c22' : '#e6e2e2', fg: on ? '#f7f4f4' : '#170a0b', enter: () => this.setState({ hover: k }), leave: () => this.setState({ hover: -1 }) }; });
+    const showrooms = Z ? Z.SHOWROOMS.map((x) => { const t = Z.openNow(x); return { ...x, href: Z.href.page('Showroom', 's=' + x.key), today: t, dot: /^Open/.test(t) ? '#3ccf7d' : '#b0262d' }; }) : [];
+    const line = (k) => (s.err[k] ? '#8c1c22' : '#c7bebe');
+    return {
+      channels, showrooms, notSent: s.status !== 'sent', sent: s.status === 'sent', ref: s.ref,
+      topics: TOPICS.map((label, k) => { const on = s.topic === k; return { label, aria: on ? 'true' : 'false', bg: on ? '#170a0b' : 'transparent', fg: on ? '#f7f4f4' : '#170a0b', line: on ? '#170a0b' : '#c7bebe', pick: () => this.setState({ topic: k }) }; }),
+      fName: s.f.name, fReach: s.f.reach, fMsg: s.f.msg, onName: set('name'), onReach: set('reach'), onMsg: set('msg'),
+      eName: s.err.name || '', eReach: s.err.reach || '', eMsg: s.err.msg || '', lName: line('name'), lReach: line('reach'), lMsg: line('msg'),
+      sendLabel: s.status === 'sending' ? 'Sending…' : 'Send message →', sendBg: s.status === 'sending' ? '#6e6364' : '#170a0b',
+      submit: (e) => {
+        e.preventDefault();
+        if (s.status === 'sending') return;
+        const err = {};
+        if (s.f.name.trim().length < 2) err.name = 'Add your name.';
+        if (!/@/.test(s.f.reach) && s.f.reach.replace(/\D/g, '').length < 9) err.reach = 'Add a phone number or an email address.';
+        if (s.f.msg.trim().length < 5) err.msg = 'Tell us a little about what you need.';
+        if (Object.keys(err).length) return this.setState({ err });
+        this.setState({ status: 'sending' });
+        this.st = setTimeout(() => this.setState({ status: 'sent', ref: 'C-' + (1000 + Math.floor(Math.random() * 9000)) }), 900);
+      },
+    };
+  }
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Zefmesh Furniture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<script src="zef-data.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#f7f4f4;color:#170a0b;font-family:'Instrument Sans',system-ui,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+a:hover{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+img{display:block;max-width:100%}
+h1,h2,h3,h4,p{margin:0}
+@keyframes zefPage{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<dc-import name="Header" page="article" hint-size="100%,0px"></dc-import>
+<div aria-hidden="true" style="position:fixed;left:0;right:0;top:0;height:3px;z-index:120;pointer-events:none"><div ref="{{ barRef }}" style="height:100%;background:#8c1c22;transform:scaleX(0);transform-origin:left"></div></div>
+<main data-page="" data-screen-label="Article" style="animation:zefPage .45s cubic-bezier(.16,1,.3,1) both">
+
+  <header style="padding:calc(110px + clamp(24px,4vw,56px)) clamp(16px,3vw,44px) 0;max-width:1200px;margin:0 auto">
+    <nav aria-label="Breadcrumb" style="display:flex;flex-wrap:wrap;gap:8px;font-size:13px;color:#6e6364;margin-bottom:26px"><a href="Home.dc.html" style-hover="color:#8c1c22">Home</a><span>/</span><a href="{{ crumbHref }}" style-hover="color:#8c1c22">{{ crumbLabel }}</a></nav>
+    <span style="display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#8c1c22"><span style="width:7px;height:7px;border-radius:50%;background:#8c1c22"></span>{{ kicker }} · {{ time }} read</span>
+    <h1 style="margin-top:18px;font-size:clamp(40px,5.6vw,96px);line-height:.94;letter-spacing:-.05em;font-weight:500;max-width:16ch;text-wrap:balance">{{ title }}</h1>
+    <div style="display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:26px;font-size:14px;color:#4a3336">
+      <span>By <a href="About.dc.html" style="border-bottom:1px solid currentColor">{{ by }}</a></span>
+      <span>{{ review }}</span>
+      <span>{{ date }}</span>
+    </div>
+  </header>
+
+  <div data-parallax="0.05" style="margin:clamp(32px,4vw,56px) clamp(16px,3vw,44px) 0;aspect-ratio:21/9;overflow:hidden;background:#dad4d4"><img src="{{ hero }}" loading="lazy" alt="{{ heroAlt }}" style="width:100%;height:100%;object-fit:cover"></div>
+
+  <div style="max-width:1200px;margin:0 auto;padding:clamp(40px,5vw,72px) clamp(16px,3vw,44px) clamp(56px,7vw,100px);display:flex;flex-wrap:wrap;gap:40px clamp(32px,5vw,80px);align-items:flex-start">
+    <aside style="flex:0 1 230px;position:{{ tocPos }};top:100px;display:flex;flex-direction:column;gap:10px">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364">Contents</span>
+      <sc-for list="{{ toc }}" as="t" hint-placeholder-count="3">
+        <a href="{{ t.href }}" style="display:grid;grid-template-columns:26px minmax(0,1fr);gap:8px;font-size:14.5px;line-height:1.35;color:#4a3336" style-hover="color:#8c1c22"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#8e8485;padding-top:2px">{{ t.n }}</span><span>{{ t.label }}</span></a>
+      </sc-for>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:20px;padding-top:18px;border-top:1px solid #dcd6d6;font-size:13.5px">
+        <a href="{{ waShare }}" target="_blank" rel="noreferrer" style="color:#4a3336" style-hover="color:#8c1c22">Share on WhatsApp ↗</a>
+        <a href="{{ ctaHref }}" style="color:#4a3336" style-hover="color:#8c1c22">{{ ctaLabel }} →</a>
+      </div>
+    </aside>
+
+    <article style="flex:1 1 560px;min-width:0;max-width:720px;display:flex;flex-direction:column;gap:clamp(36px,4vw,52px)">
+      <div style="padding:22px 24px;border-radius:16px;background:#ebe5e5;display:flex;flex-direction:column;gap:8px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8c1c22">{{ sumLabel }}</span>
+        <p style="font-size:clamp(19px,1.6vw,23px);line-height:1.45;letter-spacing:-.01em;text-wrap:pretty">{{ summary }}</p>
+      </div>
+
+      <sc-for list="{{ sections }}" as="x" hint-placeholder-count="0">
+        <section id="{{ x.id }}" style="display:flex;flex-direction:column;gap:18px;scroll-margin-top:100px">
+          <h2 style="font-size:clamp(26px,2.4vw,36px);line-height:1.05;letter-spacing:-.03em;font-weight:500">{{ x.h }}</h2>
+          <p style="font-size:18px;line-height:1.7;color:#2b1a1b;text-wrap:pretty">{{ x.p }}</p>
+          <sc-if value="{{ x.hasTable }}" hint-placeholder-val="{{ false }}">
+            <div style="overflow-x:auto;border:1px solid #dcd6d6;border-radius:14px;background:#f0eeee">
+              <div role="table" aria-label="{{ x.h2 }}" style="min-width:480px">
+                <sc-for list="{{ x.rows }}" as="row" hint-placeholder-count="0">
+                  <div role="row" style="display:grid;grid-template-columns:{{ row.cols }};border-bottom:1px solid #dcd6d6;background:{{ row.bg }}">
+                    <sc-for list="{{ row.cells }}" as="c" hint-placeholder-count="0">
+                      <span role="{{ c.role }}" style="padding:12px 16px;font-size:{{ c.size }};font-weight:{{ c.weight }};color:{{ c.color }};font-family:{{ c.font }}">{{ c.t }}</span>
+                    </sc-for>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ x.hasVerdict }}" hint-placeholder-val="{{ false }}">
+            <p style="display:flex;gap:12px;font-size:16.5px;line-height:1.55;font-weight:500"><span style="flex:none;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8c1c22;padding-top:3px">Our advice</span>{{ x.verdict }}</p>
+          </sc-if>
+          <sc-for list="{{ x.products }}" as="p" hint-placeholder-count="0">
+            <div style="display:grid;grid-template-columns:96px minmax(0,1fr) auto;gap:16px;align-items:center;padding:12px;border:1px solid #dcd6d6;border-radius:14px;background:#f0eeee">
+              <a href="{{ p.href }}" style="display:block;aspect-ratio:1;overflow:hidden;border-radius:8px;background:#dad4d4"><img src="{{ p.img }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover"></a>
+              <span style="display:flex;flex-direction:column;gap:3px;min-width:0">
+                <a href="{{ p.href2 }}" style="font-size:16.5px;font-weight:500;line-height:1.2" style-hover="color:#8c1c22">{{ p.name }}</a>
+                <span style="font-size:12.5px;color:#6e6364">{{ p.sub }} · <span style="font-family:'JetBrains Mono',monospace;font-size:11.5px">{{ p.sku }}</span></span>
+                <span style="font-size:14px;font-weight:600;color:{{ p.priceColor }}">{{ p.price }}</span>
+              </span>
+              <button onClick="{{ p.add }}" style="height:40px;padding:0 16px;border-radius:20px;background:{{ p.bg }};color:{{ p.fg }};box-shadow:inset 0 0 0 1px #170a0b;font-size:13px;font-weight:500;white-space:nowrap" style-hover="background:#8c1c22;color:#f7f4f4">{{ p.label }}</button>
+            </div>
+          </sc-for>
+        </section>
+      </sc-for>
+
+      <sc-if value="{{ isGuide }}" hint-placeholder-val="{{ false }}">
+        <section id="picks" style="display:flex;flex-direction:column;gap:18px;scroll-margin-top:100px">
+          <h2 style="font-size:clamp(26px,2.4vw,36px);line-height:1.05;letter-spacing:-.03em;font-weight:500">Picks for each need</h2>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,200px),1fr));gap:12px">
+            <sc-for list="{{ picks }}" as="k" hint-placeholder-count="0">
+              <a href="{{ k.href }}" style="display:flex;flex-direction:column;gap:10px;padding:12px;border:1px solid #dcd6d6;border-radius:14px;background:#f0eeee;transition:border-color .2s" style-hover="border-color:#170a0b">
+                <span style="display:block;aspect-ratio:4/3;overflow:hidden;border-radius:8px;background:#dad4d4"><img src="{{ k.img }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover"></span>
+                <span style="font-size:13px;color:#6e6364">{{ k.need }}</span>
+                <span style="font-size:17px;font-weight:500;letter-spacing:-.015em">{{ k.name }} →</span>
+              </a>
+            </sc-for>
+          </div>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{ hasFaq }}" hint-placeholder-val="{{ false }}">
+        <section id="faq" style="display:flex;flex-direction:column;scroll-margin-top:100px">
+          <h2 style="font-size:clamp(26px,2.4vw,36px);line-height:1.05;letter-spacing:-.03em;font-weight:500;margin-bottom:14px">Questions</h2>
+          <div style="border-top:1px solid #c7bebe">
+            <sc-for list="{{ faq }}" as="f" hint-placeholder-count="0">
+              <div style="border-bottom:1px solid #c7bebe">
+                <button onClick="{{ f.toggle }}" aria-expanded="{{ f.aria }}" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 0;text-align:left;font-size:18px;font-weight:500;letter-spacing:-.01em"><span>{{ f.q }}</span><span style="flex:none;font-size:22px;font-weight:300;transform:rotate({{ f.rot }});transition:transform .4s cubic-bezier(.16,1,.3,1)">+</span></button>
+                <div style="display:grid;grid-template-rows:{{ f.rows }};transition:grid-template-rows .45s cubic-bezier(.16,1,.3,1)"><div style="overflow:hidden"><p style="padding:0 40px 20px 0;font-size:16.5px;line-height:1.65;color:#4a3336">{{ f.a }}</p></div></div>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+      </sc-if>
+
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;padding:22px 24px;border-radius:16px;background:#140607;color:#f7f4f4">
+        <p style="font-size:20px;line-height:1.25;letter-spacing:-.02em;max-width:30ch">See these pieces in person at Grand Mall or Jakros.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <a href="Showrooms.dc.html" style="display:inline-flex;align-items:center;height:44px;padding:0 18px;border-radius:22px;background:#f7f4f4;color:#170a0b;font-size:14px;font-weight:500" style-hover="background:#8c1c22;color:#f7f4f4">Visit a showroom</a>
+          <a href="{{ ctaHref2 }}" style="display:inline-flex;align-items:center;height:44px;padding:0 18px;border-radius:22px;border:1px solid #4a3336;font-size:14px" style-hover="border-color:#f7f4f4">{{ ctaLabel2 }}</a>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <section style="padding:clamp(56px,7vw,100px) clamp(16px,3vw,44px);background:#f0eeee;border-top:1px solid #dcd6d6">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:28px">
+      <h2 data-reveal="" style="font-size:clamp(30px,3vw,48px);line-height:1;letter-spacing:-.035em;font-weight:500">Keep reading</h2>
+      <a href="Inspiration.dc.html" style="font-size:14.5px;border-bottom:1px solid currentColor" style-hover="color:#8c1c22">All inspiration</a>
+    </div>
+    <div data-stagger="" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:36px 20px">
+      <sc-for list="{{ related }}" as="r" hint-placeholder-count="0">
+        <a href="{{ r.href }}" style="display:flex;flex-direction:column;gap:12px" style-hover="color:#8c1c22">
+          <span style="display:block;aspect-ratio:4/3;overflow:hidden;background:#dad4d4"><img src="{{ r.img }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover"></span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#6e6364">{{ r.type }}</span>
+          <span style="font-size:21px;line-height:1.15;letter-spacing:-.02em;font-weight:500">{{ r.title }}</span>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+</main>
+<dc-import name="Footer" hint-size="100%,900px"></dc-import>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { faq: 0, tick: 0, wide: window.innerWidth >= 900 };
+  componentDidMount() {
+    this.w = () => (window.ZEF ? this.ready() : (this.t = setTimeout(this.w, 30)));
+    this.w();
+    this.onList = () => this.setState({ tick: this.state.tick + 1 });
+    window.addEventListener('zef:list', this.onList);
+  }
+  componentWillUnmount() { clearTimeout(this.t); window.removeEventListener('zef:list', this.onList); }
+  ready() {
+    const d = this.doc();
+    const t = `${d.title} | Zefmesh`;
+    document.title = t; [200, 900].forEach((ms) => setTimeout(() => (document.title = t), ms));
+    this.forceUpdate();
+  }
+  barRef = (el) => {
+    if (!el || this.barEl) return;
+    this.barEl = el;
+    if (window.ScrollTimeline && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      try { el.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { timeline: new ScrollTimeline({ source: document.documentElement }), fill: 'both', easing: 'linear' }); } catch (e) {}
+    }
+  };
+  doc() {
+    const Z = window.ZEF;
+    const u = new URLSearchParams(location.search);
+    const g = u.get('g') && Z.GUIDES.find((x) => x.slug === u.get('g'));
+    if (g) return { guide: true, ...g, body: Z.GUIDE_BODY[g.slug] };
+    return { guide: false, ...(Z.ARTICLES.find((x) => x.slug === u.get('a')) || Z.ARTICLES[0]) };
+  }
+  renderVals() {
+    const Z = window.ZEF;
+    const s = this.state;
+    const base = { barRef: this.barRef, tocPos: s.wide ? 'sticky' : 'static' };
+    if (!Z) return { ...base, toc: [], sections: [], picks: [], faq: [], related: [] };
+    const d = this.doc();
+    const prod = (slug) => {
+      const p = Z.product(slug); if (!p) return null;
+      const pr = Z.priceInfo(p); const inList = Z.list.has(slug);
+      return { href: Z.href.product(slug), href2: Z.href.product(slug), img: Z.img(p.img, 240), name: p.name, sub: Z.sub(p.room, p.group, p.sub).name, sku: p.sku, price: pr.now, priceColor: pr.kind === 'request' ? '#6e6364' : '#170a0b', label: inList ? 'In your list' : 'Add to list', bg: inList ? '#170a0b' : 'transparent', fg: inList ? '#f7f4f4' : '#170a0b', add: () => Z.list.add(slug) };
+    };
+    let sections = [], picks = [], faq = [], summary, sumLabel;
+    if (d.guide) {
+      const B = d.body;
+      summary = B.answer; sumLabel = 'Short answer';
+      sections = B.sections.map(([h, p, table, verdict], k) => {
+        const cols = table ? `1.1fr ${'1fr '.repeat(table[0].length - 1)}` : '';
+        return {
+          id: 's' + (k + 1), h, h2: h, p, hasTable: !!table, hasVerdict: !!verdict, verdict, products: [],
+          rows: (table || []).map((row, ri) => ({ cols, bg: ri === 0 ? '#e6e2e2' : 'transparent', cells: row.map((t, ci) => ({ t, role: ri === 0 ? 'columnheader' : ci === 0 ? 'rowheader' : 'cell', size: ri === 0 ? '11px' : '14.5px', weight: ri === 0 || ci === 0 ? '500' : '400', color: ri === 0 ? '#6e6364' : '#170a0b', font: ri === 0 ? "'JetBrains Mono',monospace" : 'inherit' })) })),
+        };
+      });
+      picks = B.picks.map(([need, r, g, sl]) => { const S = Z.sub(r, g, sl); return S ? { need, name: S.name, href: Z.href.sub(r, g, sl), img: Z.img(S.img, 400) } : null; }).filter(Boolean);
+      faq = B.faq;
+    } else {
+      summary = d.sum; sumLabel = 'In short';
+      sections = d.body.map(([h, p, slugs], k) => ({ id: 's' + (k + 1), h, h2: h, p, hasTable: false, hasVerdict: false, rows: [], products: slugs.map(prod).filter(Boolean) }));
+    }
+    const toc = sections.map((x, k) => ({ n: String(k + 1).padStart(2, '0'), label: x.h, href: '#' + x.id }));
+    if (d.guide) toc.push({ n: String(toc.length + 1).padStart(2, '0'), label: 'Picks for each need', href: '#picks' });
+    if (faq.length) toc.push({ n: String(toc.length + 1).padStart(2, '0'), label: 'Questions', href: '#faq' });
+    const room = Z.room(d.room) || Z.ROOMS[0];
+    const related = [...Z.ARTICLES.filter((a) => a.slug !== d.slug).slice(0, 2).map((a) => ({ href: Z.href.article(a.slug), img: Z.img(a.img, 700), type: a.type, title: a.title })),
+      ...Z.GUIDES.filter((g) => g.slug !== d.slug).slice(0, 1).map((g) => ({ href: Z.href.guide(g.slug), img: Z.img(g.img, 700), type: 'Buying guide', title: g.title }))];
+    return {
+      ...base,
+      crumbHref: d.guide ? 'Inspiration.dc.html?type=guides' : 'Inspiration.dc.html', crumbLabel: d.guide ? 'Buying guides' : 'Inspiration',
+      kicker: d.guide ? `Buying guide · ${d.kicker}` : d.type, time: d.time, title: d.title, by: Z.AUTHOR.by, review: Z.AUTHOR.review, date: d.date || 'Updated September 2026',
+      hero: Z.img(d.img, 2000), heroAlt: d.title, summary, sumLabel, sections, toc, isGuide: d.guide, picks, hasFaq: faq.length > 0,
+      faq: faq.map(([q, a], k) => { const on = s.faq === k; return { q, a, aria: on ? 'true' : 'false', rows: on ? '1fr' : '0fr', rot: on ? '45deg' : '0deg', toggle: () => this.setState({ faq: on ? -1 : k }) }; }),
+      ctaHref: Z.href.room(room.slug), ctaLabel: `Shop ${room.name.toLowerCase()}`, ctaHref2: Z.href.room(room.slug), ctaLabel2: `Shop ${room.name.toLowerCase()}`,
+      waShare: 'https://wa.me/?text=' + encodeURIComponent(d.title + ' ' + location.href),
+      related,
+    };
+  }
+}
+
+</script>
+</body>
+</html>

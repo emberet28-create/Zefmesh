@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Furniture Sets &amp; Collections | Zefmesh Furniture, Addis Ababa</title>
+<meta name="description" content="Office, living room, bedroom, dining, kitchen and hotel furniture sets from Zefmesh. Order a fixed set as shown, or build your own set piece by piece.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<script src="zef-data.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#f0eeee;color:#170a0b;font-family:'Instrument Sans',system-ui,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+a:hover{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+img{display:block;max-width:100%}
+h1,h2,h3,h4,p{margin:0}
+@keyframes zefPage{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<dc-import name="Header" page="collections" hint-size="100%,0px"></dc-import>
+<main data-page="" data-screen-label="Collections" style="animation:zefPage .45s cubic-bezier(.16,1,.3,1) both">
+
+  <section style="padding:calc(110px + clamp(24px,4vw,56px)) clamp(16px,3vw,44px) clamp(40px,5vw,72px)">
+    <nav aria-label="Breadcrumb" style="display:flex;gap:8px;font-size:13px;color:#6e6364;margin-bottom:24px"><a href="Home.dc.html" style-hover="color:#8c1c22">Home</a><span>/</span><span style="color:#170a0b">Collections</span></nav>
+    <h1 style="font-size:clamp(60px,11vw,200px);line-height:.82;letter-spacing:-.06em;font-weight:500;margin-left:-.04em">Sets &amp; <span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;letter-spacing:-.03em">collections</span></h1>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:14px;margin-top:clamp(32px,4vw,56px)">
+      <button onClick="{{ pickFixed }}" style="display:flex;flex-direction:column;gap:14px;padding:clamp(20px,2.4vw,32px);border-radius:20px;text-align:left;background:{{ fixedBg }};color:{{ fixedFg }};box-shadow:inset 0 0 0 1px {{ fixedLine }};transition:background .3s,color .3s">
+        <span style="display:flex;justify-content:space-between;align-items:center;gap:12px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.75">Option 1</span><span style="display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:13px;background:{{ fixedTagBg }};font-size:12px;font-weight:500">Pieces locked</span></span>
+        <span style="font-size:clamp(28px,2.8vw,44px);line-height:1;letter-spacing:-.035em;font-weight:500">Fixed sets</span>
+        <span style="font-size:15.5px;line-height:1.55;opacity:.85;max-width:44ch">Matched pieces sold together as shown, such as an executive office or a hotel guest room. Choose how many sets and one finish; the pieces cannot be swapped.</span>
+      </button>
+      <button onClick="{{ pickBuild }}" style="display:flex;flex-direction:column;gap:14px;padding:clamp(20px,2.4vw,32px);border-radius:20px;text-align:left;background:{{ buildBg }};color:{{ buildFg }};box-shadow:inset 0 0 0 1px {{ buildLine }};transition:background .3s,color .3s">
+        <span style="display:flex;justify-content:space-between;align-items:center;gap:12px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.75">Option 2</span><span style="display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:13px;background:{{ buildTagBg }};font-size:12px;font-weight:500">Pick and choose</span></span>
+        <span style="font-size:clamp(28px,2.8vw,44px);line-height:1;letter-spacing:-.035em;font-weight:500">Build your own</span>
+        <span style="font-size:15.5px;line-height:1.55;opacity:.85;max-width:44ch">Start from one main piece, such as a sofa or a bed, then add or skip the rest. Swap models, change quantities and finishes, and send it as one request.</span>
+      </button>
+    </div>
+  </section>
+
+  <section id="sets" style="padding:0 clamp(16px,3vw,44px) clamp(72px,9vw,130px);scroll-margin-top:80px">
+    <div style="position:sticky;top:{{ barTop }};z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:12px 0;margin-bottom:28px;background:#f0eeee;border-bottom:1px solid #dcd6d6">
+      <sc-for list="{{ kinds }}" as="k" hint-placeholder-count="3">
+        <button onClick="{{ k.pick }}" aria-pressed="{{ k.aria }}" style="height:38px;padding:0 16px;border-radius:19px;font-size:14px;background:{{ k.bg }};color:{{ k.fg }};box-shadow:inset 0 0 0 1px {{ k.line }};transition:background .2s,color .2s">{{ k.label }}</button>
+      </sc-for>
+      <span style="width:1px;height:22px;background:#c7bebe;margin:0 6px"></span>
+      <sc-for list="{{ rooms }}" as="r" hint-placeholder-count="6">
+        <button onClick="{{ r.pick }}" aria-pressed="{{ r.aria }}" style="height:34px;padding:0 14px;border-radius:17px;font-size:13.5px;color:{{ r.fg }};background:{{ r.bg }};transition:background .2s,color .2s" style-hover="background:#e6e2e2">{{ r.label }}</button>
+      </sc-for>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,360px),1fr));gap:44px 20px">
+      <sc-for list="{{ sets }}" as="s" hint-placeholder-count="0">
+        <a href="{{ s.href }}" style="display:flex;flex-direction:column;gap:14px">
+          <span data-depth="8" style="position:relative;display:block;aspect-ratio:4/3;overflow:hidden;background:#dad4d4;transform-origin:50% 100%">
+            <img src="{{ s.img }}" alt="{{ s.name }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.16,1,.3,1)" style-hover="transform:scale(1.05)">
+            <span style="position:absolute;top:12px;left:12px;display:inline-flex;align-items:center;height:28px;padding:0 12px;border-radius:14px;background:{{ s.tagBg }};color:{{ s.tagFg }};font-size:12.5px;font-weight:600">{{ s.tag }}</span>
+          </span>
+          <span style="display:flex;justify-content:space-between;gap:12px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#6e6364"><span>{{ s.room }}</span><span>{{ s.price }}</span></span>
+          <span style="font-size:clamp(24px,2vw,32px);line-height:1.05;letter-spacing:-.03em;font-weight:500">{{ s.name2 }}</span>
+          <span style="font-size:15px;line-height:1.55;color:#4a3336">{{ s.blurb }}</span>
+          <span style="font-size:13.5px;line-height:1.5;color:#6e6364">{{ s.includes }}</span>
+          <span style="align-self:flex-start;display:inline-flex;align-items:center;height:42px;padding:0 18px;border-radius:21px;background:#170a0b;color:#f7f4f4;font-size:14px;font-weight:500;transition:background .25s" style-hover="background:#8c1c22">{{ s.cta }}</span>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="padding:clamp(72px,9vw,130px) 0;background:#e6e2e2;overflow:hidden">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;padding:0 clamp(16px,3vw,44px);margin-bottom:clamp(28px,4vw,48px)">
+      <h2 data-reveal="" style="font-size:clamp(40px,5vw,88px);line-height:.92;letter-spacing:-.045em;font-weight:500">Series</h2>
+      <p style="font-size:16px;line-height:1.55;color:#4a3336;max-width:46ch">Each series shares one material or style, so pieces from it work together in any room.</p>
+    </div>
+    <div data-lenis-prevent-wheel="" style="display:grid;grid-auto-flow:column;grid-auto-columns:clamp(260px,26vw,380px);gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 clamp(16px,3vw,44px);padding:0 clamp(16px,3vw,44px) 6px;scrollbar-width:none">
+      <sc-for list="{{ series }}" as="c" hint-placeholder-count="0">
+        <a href="{{ c.href }}" style="position:relative;display:block;aspect-ratio:3/4;overflow:hidden;background:#2a1618;color:#f7f4f4;scroll-snap-align:start">
+          <img src="{{ c.img }}" alt="{{ c.name }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.16,1,.3,1)" style-hover="transform:scale(1.06)">
+          <span style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,6,7,.1) 40%,rgba(20,6,7,.8));pointer-events:none"></span>
+          <span style="position:absolute;left:20px;right:20px;bottom:20px;display:flex;flex-direction:column;gap:8px;pointer-events:none">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#e9a3a7">{{ c.kicker }}</span>
+            <span style="font-size:32px;line-height:1;letter-spacing:-.035em;font-weight:500">{{ c.title }}</span>
+            <span style="font-size:14px;line-height:1.45;color:#e4c9ca">{{ c.blurb }}</span>
+          </span>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <section data-dark="1" style="background:#140607;color:#f7f4f4;padding:clamp(64px,8vw,110px) clamp(16px,3vw,44px);display:flex;flex-wrap:wrap;gap:32px clamp(40px,6vw,100px);align-items:flex-end">
+    <div style="flex:1 1 420px;display:flex;flex-direction:column;gap:18px">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#a29899">Need a set we do not show?</span>
+      <p style="font-size:clamp(28px,3.2vw,52px);line-height:1.02;letter-spacing:-.04em;max-width:22ch">We put together custom sets for offices, hotels and homes, <span style="font-family:'Instrument Serif',serif;font-style:italic;letter-spacing:-.02em">made here or imported.</span></p>
+      <p style="font-size:15.5px;line-height:1.55;color:#c7bebe;max-width:56ch">Most pieces are built in our Addis Ababa workshop. Where a project needs materials or products we cannot source in Ethiopia, we import them for you.</p>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <a href="Quote.dc.html?type=business" style="display:inline-flex;align-items:center;height:52px;padding:0 24px;border-radius:26px;background:#f7f4f4;color:#170a0b;font-size:15px;font-weight:500" style-hover="background:#8c1c22;color:#f7f4f4">Request a custom set →</a>
+      <a href="Custom.dc.html" style="display:inline-flex;align-items:center;height:52px;padding:0 24px;border-radius:26px;border:1px solid #4a3336;font-size:15px" style-hover="border-color:#f7f4f4">Custom &amp; Branded</a>
+    </div>
+  </section>
+</main>
+<dc-import name="Footer" hint-size="100%,900px"></dc-import>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = (() => { const u = new URLSearchParams(location.search); return { kind: ['fixed', 'build'].includes(u.get('kind')) ? u.get('kind') : 'all', room: u.get('room') || '', narrow: window.innerWidth < 760 }; })();
+  componentDidMount() { this.w = () => (window.ZEF ? this.forceUpdate() : (this.t = setTimeout(this.w, 30))); this.w(); }
+  componentWillUnmount() { clearTimeout(this.t); }
+  componentDidUpdate(_, prev) {
+    const p = prev || {};
+    if (p.kind === this.state.kind && p.room === this.state.room) return;
+    const u = new URLSearchParams();
+    if (this.state.kind !== 'all') u.set('kind', this.state.kind);
+    if (this.state.room) u.set('room', this.state.room);
+    history.replaceState(null, '', location.pathname + (u.toString() ? '?' + u : ''));
+  }
+  pick(kind) {
+    this.setState({ kind });
+    const el = document.getElementById('sets'), L = window.__zefLenis;
+    if (el && el.getBoundingClientRect().top > 200) L ? L.scrollTo(el, { offset: -70 }) : window.scrollTo({ top: el.offsetTop - 70, behavior: 'smooth' });
+  }
+  renderVals() {
+    const Z = window.ZEF;
+    const s = this.state;
+    const card = (on) => ({ bg: on ? '#170a0b' : '#f7f4f4', fg: on ? '#f7f4f4' : '#170a0b', line: on ? '#170a0b' : '#dcd6d6', tag: on ? 'rgba(247,244,244,.16)' : '#e6e2e2' });
+    const f = card(s.kind === 'fixed'), b = card(s.kind === 'build');
+    const base = {
+      barTop: s.narrow ? '64px' : '72px',
+      pickFixed: () => this.pick(s.kind === 'fixed' ? 'all' : 'fixed'), pickBuild: () => this.pick(s.kind === 'build' ? 'all' : 'build'),
+      fixedBg: f.bg, fixedFg: f.fg, fixedLine: f.line, fixedTagBg: f.tag, buildBg: b.bg, buildFg: b.fg, buildLine: b.line, buildTagBg: b.tag,
+      kinds: [['all', 'All sets'], ['fixed', 'Fixed sets'], ['build', 'Build your own']].map(([k, label]) => { const on = s.kind === k; return { label, aria: on ? 'true' : 'false', bg: on ? '#170a0b' : 'transparent', fg: on ? '#f7f4f4' : '#170a0b', line: on ? '#170a0b' : '#c7bebe', pick: () => this.setState({ kind: k }) }; }),
+    };
+    if (!Z) return { ...base, rooms: [], sets: [], series: [] };
+    const roomKeys = [...new Set(Z.SETS.map((x) => x.room))];
+    const rooms = [{ slug: '', name: 'All rooms' }, ...Z.ROOMS.filter((r) => roomKeys.includes(r.slug))].map((r) => { const on = s.room === r.slug; return { label: r.name, aria: on ? 'true' : 'false', bg: on ? '#e6e2e2' : 'transparent', fg: on ? '#8c1c22' : '#4a3336', pick: () => this.setState({ room: r.slug }) }; });
+    const sets = Z.SETS.filter((x) => (s.kind === 'all' || x.kind === s.kind) && (!s.room || x.room === s.room)).map((x) => {
+      const fixed = x.kind === 'fixed';
+      let price = 'Choose your pieces';
+      if (fixed) {
+        const ps = x.items.map(([sl, q]) => [Z.product(sl), q]);
+        price = ps.every(([p]) => p.show) ? Z.fmt(ps.reduce((a, [p, q]) => a + p.now * q, 0)) + ' per set' : 'Price on request';
+      }
+      const includes = fixed
+        ? 'Includes ' + x.items.map(([sl, q]) => (q > 1 ? `${q} × ` : '') + Z.product(sl).name).join(', ')
+        : 'Choose ' + x.slots.map(([label, req]) => label.toLowerCase() + (req ? '' : ' (optional)')).join(', ');
+      return {
+        href: Z.href.set(x.slug), img: Z.img(x.img, 900), name: x.name, name2: x.name, blurb: x.blurb, includes, price, room: Z.room(x.room).name,
+        tag: fixed ? 'Fixed set' : 'Build your own', tagBg: fixed ? '#170a0b' : '#f7f4f4', tagFg: fixed ? '#f7f4f4' : '#170a0b', cta: fixed ? 'See the set →' : 'Start building →',
+      };
+    });
+    const series = Z.COLLECTIONS.map((c) => ({ ...c, title: c.name, img: Z.img(c.img, 700), href: Z.href.series(c.slug) }));
+    return { ...base, rooms, sets, series };
+  }
+}
+
+</script>
+</body>
+</html>

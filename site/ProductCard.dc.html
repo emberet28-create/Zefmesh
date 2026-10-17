@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script src="zef-data.js"></script>
+</helmet>
+<div onMouseEnter="{{ enter }}" onMouseLeave="{{ leave }}" style="display:flex;flex-direction:column;gap:14px;min-width:0;width:100%;color:{{ ink }}">
+  <div style="position:relative">
+    <a href="{{ href }}" aria-label="{{ name }}" style="position:relative;display:block;aspect-ratio:{{ ratio }};overflow:hidden;background:{{ well }}">
+      <img src="{{ img }}" alt="{{ name }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale({{ imgScale }});transition:transform 1.2s cubic-bezier(.16,1,.3,1)">
+      <img src="{{ alt }}" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;clip-path:{{ altClip }};transform:scale({{ altScale }});transition:clip-path .8s cubic-bezier(.87,0,.13,1),transform 1.2s cubic-bezier(.16,1,.3,1)">
+      <span style="position:absolute;top:12px;left:12px;display:flex;flex-wrap:wrap;gap:6px">
+        <sc-for list="{{ badges }}" as="b" hint-placeholder-count="0">
+          <span style="display:inline-flex;align-items:center;height:24px;padding:0 9px;border-radius:12px;font-size:11.5px;font-weight:600;letter-spacing:.02em;background:{{ b.bg }};color:{{ b.fg }}">{{ b.label }}</span>
+        </sc-for>
+      </span>
+    </a>
+    <button onClick="{{ add }}" aria-label="{{ addAria }}" style="position:absolute;left:12px;right:12px;bottom:12px;display:flex;align-items:center;justify-content:center;gap:8px;height:46px;border-radius:23px;background:{{ btnBg }};color:{{ btnFg }};font-size:14px;font-weight:500;opacity:{{ btnOp }};transform:translateY({{ btnY }});transition:opacity .4s cubic-bezier(.16,1,.3,1),transform .5s cubic-bezier(.16,1,.3,1),background .25s,color .25s" style-hover="background:#8c1c22;color:#f7f4f4">{{ btnLabel }}</button>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:4px">
+    <a href="{{ href }}" style="font-size:{{ nameSize }};font-weight:500;letter-spacing:-.015em;line-height:1.2;color:{{ nameColor }};transition:color .25s">{{ name }}</a>
+    <span style="font-size:13px;color:{{ muted }}">{{ subName }} · <span style="font-family:'JetBrains Mono',monospace;font-size:11.5px">{{ sku }}</span> · {{ origin }}</span>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:4px">
+      <span style="font-size:14.5px;color:{{ priceColor }}">
+        <b style="font-weight:600">{{ now }}</b>
+        <sc-if value="{{ hasWas }}" hint-placeholder-val="{{ false }}"><s style="margin-left:6px;color:{{ muted }};font-weight:400">{{ was }}</s></sc-if>
+      </span>
+      <span style="display:flex;gap:4px">
+        <sc-for list="{{ dots }}" as="d" hint-placeholder-count="2">
+          <span title="{{ d.name }}" style="width:12px;height:12px;border-radius:50%;background:{{ d.hex }};box-shadow:inset 0 0 0 1px rgba(23,10,11,.15)"></span>
+        </sc-for>
+      </span>
+    </div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 320, &quot;height&quot;: 520}, &quot;p&quot;: {&quot;editor&quot;: null, &quot;tsType&quot;: &quot;object&quot;}, &quot;variant&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;light&quot;, &quot;dark&quot;], &quot;default&quot;: &quot;light&quot;, &quot;tsType&quot;: &quot;string&quot;}, &quot;size&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;md&quot;, &quot;lg&quot;], &quot;default&quot;: &quot;md&quot;, &quot;tsType&quot;: &quot;string&quot;}, &quot;ratio&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;4/5&quot;, &quot;tsType&quot;: &quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { hover: false, has: false, touch: typeof matchMedia !== 'undefined' && matchMedia('(hover: none)').matches };
+  componentDidMount() {
+    this.sync = () => { const Z = window.ZEF; const p = this.props.p; if (Z && p) this.setState({ has: Z.list.has(p.slug) }); };
+    this.wait = () => (window.ZEF ? (this.sync(), this.forceUpdate()) : (this.t = setTimeout(this.wait, 40)));
+    this.wait();
+    window.addEventListener('zef:list', this.sync);
+  }
+  componentWillUnmount() { clearTimeout(this.t); window.removeEventListener('zef:list', this.sync); }
+  renderVals() {
+    const Z = window.ZEF;
+    const p = this.props.p;
+    const dark = this.props.variant === 'dark';
+    const s = this.state;
+    const show = s.hover || s.touch || s.has;
+    const base = {
+      ink: dark ? '#f7f4f4' : '#170a0b', muted: dark ? '#c7bebe' : '#6e6364', well: dark ? '#2a1618' : '#dad4d4',
+      ratio: this.props.ratio || '4/5', nameSize: this.props.size === 'lg' ? '22px' : '18px',
+      enter: () => this.setState({ hover: true }), leave: () => this.setState({ hover: false }),
+    };
+    if (!Z || !p) return { ...base, href: '#', name: '', img: '', alt: '', badges: [], dots: [], now: '', hasWas: false };
+    const pr = Z.priceInfo(p);
+    const badges = [];
+    if (pr.kind === 'sale') badges.push({ label: pr.label, bg: '#8c1c22', fg: '#f7f4f4' });
+    if (p.tags.includes('new')) badges.push({ label: 'New', bg: '#f7f4f4', fg: '#170a0b' });
+    else if (p.tags.includes('bestseller')) badges.push({ label: 'Bestseller', bg: '#170a0b', fg: '#f7f4f4' });
+    const sub = Z.sub(p.room, p.group, p.sub);
+    return {
+      ...base,
+      href: Z.href.product(p.slug), name: p.name, sku: p.sku, subName: sub ? sub.name : '', origin: Z.ORIGIN[p.origin].short,
+      img: Z.img(p.img, 700), alt: Z.img(p.alt[0] || p.img, 700),
+      imgScale: s.hover ? 1.06 : 1, altClip: s.hover ? 'inset(0 0 0 0)' : 'inset(100% 0 0 0)', altScale: s.hover ? 1 : 1.15,
+      badges, now: pr.now, was: pr.was, hasWas: !!pr.was, priceColor: pr.kind === 'request' ? (dark ? '#c7bebe' : '#4a3336') : base.ink,
+      nameColor: s.hover ? (dark ? '#e9a3a7' : '#8c1c22') : base.ink,
+      dots: p.finishes.slice(0, 4).map((k) => ({ name: Z.FINISHES[k][0], hex: Z.FINISHES[k][1] })),
+      btnOp: show ? 1 : 0, btnY: show ? '0px' : '14px', btnBg: s.has ? '#170a0b' : '#f7f4f4', btnFg: s.has ? '#f7f4f4' : '#170a0b',
+      btnLabel: s.has ? 'In your list · add another' : 'Add to quote list', addAria: `Add ${p.name} to quote list`,
+      add: (e) => { e.preventDefault(); Z.list.add(p.slug); },
+    };
+  }
+}
+
+</script>
+</body>
+</html>

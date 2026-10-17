@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>About Zefmesh Furniture: Furniture Maker in Addis Ababa</title>
+<meta name="description" content="Zefmesh Furniture is a furniture manufacturer in Addis Ababa, Ethiopia. It makes office, home and hotel furniture in its own workshop and sells through showrooms at Grand Mall, Megenagna and at Jakros.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<script src="zef-data.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#f0eeee;color:#170a0b;font-family:'Instrument Sans',system-ui,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+a:hover{color:inherit}
+img{display:block;max-width:100%}
+h1,h2,h3,h4,p{margin:0}
+dl,dd{margin:0}
+@keyframes zefPage{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<dc-import name="Header" page="about" hint-size="100%,0px"></dc-import>
+<main data-page="" data-screen-label="About" style="animation:zefPage .45s cubic-bezier(.16,1,.3,1) both">
+
+  <section data-dark="1" style="position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;background:#140607;color:#f7f4f4;overflow:hidden">
+    <div data-parallax="0.08" style="position:absolute;inset:0;overflow:hidden"><img src="https://images.unsplash.com/photo-1702865071803-cb154cd45f48?auto=format&amp;fit=crop&amp;w=2000&amp;q=72" alt="A craftsman at work in the Zefmesh workshop" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.62"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,6,7,.55),rgba(20,6,7,.1) 40%,rgba(20,6,7,.85))"></div>
+    <div style="position:relative;padding:0 clamp(16px,3vw,44px) clamp(36px,5vw,64px);display:flex;flex-direction:column;gap:28px">
+      <nav aria-label="Breadcrumb" style="display:flex;gap:8px;font-size:13px;color:#e4c9ca"><a href="Home.dc.html" style-hover="color:#f7f4f4">Home</a><span>/</span><span style="color:#f7f4f4">About</span></nav>
+      <h1 style="font-size:clamp(56px,10vw,184px);line-height:.84;letter-spacing:-.06em;font-weight:500;max-width:10ch">About <span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;letter-spacing:-.025em">Zefmesh</span></h1>
+      <p style="font-size:clamp(19px,1.8vw,26px);line-height:1.35;letter-spacing:-.015em;max-width:44ch;color:#ece2e2;text-wrap:pretty">Zefmesh Furniture is a furniture manufacturer in Addis Ababa, Ethiopia. It makes office, home and hotel furniture in its own workshop and sells through showrooms at Grand Mall, Megenagna and at Jakros.</p>
+    </div>
+  </section>
+
+  <section style="padding:clamp(72px,9vw,130px) clamp(16px,3vw,44px);display:flex;flex-wrap:wrap;gap:40px clamp(40px,6vw,110px)">
+    <div style="flex:1 1 300px;display:flex;flex-direction:column;gap:16px">
+      <span style="display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364"><span style="width:7px;height:7px;border-radius:50%;background:#8c1c22"></span>The facts</span>
+      <h2 data-reveal="" style="font-size:clamp(36px,4vw,64px);line-height:.95;letter-spacing:-.04em;font-weight:500;max-width:12ch">What we make and where</h2>
+    </div>
+    <dl data-stagger="" style="flex:2 1 560px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:0 32px;border-top:1px solid #170a0b">
+      <div style="display:flex;flex-direction:column;gap:6px;padding:20px 0;border-bottom:1px solid #c7bebe"><dt style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364">What we make</dt><dd style="font-size:18px;line-height:1.45">Office seating, desks and conference tables; sofas, beds, dining and storage; contract furniture for hotels and restaurants.</dd></div>
+      <div style="display:flex;flex-direction:column;gap:6px;padding:20px 0;border-bottom:1px solid #c7bebe"><dt style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364">Where it is made</dt><dd style="font-size:18px;line-height:1.45">Most pieces, from kitchens and beds to sofas and desks, are made in our own workshop in Kality, Addis Ababa.</dd></div>
+      <div style="display:flex;flex-direction:column;gap:6px;padding:20px 0;border-bottom:1px solid #c7bebe"><dt style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364">What we import</dt><dd style="font-size:18px;line-height:1.45">Pieces that need materials or mechanisms we cannot source in Ethiopia, such as some mesh office chairs and lighting, come from partner manufacturers abroad. The same quality checks apply.</dd></div>
+      <div style="display:flex;flex-direction:column;gap:6px;padding:20px 0;border-bottom:1px solid #c7bebe"><dt style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364">Import on request</dt><dd style="font-size:18px;line-height:1.45">For business projects we can import specific products or materials that a client asks for.</dd></div>
+      <div style="display:flex;flex-direction:column;gap:6px;padding:20px 0;border-bottom:1px solid #c7bebe"><dt style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364">Where to see it</dt><dd style="font-size:18px;line-height:1.45"><a href="Showroom.dc.html?s=grand-mall" style="border-bottom:1px solid currentColor">Grand Mall, Megenagna</a> and <a href="Showroom.dc.html?s=jakros" style="border-bottom:1px solid currentColor">the EBM building at Jakros</a>.</dd></div>
+      <div style="display:flex;flex-direction:column;gap:6px;padding:20px 0;border-bottom:1px solid #c7bebe"><dt style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364">Where we deliver</dt><dd style="font-size:18px;line-height:1.45">Across Addis Ababa, and to regional cities by arrangement, with assembly by our own team.</dd></div>
+      <div style="display:flex;flex-direction:column;gap:6px;padding:20px 0;border-bottom:1px solid #c7bebe"><dt style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364">Who we work with</dt><dd style="font-size:18px;line-height:1.45">Families furnishing a home, and offices, banks, hotels, schools and government buyers.</dd></div>
+      <div style="display:flex;flex-direction:column;gap:6px;padding:20px 0;border-bottom:1px solid #c7bebe"><dt style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364">Company</dt><dd style="font-size:18px;line-height:1.45">Zefmesh PLC, Addis Ababa. VAT invoices on every order.</dd></div>
+    </dl>
+  </section>
+
+  <section id="workshop" style="padding:clamp(72px,9vw,130px) 0;background:#e6e2e2;scroll-margin-top:60px">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;padding:0 clamp(16px,3vw,44px);margin-bottom:clamp(28px,4vw,48px)">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <span style="display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364"><span style="width:7px;height:7px;border-radius:50%;background:#8c1c22"></span>Our workshop</span>
+        <h2 data-reveal="" style="font-size:clamp(40px,5vw,88px);line-height:.92;letter-spacing:-.045em;font-weight:500">How a piece <span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;letter-spacing:-.02em">is made</span></h2>
+      </div>
+      <p style="font-size:16px;line-height:1.55;color:#4a3336;max-width:44ch">Making everything under one roof is what lets us change a size, add a logo or repair a piece without waiting on anyone else.</p>
+    </div>
+    <div data-drift="14" style="display:flex;gap:18px;padding:0 clamp(16px,3vw,44px);width:max-content">
+      <sc-for list="{{ steps }}" as="st" hint-placeholder-count="0">
+        <div style="flex:none;width:clamp(260px,26vw,380px);display:flex;flex-direction:column;gap:14px">
+          <span style="display:block;aspect-ratio:4/5;overflow:hidden;background:#dad4d4"><img src="{{ st.img }}" alt="{{ st.alt }}" loading="lazy" style="width:100%;height:100%;object-fit:cover"></span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#8c1c22">{{ st.n }}</span>
+          <span style="font-size:22px;letter-spacing:-.025em;font-weight:500">{{ st.h }}</span>
+          <span style="font-size:15px;line-height:1.55;color:#4a3336">{{ st.p }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="padding:clamp(72px,9vw,130px) clamp(16px,3vw,44px)">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:32px">
+      <h2 data-reveal="" style="font-size:clamp(36px,4vw,64px);line-height:.95;letter-spacing:-.04em;font-weight:500">Who you will deal with</h2>
+      <a href="Contact.dc.html" style="font-size:14.5px;border-bottom:1px solid currentColor" style-hover="color:#8c1c22">Contact the team</a>
+    </div>
+    <div data-stagger="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:20px">
+      <div style="display:flex;flex-direction:column;gap:10px;padding:22px;border-radius:16px;background:#f7f4f4;border:1px solid #dcd6d6"><span style="font-size:20px;font-weight:500;letter-spacing:-.02em">Showroom consultants</span><span style="font-size:15px;line-height:1.55;color:#4a3336">Answer your quote, help you choose finishes and arrange delivery or pick-up.</span></div>
+      <div style="display:flex;flex-direction:column;gap:10px;padding:22px;border-radius:16px;background:#f7f4f4;border:1px solid #dcd6d6"><span style="font-size:20px;font-weight:500;letter-spacing:-.02em">Project managers</span><span style="font-size:15px;line-height:1.55;color:#4a3336">Run business orders from floor plan to installation, including tenders and branding.</span></div>
+      <div style="display:flex;flex-direction:column;gap:10px;padding:22px;border-radius:16px;background:#f7f4f4;border:1px solid #dcd6d6"><span style="font-size:20px;font-weight:500;letter-spacing:-.02em">Production team</span><span style="font-size:15px;line-height:1.55;color:#4a3336">Build every frame, sew every cover and review the buying guides on this site.</span></div>
+      <div style="display:flex;flex-direction:column;gap:10px;padding:22px;border-radius:16px;background:#f7f4f4;border:1px solid #dcd6d6"><span style="font-size:20px;font-weight:500;letter-spacing:-.02em">After-sales</span><span style="font-size:15px;line-height:1.55;color:#4a3336">Handle repairs and adjustments once your furniture is in place.</span></div>
+    </div>
+  </section>
+
+  <section data-dark="1" style="background:#4a0b0f;color:#f7f4f4;padding:clamp(64px,8vw,110px) clamp(16px,3vw,44px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:28px">
+    <p style="font-size:clamp(30px,3.6vw,60px);line-height:1;letter-spacing:-.04em;max-width:18ch">Come and see the work <span style="font-family:'Instrument Serif',serif;font-style:italic;letter-spacing:-.02em">in person.</span></p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <a href="Showrooms.dc.html" style="display:inline-flex;align-items:center;height:52px;padding:0 24px;border-radius:26px;background:#f7f4f4;color:#170a0b;font-size:15px;font-weight:500" style-hover="background:#140607;color:#f7f4f4">Visit a showroom →</a>
+      <a href="Products.dc.html" style="display:inline-flex;align-items:center;height:52px;padding:0 24px;border-radius:26px;border:1px solid rgba(247,244,244,.45);font-size:15px" style-hover="border-color:#f7f4f4">Browse products</a>
+    </div>
+  </section>
+</main>
+<dc-import name="Footer" hint-size="100%,900px"></dc-import>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const STEPS = [
+  ['Design and drawing', 'Every piece starts as a drawing with sizes, materials and joints, so custom changes are checked before any wood is cut.', '1497366811353-6870744d04b2'],
+  ['Cutting and joining', 'Kiln-dried wanza is cut and joined with glued mortise-and-tenon or dowel joints, not staples.', '1611486212557-88be5ff6f941'],
+  ['Upholstery', 'Foam, springs and covers are fitted by hand. Most sofa covers are made to zip off.', '1618220179428-22790b461013'],
+  ['Finishing', 'Wood is sanded and oiled or lacquered; logos are embroidered, debossed or engraved at this stage.', '1702865071803-cb154cd45f48'],
+  ['Checking', 'Each piece is checked against its drawing before it is wrapped for delivery.', '1592078615290-033ee584e267'],
+  ['Delivery and assembly', 'Our own team delivers, assembles and places each piece, and takes the packaging away.', '1600508773950-d522f5bb7606'],
+];
+class Component extends DCLogic {
+  componentDidMount() { this.w = () => (window.ZEF ? this.forceUpdate() : (this.t = setTimeout(this.w, 30))); this.w(); }
+  componentWillUnmount() { clearTimeout(this.t); }
+  renderVals() {
+    const Z = window.ZEF;
+    return { steps: Z ? STEPS.map(([h, p, img], k) => ({ h, p, alt: h, img: Z.img(img, 700), n: String(k + 1).padStart(2, '0') })) : [] };
+  }
+}
+
+</script>
+</body>
+</html>

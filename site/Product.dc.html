@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Zefmesh Furniture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<script src="zef-data.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#f0eeee;color:#170a0b;font-family:'Instrument Sans',system-ui,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+a:hover{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+img{display:block;max-width:100%}
+h1,h2,h3,h4,p{margin:0}
+@keyframes zefPage{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<dc-import name="Header" page="product" hint-size="100%,0px"></dc-import>
+<main data-page="" data-screen-label="Product" style="animation:zefPage .45s cubic-bezier(.16,1,.3,1) both">
+
+  <section style="padding:calc(110px + 18px) clamp(16px,3vw,44px) clamp(56px,7vw,100px)">
+    <nav aria-label="Breadcrumb" style="display:flex;flex-wrap:wrap;gap:8px;font-size:13px;color:#6e6364;margin-bottom:22px">
+      <a href="Home.dc.html" style-hover="color:#8c1c22">Home</a><span>/</span><a href="{{ roomHref }}" style-hover="color:#8c1c22">{{ roomName }}</a><span>/</span><a href="{{ groupHref }}" style-hover="color:#8c1c22">{{ groupName }}</a><span>/</span><a href="{{ subHref }}" style-hover="color:#8c1c22">{{ subName }}</a>
+    </nav>
+    <div style="display:flex;flex-wrap:wrap;gap:32px clamp(24px,3vw,56px);align-items:flex-start">
+      <div style="flex:1.45 1 430px;min-width:0;display:flex;flex-direction:column;gap:10px">
+        <div onMouseMove="{{ zoomMove }}" onMouseLeave="{{ zoomOut }}" style="position:relative;aspect-ratio:5/4;overflow:hidden;background:#dad4d4;cursor:zoom-in">
+          <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="0">
+            <img src="{{ g.src }}" loading="lazy" alt="{{ g.alt }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:{{ g.op }};transform:scale({{ g.scale }});transform-origin:{{ origin }};transition:opacity .45s,transform .6s cubic-bezier(.16,1,.3,1)">
+          </sc-for>
+          <div style="position:absolute;left:14px;bottom:14px;display:flex;gap:6px;align-items:center">
+            <button onClick="{{ prev }}" aria-label="Previous photo" style="width:42px;height:42px;border-radius:50%;background:rgba(247,244,244,.92);font-size:16px" style-hover="background:#170a0b;color:#f7f4f4">←</button>
+            <button onClick="{{ next }}" aria-label="Next photo" style="width:42px;height:42px;border-radius:50%;background:rgba(247,244,244,.92);font-size:16px" style-hover="background:#170a0b;color:#f7f4f4">→</button>
+            <span style="margin-left:6px;padding:6px 10px;border-radius:14px;background:rgba(20,6,7,.6);color:#f7f4f4;font-family:'JetBrains Mono',monospace;font-size:11px">{{ pos }}</span>
+          </div>
+          <sc-if value="{{ hasBadge }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:14px;left:14px;display:inline-flex;align-items:center;height:28px;padding:0 12px;border-radius:14px;background:#8c1c22;color:#f7f4f4;font-size:12.5px;font-weight:600">{{ badge }}</span></sc-if>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px">
+          <sc-for list="{{ thumbs }}" as="t" hint-placeholder-count="0">
+            <button onClick="{{ t.pick }}" aria-label="{{ t.aria }}" style="position:relative;aspect-ratio:1;overflow:hidden;background:#dad4d4;opacity:{{ t.op }};box-shadow:{{ t.ring }};transition:opacity .25s" style-hover="opacity:1"><img src="{{ t.src }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover"></button>
+          </sc-for>
+        </div>
+      </div>
+
+      <aside style="flex:1 1 320px;max-width:560px;position:sticky;top:96px;display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <a href="{{ subHref }}" style="align-self:flex-start;font-size:13.5px;color:#8c1c22;border-bottom:1px solid currentColor">{{ subName2 }}</a>
+          <h1 style="font-size:clamp(34px,3.4vw,56px);line-height:.98;letter-spacing:-.04em;font-weight:500;text-wrap:balance">{{ name }}</h1>
+          <span style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#6e6364"><span>Item ID {{ sku }}</span><span style="display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:12px;background:{{ originBg }};color:{{ originFg }};font-size:11px;letter-spacing:.04em">{{ originLabel }}</span></span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;padding:18px 0;border-top:1px solid #c7bebe;border-bottom:1px solid #c7bebe">
+          <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
+            <span style="font-size:clamp(26px,2.2vw,34px);letter-spacing:-.03em;font-weight:500">{{ now }}</span>
+            <sc-if value="{{ hasWas }}" hint-placeholder-val="{{ false }}"><s style="font-size:17px;color:#8e8485">{{ was }}</s></sc-if>
+          </div>
+          <span style="font-size:14px;color:#4a3336;line-height:1.5">{{ priceNote }}</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:14px"><span style="color:#6e6364">Finish</span> · {{ finishName }}</span>
+          <div style="display:flex;flex-wrap:wrap;gap:10px">
+            <sc-for list="{{ finishes }}" as="f" hint-placeholder-count="2">
+              <button onClick="{{ f.pick }}" title="{{ f.name }}" aria-pressed="{{ f.aria }}" style="width:40px;height:40px;border-radius:50%;background:{{ f.hex }};box-shadow:{{ f.ring }};transition:box-shadow .2s"></button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;border:1px solid #c7bebe;border-radius:28px;height:56px">
+            <button onClick="{{ dec }}" aria-label="Fewer" style="width:48px;height:54px;font-size:18px">−</button>
+            <span style="min-width:30px;text-align:center;font-size:16px;font-variant-numeric:tabular-nums">{{ qty }}</span>
+            <button onClick="{{ inc }}" aria-label="More" style="width:48px;height:54px;font-size:18px">+</button>
+          </div>
+          <button onClick="{{ add }}" style="flex:1;min-width:200px;display:inline-flex;align-items:center;justify-content:center;gap:10px;height:56px;padding:0 24px;border-radius:28px;background:{{ addBg }};color:#f7f4f4;font-size:15.5px;font-weight:500;transition:background .3s" style-hover="background:#8c1c22">{{ addLabel }}</button>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:-10px">
+          <button onClick="{{ quoteNow }}" style="flex:1;min-width:180px;height:50px;border-radius:25px;box-shadow:inset 0 0 0 1px #170a0b;font-size:14.5px;font-weight:500;transition:background .25s,color .25s" style-hover="background:#170a0b;color:#f7f4f4">Request a quote now</button>
+          <a href="{{ waHref }}" target="_blank" rel="noreferrer" style="flex:1;min-width:180px;display:inline-flex;align-items:center;justify-content:center;gap:8px;height:50px;border-radius:25px;box-shadow:inset 0 0 0 1px #c7bebe;font-size:14.5px;transition:box-shadow .25s" style-hover="box-shadow:inset 0 0 0 1px #1f6f45;color:#1f6f45"><span style="width:7px;height:7px;border-radius:50%;background:#3ccf7d"></span>WhatsApp about this piece</a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;padding:16px 18px;border-radius:14px;background:#e6e2e2;font-size:14.5px">
+          <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><span style="display:flex;align-items:center;gap:8px"><span style="width:8px;height:8px;border-radius:50%;background:{{ stockDot }}"></span>{{ stock }}</span><span style="color:#4a3336">Ready in {{ lead }}</span></div>
+          <sc-for list="{{ display }}" as="d" hint-placeholder-count="1">
+            <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:10px;border-top:1px solid #c7bebe"><span>On display at {{ d.name }}</span><a href="{{ d.map }}" target="_blank" rel="noreferrer" style="border-bottom:1px solid currentColor" style-hover="color:#8c1c22">Directions ↗</a></div>
+          </sc-for>
+        </div>
+        <p style="font-size:13.5px;line-height:1.5;color:#6e6364">No payment online. Send your list and we reply within one working day with the price, a delivery or pick-up date, or a time to see it at a showroom.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section style="padding:clamp(56px,7vw,100px) clamp(16px,3vw,44px);background:#f7f4f4;border-top:1px solid #dcd6d6;display:flex;flex-wrap:wrap;gap:40px clamp(40px,6vw,100px)">
+    <div style="flex:1 1 380px">
+      <h2 data-reveal="" style="font-size:clamp(30px,3vw,48px);line-height:1;letter-spacing:-.035em;font-weight:500;margin-bottom:24px">Specifications</h2>
+      <div role="table" aria-label="Specifications" style="display:flex;flex-direction:column;font-size:15px;border-top:1px solid #170a0b">
+        <sc-for list="{{ specs }}" as="r" hint-placeholder-count="6">
+          <div role="row" style="display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:16px;padding:13px 0;border-bottom:1px solid #dcd6d6">
+            <span role="rowheader" style="color:#6e6364">{{ r.k }}</span><span role="cell">{{ r.v }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="flex:1.2 1 440px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:32px 28px;align-content:start">
+      <sc-for list="{{ about }}" as="a" hint-placeholder-count="3">
+        <div style="display:flex;flex-direction:column;gap:10px;padding-top:16px;border-top:1px solid #170a0b">
+          <h3 style="font-size:19px;font-weight:500;letter-spacing:-.015em">{{ a.h }}</h3>
+          <p style="font-size:15px;line-height:1.6;color:#4a3336">{{ a.t }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section data-dark="1" style="background:#4a0b0f;color:#f7f4f4;padding:clamp(48px,6vw,80px) clamp(16px,3vw,44px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px">
+    <p style="font-size:clamp(26px,2.8vw,44px);line-height:1.05;letter-spacing:-.035em;max-width:22ch">Need 10 or more, or your logo on it? <span style="font-family:'Instrument Serif',serif;font-style:italic;letter-spacing:-.02em">We make both.</span></p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <a href="Quote.dc.html?type=business" style="display:inline-flex;align-items:center;height:50px;padding:0 22px;border-radius:25px;background:#f7f4f4;color:#170a0b;font-size:14.5px;font-weight:500" style-hover="background:#140607;color:#f7f4f4">Project quote →</a>
+      <a href="Custom.dc.html" style="display:inline-flex;align-items:center;height:50px;padding:0 22px;border-radius:25px;border:1px solid rgba(247,244,244,.4);font-size:14.5px" style-hover="border-color:#f7f4f4">Custom &amp; Branded</a>
+    </div>
+  </section>
+
+  <section style="padding:clamp(64px,8vw,110px) clamp(16px,3vw,44px) 0">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:28px">
+      <h2 data-reveal="" style="font-size:clamp(30px,3vw,48px);line-height:1;letter-spacing:-.035em;font-weight:500">Completes the set</h2>
+      <a href="{{ roomHref }}" style="font-size:14.5px;border-bottom:1px solid currentColor" style-hover="color:#8c1c22">More {{ lowerRoom }}</a>
+    </div>
+    <div data-stagger="" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr));gap:32px 18px">
+      <sc-for list="{{ set }}" as="p" hint-placeholder-count="0">
+        <div><dc-import name="ProductCard" p="{{ p }}" hint-size="100%,420px"></dc-import></div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="padding:clamp(56px,7vw,100px) clamp(16px,3vw,44px) 0">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:28px">
+      <h2 data-reveal="" style="font-size:clamp(30px,3vw,48px);line-height:1;letter-spacing:-.035em;font-weight:500">More {{ lowerSub }}</h2>
+      <a href="{{ subHref }}" style="font-size:14.5px;border-bottom:1px solid currentColor" style-hover="color:#8c1c22">See all</a>
+    </div>
+    <div data-stagger="" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr));gap:32px 18px">
+      <sc-for list="{{ related }}" as="p" hint-placeholder-count="0">
+        <div><dc-import name="ProductCard" p="{{ p }}" hint-size="100%,420px"></dc-import></div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="padding:clamp(56px,7vw,100px) clamp(16px,3vw,44px) clamp(72px,9vw,130px);display:flex;flex-wrap:wrap;gap:40px clamp(40px,6vw,100px)">
+    <sc-if value="{{ hasProjects }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:1 1 340px;display:flex;flex-direction:column;gap:16px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364">Used in projects</span>
+        <sc-for list="{{ projects }}" as="x" hint-placeholder-count="0">
+          <a href="{{ x.href }}" style="display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;align-items:center" style-hover="color:#8c1c22">
+            <span style="display:block;aspect-ratio:4/3;overflow:hidden;background:#dad4d4"><img src="{{ x.img }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover"></span>
+            <span style="display:flex;flex-direction:column;gap:4px"><span style="font-size:17px;font-weight:500;line-height:1.2">{{ x.title }}</span><span style="font-size:13px;color:#6e6364">{{ x.client }} · {{ x.city }}</span></span>
+          </a>
+        </sc-for>
+      </div>
+    </sc-if>
+    <div style="flex:1.5 1 460px;border-top:1px solid #c7bebe">
+      <sc-for list="{{ faq }}" as="f" hint-placeholder-count="4">
+        <div style="border-bottom:1px solid #c7bebe">
+          <button onClick="{{ f.toggle }}" aria-expanded="{{ f.aria }}" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0;text-align:left;font-size:clamp(17px,1.5vw,21px);letter-spacing:-.015em;font-weight:500">
+            <span>{{ f.q }}</span><span style="flex:none;font-size:22px;font-weight:300;transform:rotate({{ f.rot }});transition:transform .4s cubic-bezier(.16,1,.3,1)">+</span>
+          </button>
+          <div style="display:grid;grid-template-rows:{{ f.rows }};transition:grid-template-rows .45s cubic-bezier(.16,1,.3,1)"><div style="overflow:hidden"><p style="padding:0 40px 22px 0;font-size:16px;line-height:1.6;color:#4a3336">{{ f.a }}</p></div></div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+</main>
+<dc-import name="Footer" hint-size="100%,900px"></dc-import>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { i: 0, finish: null, qty: 1, faq: 0, zoom: false, ox: 50, oy: 50, added: false };
+  setTitle(t) {
+    this.title = t;
+    const apply = () => { if (document.title !== this.title) document.title = this.title; };
+    apply();
+    [0, 150, 600, 1500].forEach((d) => setTimeout(apply, d));
+    const el = document.querySelector('title');
+    if (el && !this.titleMo) { this.titleMo = new MutationObserver(apply); this.titleMo.observe(el, { childList: true, characterData: true, subtree: true }); }
+  }
+  componentDidMount() { this.w = () => (window.ZEF ? this.ready() : (this.t = setTimeout(this.w, 30))); this.w(); }
+  componentWillUnmount() { this.titleMo && this.titleMo.disconnect(); clearTimeout(this.t); clearTimeout(this.addT); }
+  ready() { const p = this.p(); this.setTitle(`${p.name} (${p.sku}) | Zefmesh`); this.forceUpdate(); }
+  p() { const Z = window.ZEF; return Z.product(Z.q('p')) || Z.PRODUCTS[0]; }
+  renderVals() {
+    const Z = window.ZEF;
+    const s = this.state;
+    if (!Z) return { gallery: [], thumbs: [], finishes: [], display: [], specs: [], about: [], set: [], related: [], projects: [], faq: [] };
+    const p = this.p();
+    const r = Z.room(p.room), g = Z.group(p.room, p.group), sub = Z.sub(p.room, p.group, p.sub);
+    const pics = [...new Set([p.img, ...p.alt, sub.img, g.img, r.img, r.hero])].slice(0, 6);
+    const n = pics.length;
+    const pr = Z.priceInfo(p);
+    const finish = s.finish || p.finishes[0];
+    const fin = Z.FINISHES[finish];
+    const isChair = /chair|stool|bench/i.test(p.sub) || p.group === 'seating';
+    const display = p.display.map((k) => Z.showroom(k)).map((x) => ({ name: x.name, map: x.map }));
+    const specs = [
+      ['Item ID', p.sku], ['Origin', Z.ORIGIN[p.origin].long], ['Dimensions', `W ${p.dims.w} × D ${p.dims.d} × H ${p.dims.h} cm`], ['Materials', p.materials],
+      ['Finishes', p.finishes.map((k) => Z.FINISHES[k][0]).join(', ')], ['Lead time', p.lead], ['Availability', p.stock],
+      ...(isChair ? [['Weight rating', 'Up to 120 kg']] : []), ['Delivery', 'Delivered and assembled in Addis Ababa'], ['Guarantee', 'Terms listed on your quote'],
+    ].map(([k, v]) => ({ k, v }));
+    const about = [
+      { h: 'Description', t: p.desc },
+      { h: 'Delivery and assembly', t: `Our team delivers anywhere in Addis Ababa, carries the piece in, assembles it and takes the packaging away. In-stock pieces arrive in three to five working days; this one is ready in ${p.lead}.` },
+      { h: 'Care', t: /wanza|wood|veneer/i.test(p.materials) ? 'Dust weekly, wipe spills quickly and re-oil solid wood twice a year, more often in the dry season.' : 'Vacuum fabric and mesh monthly. Wipe leather with a damp cloth and condition it twice a year.' },
+    ];
+    const set = Z.productsIn({ room: p.room }).filter((x) => x.group !== p.group || x.sub !== p.sub).filter((x, k, a) => a.findIndex((y) => y.sub === x.sub) === k).slice(0, 4);
+    let related = Z.productsIn({ room: p.room, group: p.group, sub: p.sub }).filter((x) => x.slug !== p.slug);
+    if (related.length < 2) related = [...related, ...Z.productsIn({ room: p.room, group: p.group }).filter((x) => x.slug !== p.slug && !related.includes(x))].slice(0, 4);
+    const projects = ['office', 'hospitality'].includes(p.room) ? Z.PROJECTS.filter((x) => (p.room === 'hospitality' ? /hotel/i.test(x.slug) : !/hotel/i.test(x.slug))).map((x) => ({ ...x, img: Z.img(x.img, 300), href: Z.href.page('Project', 'p=' + x.slug) })) : [];
+    const msg = `Hello Zefmesh, I would like a price for ${p.name} (${p.sku}), ${fin[0]}, quantity ${s.qty}. ${location.href}`;
+    return {
+      roomHref: Z.href.room(r.slug), roomName: r.name, lowerRoom: r.name.toLowerCase(), groupHref: Z.href.group(r.slug, g.slug), groupName: g.name,
+      subHref: Z.href.sub(r.slug, g.slug, sub.slug), subName: sub.name, subName2: sub.name, lowerSub: sub.name.toLowerCase(),
+      gallery: pics.map((u, k) => ({ src: Z.img(u, 1600, 75), alt: k === 0 ? `${p.name}, ${fin[0].toLowerCase()}` : `${p.name} in a room`, op: k === s.i ? 1 : 0, scale: k === s.i && s.zoom ? 1.6 : 1 })),
+      origin: `${s.ox}% ${s.oy}%`,
+      zoomMove: (e) => { const b = e.currentTarget.getBoundingClientRect(); if (e.target.closest('button')) return this.state.zoom && this.setState({ zoom: false }); this.setState({ zoom: true, ox: Math.round(((e.clientX - b.left) / b.width) * 100), oy: Math.round(((e.clientY - b.top) / b.height) * 100) }); },
+      zoomOut: () => this.setState({ zoom: false }),
+      prev: () => this.setState({ i: (s.i - 1 + n) % n }), next: () => this.setState({ i: (s.i + 1) % n }), pos: `${s.i + 1} / ${n}`,
+      thumbs: pics.map((u, k) => ({ src: Z.img(u, 240), aria: `Photo ${k + 1}`, op: k === s.i ? 1 : 0.55, ring: k === s.i ? 'inset 0 0 0 2px #170a0b' : 'none', pick: () => this.setState({ i: k }) })),
+      hasBadge: pr.kind === 'sale', badge: `Sale ${pr.label}`,
+      name: p.name, sku: p.sku, originLabel: Z.ORIGIN[p.origin].short, originBg: p.origin === 'imported' ? '#e6e2e2' : '#f3d9da', originFg: p.origin === 'imported' ? '#2b1a1b' : '#5e0f13', now: pr.now, was: pr.was, hasWas: !!pr.was,
+      priceNote: pr.kind === 'request' ? 'Price depends on finish, quantity and delivery. Add it to your list and we confirm the exact price within one working day.' : pr.kind === 'sale' ? 'Sale price, held on your quote until 7 January. Delivery is confirmed in your quote.' : 'Shown price includes VAT. Delivery is confirmed in your quote.',
+      finishName: fin[0],
+      finishes: p.finishes.map((k) => ({ name: Z.FINISHES[k][0], hex: Z.FINISHES[k][1], aria: k === finish ? 'true' : 'false', ring: k === finish ? '0 0 0 3px #f0eeee, 0 0 0 4.5px #170a0b' : 'inset 0 0 0 1px rgba(23,10,11,.2)', pick: () => this.setState({ finish: k }) })),
+      qty: s.qty, inc: () => this.setState({ qty: s.qty + 1 }), dec: () => this.setState({ qty: Math.max(1, s.qty - 1) }),
+      add: () => { Z.list.add(p.slug, { qty: s.qty, finish }); this.setState({ added: true }); clearTimeout(this.addT); this.addT = setTimeout(() => this.setState({ added: false }), 2200); },
+      addLabel: s.added ? 'Added to your quote list' : 'Add to quote list', addBg: s.added ? '#1f6f45' : '#170a0b',
+      quoteNow: () => { location.href = Z.href.request(p.slug, s.qty, finish); },
+      waHref: 'https://wa.me/251941444555?text=' + encodeURIComponent(msg),
+      stock: p.stock, stockDot: p.stock === 'In stock' ? '#3a9d64' : '#c98a2d', lead: p.lead, display,
+      specs, about, set, related, projects, hasProjects: projects.length > 0,
+      faq: Z.PRODUCT_FAQ.map(([q, a], k) => { const on = s.faq === k; return { q, a, aria: on ? 'true' : 'false', rows: on ? '1fr' : '0fr', rot: on ? '45deg' : '0deg', toggle: () => this.setState({ faq: on ? -1 : k }) }; }),
+    };
+  }
+}
+
+</script>
+</body>
+</html>

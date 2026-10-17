@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>All Products | Zefmesh Furniture</title>
+<meta name="description" content="Search and filter every piece Zefmesh makes in Addis Ababa: office, living room, bedroom, dining and hotel furniture, by category, finish, price and Item ID.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<script src="zef-data.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#f0eeee;color:#170a0b;font-family:'Instrument Sans',system-ui,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+a:hover{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+input,select{font:inherit;color:inherit}
+input[type=search]::-webkit-search-cancel-button{display:none}
+img{display:block;max-width:100%}
+h1,h2,h3,h4,p{margin:0}
+@keyframes zefPage{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<dc-import name="Header" page="products" hint-size="100%,0px"></dc-import>
+<main data-page="" data-screen-label="All products" style="animation:zefPage .45s cubic-bezier(.16,1,.3,1) both">
+
+  <section style="padding:calc(110px + clamp(20px,3vw,44px)) clamp(16px,3vw,44px) 0">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:22px">
+      <nav aria-label="Breadcrumb" style="display:flex;gap:8px;font-size:13px;color:#6e6364"><a href="Home.dc.html" style-hover="color:#8c1c22">Home</a><span>/</span><span style="color:#170a0b">All products</span></nav>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:#6e6364">Office · Home · Hotel</span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px 48px">
+      <h1 style="font-size:clamp(48px,7vw,124px);line-height:.88;letter-spacing:-.055em;font-weight:500">All <span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;letter-spacing:-.025em">products</span></h1>
+      <p style="flex:0 1 440px;font-size:15.5px;line-height:1.55;color:#4a3336;text-wrap:pretty">Prices are shown on sale pieces and some stock items. For everything else, add it to your list or request it, and we reply with a price within one working day.</p>
+    </div>
+
+    <div role="search" style="margin-top:clamp(28px,4vw,52px);display:flex;align-items:center;gap:clamp(12px,1.6vw,20px);padding-bottom:12px;border-bottom:2px solid #170a0b">
+      <span aria-hidden="true" style="position:relative;flex:none;width:clamp(22px,2.2vw,32px);height:clamp(22px,2.2vw,32px)">
+        <span style="position:absolute;left:0;top:0;width:76%;height:76%;border:2px solid currentColor;border-radius:50%"></span>
+        <span style="position:absolute;left:66%;top:66%;width:40%;height:2px;background:currentColor;transform:rotate(45deg);transform-origin:0 50%"></span>
+      </span>
+      <input data-page-search="" ref="{{ searchRef }}" type="search" value="{{ q }}" onInput="{{ onQ }}" onKeyDown="{{ onQKey }}" placeholder="Search by name, material or Item ID" aria-label="Search all products" autocomplete="off" style="flex:1;min-width:0;border:0;outline:0;background:transparent;font-size:clamp(24px,3.4vw,52px);letter-spacing:-.03em;padding:6px 0">
+      <sc-if value="{{ hasQ }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ clearQ }}" style="flex:none;height:38px;padding:0 16px;border-radius:19px;box-shadow:inset 0 0 0 1px #c7bebe;font-size:13.5px" style-hover="box-shadow:inset 0 0 0 1px #170a0b">Clear</button>
+      </sc-if>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364;margin-right:6px">Try</span>
+      <sc-for list="{{ tries }}" as="t" hint-placeholder-count="6">
+        <button onClick="{{ t.pick }}" style="height:34px;padding:0 14px;border-radius:17px;box-shadow:inset 0 0 0 1px #c7bebe;font-size:13.5px;transition:box-shadow .2s" style-hover="box-shadow:inset 0 0 0 1px #170a0b">{{ t.label }}</button>
+      </sc-for>
+    </div>
+  </section>
+
+  <section aria-label="Browse by category" style="padding:clamp(28px,4vw,48px) 0 0">
+    <div style="display:flex;gap:10px;overflow-x:auto;padding:0 clamp(16px,3vw,44px) 6px;scrollbar-width:none;scroll-snap-type:x proximity;scroll-padding:0 clamp(16px,3vw,44px)">
+      <button onClick="{{ allCats }}" aria-pressed="{{ allAria }}" style="flex:none;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;width:120px;height:96px;padding:14px 16px;border-radius:16px;background:{{ allBg }};color:{{ allFg }};box-shadow:inset 0 0 0 1px {{ allLine }};scroll-snap-align:start;text-align:left;transition:background .25s,color .25s">
+        <span style="font-size:15.5px;font-weight:500">Everything</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;opacity:.7">Every room</span>
+      </button>
+      <sc-for list="{{ rail }}" as="c" hint-placeholder-count="0">
+        <button onClick="{{ c.pick }}" aria-pressed="{{ c.aria }}" style="flex:none;display:grid;grid-template-columns:72px auto;gap:12px;align-items:center;height:96px;padding:12px 18px 12px 12px;border-radius:16px;background:{{ c.bg }};color:{{ c.fg }};box-shadow:inset 0 0 0 1px {{ c.line }};scroll-snap-align:start;text-align:left;transition:background .25s,color .25s,box-shadow .25s" style-hover="box-shadow:inset 0 0 0 1px #170a0b">
+          <span style="display:block;width:72px;height:72px;border-radius:10px;overflow:hidden;background:#dad4d4"><img src="{{ c.img }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover"></span>
+          <span style="display:flex;flex-direction:column;gap:2px;white-space:nowrap">
+            <span style="font-size:15.5px;font-weight:500;letter-spacing:-.01em">{{ c.label }}</span>
+            <span style="font-size:12.5px;opacity:.7">{{ c.meta }}</span>
+          </span>
+        </button>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="results" style="padding:clamp(28px,3vw,44px) clamp(16px,3vw,44px) clamp(72px,9vw,130px);scroll-margin-top:80px">
+    <div style="display:flex;flex-wrap:wrap;gap:28px clamp(24px,3vw,44px);align-items:flex-start">
+      <aside data-lenis-prevent="" aria-label="Filters" style="flex:1 0 268px;max-width:{{ asideMaxW }};display:{{ asideShow }};flex-direction:column;gap:26px;position:{{ asidePos }};top:96px;max-height:{{ asideMaxH }};overflow-y:auto;padding:22px;border-radius:18px;background:#f7f4f4;border:1px solid #dcd6d6;scrollbar-width:thin">
+        <div style="display:flex;flex-direction:column;gap:2px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364;margin-bottom:8px">Room</span>
+          <sc-for list="{{ roomOpts }}" as="r" hint-placeholder-count="6">
+            <button onClick="{{ r.pick }}" role="radio" aria-checked="{{ r.aria }}" style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 10px;margin:0 -10px;border-radius:8px;text-align:left;font-size:14.5px;background:{{ r.bg }};color:{{ r.fg }};transition:background .2s,color .2s">
+              <span>{{ r.label }}</span>
+            </button>
+          </sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:2px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364;margin-bottom:8px">Category</span>
+          <sc-for list="{{ catOpts }}" as="g" hint-placeholder-count="4">
+            <div style="display:flex;flex-direction:column">
+              <button onClick="{{ g.pick }}" aria-pressed="{{ g.aria }}" style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:6px 0;text-align:left;font-size:14px;font-weight:{{ g.weight }};color:{{ g.color }}" style-hover="color:#8c1c22">
+                <span>{{ g.label }}</span>
+              </button>
+              <sc-for list="{{ g.subs }}" as="s" hint-placeholder-count="0">
+                <button onClick="{{ s.pick }}" aria-pressed="{{ s.aria }}" style="display:flex;align-items:center;gap:10px;padding:5px 0 5px 12px;text-align:left;font-size:13.5px;color:{{ s.color }};border-left:1px solid {{ s.line }}" style-hover="color:#8c1c22">
+                  <span style="flex:1">{{ s.label }}</span>
+                </button>
+              </sc-for>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364">Price</span>
+          <div role="radiogroup" aria-label="Price" style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+            <sc-for list="{{ priceOpts }}" as="o" hint-placeholder-count="4">
+              <button onClick="{{ o.pick }}" role="radio" aria-checked="{{ o.aria }}" style="display:flex;flex-direction:column;align-items:flex-start;gap:1px;padding:9px 11px;border-radius:10px;text-align:left;background:{{ o.bg }};color:{{ o.fg }};box-shadow:inset 0 0 0 1px {{ o.line }};transition:background .2s,color .2s">
+                <span style="font-size:13.5px;font-weight:500">{{ o.label }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364">Finish</span>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <sc-for list="{{ finOpts }}" as="f" hint-placeholder-count="8">
+              <button onClick="{{ f.pick }}" title="{{ f.name }}" aria-label="{{ f.aria2 }}" aria-pressed="{{ f.aria }}" style="width:30px;height:30px;border-radius:50%;background:{{ f.hex }};box-shadow:{{ f.ring }};transition:box-shadow .2s"></button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:2px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364;margin-bottom:6px">More</span>
+          <sc-for list="{{ flagOpts }}" as="f" hint-placeholder-count="4">
+            <button onClick="{{ f.pick }}" role="checkbox" aria-checked="{{ f.aria }}" style="display:flex;align-items:center;gap:10px;padding:5px 0;font-size:14px;text-align:left">
+              <span style="flex:none;width:16px;height:16px;border-radius:4px;border:1.5px solid {{ f.boxLine }};background:{{ f.boxBg }};display:grid;place-items:center;transition:background .2s"><span style="width:7px;height:4px;border-left:1.5px solid #f7f4f4;border-bottom:1.5px solid #f7f4f4;transform:rotate(-45deg) translate(1px,-1px);opacity:{{ f.tick }}"></span></span>
+              <span style="flex:1">{{ f.label }}</span>
+            </button>
+          </sc-for>
+        </div>
+        <sc-if value="{{ hasApplied }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ clearAll }}" style="height:42px;border-radius:21px;box-shadow:inset 0 0 0 1px #170a0b;font-size:14px" style-hover="background:#170a0b;color:#f7f4f4">Clear all filters</button>
+        </sc-if>
+      </aside>
+
+      <div style="flex:999 1 560px;min-width:0;display:flex;flex-direction:column;gap:22px">
+        <div style="position:sticky;top:{{ barTop }};z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:10px 12px;padding:12px 0;background:#f0eeee;border-bottom:1px solid #dcd6d6">
+          <span style="font-size:15px;font-weight:500;margin-right:4px">{{ shownLabel }}</span>
+          <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ toggleFilters }}" style="height:34px;padding:0 14px;border-radius:17px;box-shadow:inset 0 0 0 1px #170a0b;font-size:13.5px">{{ filtersLabel }}</button>
+          </sc-if>
+          <sc-for list="{{ applied }}" as="a" hint-placeholder-count="0">
+            <button onClick="{{ a.remove }}" style="display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 12px;border-radius:16px;background:#170a0b;color:#f7f4f4;font-size:13px" style-hover="background:#8c1c22">{{ a.label }}<span aria-hidden="true">×</span></button>
+          </sc-for>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:10px">
+            <label style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:#6e6364">Sort
+              <select value="{{ sort }}" onChange="{{ onSort }}" style="height:36px;padding:0 10px;border-radius:18px;border:1px solid #c7bebe;background:#f7f4f4;font-size:13.5px;color:#170a0b">
+                <option value="relevance">Best match</option>
+                <option value="featured">Featured</option>
+                <option value="sale">On sale first</option>
+                <option value="new">Newest</option>
+                <option value="price-asc">Price, low to high</option>
+                <option value="price-desc">Price, high to low</option>
+                <option value="name">Name A–Z</option>
+              </select>
+            </label>
+            <div role="radiogroup" aria-label="View" style="display:flex;padding:3px;border-radius:19px;background:#e6e2e2">
+              <button onClick="{{ setGrid }}" role="radio" aria-checked="{{ gridAria }}" aria-label="Grid view" style="width:36px;height:30px;border-radius:15px;display:grid;place-items:center;background:{{ gridBg }};transition:background .2s">
+                <span style="display:grid;grid-template-columns:5px 5px;gap:2px"><span style="width:5px;height:5px;background:{{ gridIc }}"></span><span style="width:5px;height:5px;background:{{ gridIc2 }}"></span><span style="width:5px;height:5px;background:{{ gridIc3 }}"></span><span style="width:5px;height:5px;background:{{ gridIc4 }}"></span></span>
+              </button>
+              <button onClick="{{ setList }}" role="radio" aria-checked="{{ listAria }}" aria-label="List view" style="width:36px;height:30px;border-radius:15px;display:grid;place-items:center;background:{{ listBg }};transition:background .2s">
+                <span style="display:flex;flex-direction:column;gap:2px"><span style="width:12px;height:2px;background:{{ listIc }}"></span><span style="width:12px;height:2px;background:{{ listIc2 }}"></span><span style="width:12px;height:2px;background:{{ listIc3 }}"></span></span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <sc-if value="{{ hasQ }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px">
+            <span style="font-size:14px;color:#4a3336">{{ qNote }}</span>
+            <sc-for list="{{ qCats }}" as="c" hint-placeholder-count="0">
+              <button onClick="{{ c.pick }}" style="display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 12px;border-radius:16px;box-shadow:inset 0 0 0 1px #c7bebe;font-size:13px" style-hover="box-shadow:inset 0 0 0 1px #170a0b">{{ c.label }}</button>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isGrid }}" hint-placeholder-val="{{ true }}">
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,{{ colMin }}),1fr));gap:40px 18px">
+            <sc-for list="{{ rows }}" as="p" hint-placeholder-count="0">
+              <div style="grid-column:{{ p.span }};min-width:0">
+                <sc-if value="{{ p.isHead }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px 16px;padding:{{ p.hPad }};border-top:{{ p.hLine }}">
+                    <h2 style="font-size:clamp(24px,2.2vw,34px);letter-spacing:-.03em;font-weight:500;line-height:1.05">{{ p.hTitle }}</h2>
+                    <span style="font-size:13.5px;color:#6e6364">{{ p.hSub }}</span>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ p.isItem }}" hint-placeholder-val="{{ false }}">
+                  <article style="display:flex;flex-direction:column;gap:12px">
+                    <div style="position:relative">
+                      <a href="{{ p.href }}" style="display:block;aspect-ratio:4/5;overflow:hidden;background:#dad4d4">
+                        <img src="{{ p.img }}" alt="{{ p.alt }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;transition:transform 1.1s cubic-bezier(.16,1,.3,1)" style-hover="transform:scale(1.05)">
+                      </a>
+                      <span style="position:absolute;top:10px;left:10px;right:10px;display:flex;gap:6px;flex-wrap:wrap;pointer-events:none">
+                        <sc-for list="{{ p.badges }}" as="b" hint-placeholder-count="0">
+                          <span style="display:inline-flex;align-items:center;height:24px;padding:0 9px;border-radius:12px;font-size:11.5px;font-weight:600;letter-spacing:.02em;background:{{ b.bg }};color:{{ b.fg }}">{{ b.label }}</span>
+                        </sc-for>
+                      </span>
+                      <button onClick="{{ p.quick }}" style="position:absolute;right:10px;bottom:10px;height:34px;padding:0 14px;border-radius:17px;background:rgba(247,244,244,.94);font-size:13px;font-weight:500;box-shadow:0 8px 18px -10px rgba(20,6,7,.5);transition:background .2s,color .2s" style-hover="background:#170a0b;color:#f7f4f4">Quick view</button>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:4px">
+                      <a href="{{ p.href2 }}" style="font-size:17.5px;font-weight:500;letter-spacing:-.015em;line-height:1.25" style-hover="color:#8c1c22">{{ p.pre }}<mark style="background:#f3d9da;color:inherit;border-radius:3px">{{ p.hit }}</mark>{{ p.post }}</a>
+                      <span style="font-size:12.5px;color:#6e6364">{{ p.subName }} · <span style="font-family:'JetBrains Mono',monospace;font-size:11.5px">{{ p.sku }}</span></span>
+                      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-top:4px;flex-wrap:wrap">
+                        <span style="font-size:15px;color:{{ p.priceColor }}"><b style="font-weight:600">{{ p.now }}</b><sc-if value="{{ p.hasWas }}" hint-placeholder-val="{{ false }}"><s style="margin-left:6px;color:#8e8485;font-weight:400;font-size:13.5px">{{ p.was }}</s></sc-if></span>
+                        <span style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:#6e6364"><span style="width:6px;height:6px;border-radius:50%;background:{{ p.stockDot }}"></span>{{ p.lead }}</span>
+                      </div>
+                    </div>
+                    <div style="display:flex;flex-wrap:wrap;gap:8px">
+                      <button onClick="{{ p.add }}" style="flex:1 1 120px;height:42px;padding:0 14px;border-radius:21px;background:{{ p.addBg }};color:{{ p.addFg }};box-shadow:inset 0 0 0 1px #170a0b;font-size:13.5px;font-weight:500;transition:background .25s,color .25s" style-hover="background:#8c1c22;color:#f7f4f4">{{ p.addLabel }}</button>
+                      <a href="{{ p.req }}" style="flex:0 1 auto;display:inline-flex;align-items:center;justify-content:center;height:42px;padding:0 16px;border-radius:21px;box-shadow:inset 0 0 0 1px #c7bebe;font-size:13.5px;transition:box-shadow .2s" style-hover="box-shadow:inset 0 0 0 1px #170a0b">{{ p.reqLabel }}</a>
+                    </div>
+                  </article>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isList }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;border-top:1px solid #dcd6d6">
+            <sc-for list="{{ rows }}" as="p" hint-placeholder-count="0">
+              <div style="min-width:0">
+                <sc-if value="{{ p.isHead }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px 16px;padding:26px 0 10px">
+                    <h2 style="font-size:clamp(22px,2vw,30px);letter-spacing:-.03em;font-weight:500">{{ p.hTitle }}</h2>
+                    <span style="font-size:13.5px;color:#6e6364">{{ p.hSub }}</span>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ p.isItem }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;padding:14px 0;border-bottom:1px solid #dcd6d6">
+                    <a href="{{ p.href }}" style="flex:none;display:block;width:88px;aspect-ratio:4/5;overflow:hidden;background:#dad4d4"><img src="{{ p.img }}" alt="{{ p.alt }}" loading="lazy" style="width:100%;height:100%;object-fit:cover"></a>
+                    <div style="flex:1 1 240px;min-width:0;display:flex;flex-direction:column;gap:4px">
+                      <div style="display:flex;gap:6px;flex-wrap:wrap">
+                        <sc-for list="{{ p.badges }}" as="b" hint-placeholder-count="0"><span style="display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:10px;font-size:10.5px;font-weight:600;background:{{ b.bg }};color:{{ b.fg }}">{{ b.label }}</span></sc-for>
+                      </div>
+                      <a href="{{ p.href2 }}" style="font-size:18px;font-weight:500;letter-spacing:-.015em;line-height:1.2" style-hover="color:#8c1c22">{{ p.pre }}<mark style="background:#f3d9da;color:inherit;border-radius:3px">{{ p.hit }}</mark>{{ p.post }}</a>
+                      <span style="font-size:13px;color:#6e6364">{{ p.subName }} · <span style="font-family:'JetBrains Mono',monospace;font-size:11.5px">{{ p.sku }}</span> · {{ p.dims }}</span>
+                    </div>
+                    <div style="flex:0 0 170px;display:flex;flex-direction:column;gap:2px">
+                      <span style="font-size:15.5px;color:{{ p.priceColor }}"><b style="font-weight:600">{{ p.now }}</b><sc-if value="{{ p.hasWas }}" hint-placeholder-val="{{ false }}"><s style="margin-left:6px;color:#8e8485;font-weight:400;font-size:13px">{{ p.was }}</s></sc-if></span>
+                      <span style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:#6e6364"><span style="width:6px;height:6px;border-radius:50%;background:{{ p.stockDot }}"></span>{{ p.lead }}</span>
+                    </div>
+                    <div style="flex:none;display:flex;gap:6px">
+                      <button onClick="{{ p.quick }}" style="height:38px;padding:0 14px;border-radius:19px;font-size:13px;color:#4a3336" style-hover="color:#8c1c22">Quick view</button>
+                      <button onClick="{{ p.add }}" style="height:38px;padding:0 14px;border-radius:19px;background:{{ p.addBg }};color:{{ p.addFg }};box-shadow:inset 0 0 0 1px #170a0b;font-size:13px;font-weight:500" style-hover="background:#8c1c22;color:#f7f4f4">{{ p.addLabel }}</button>
+                      <a href="{{ p.req }}" style="display:inline-flex;align-items:center;height:38px;padding:0 14px;border-radius:19px;box-shadow:inset 0 0 0 1px #c7bebe;font-size:13px" style-hover="box-shadow:inset 0 0 0 1px #170a0b">{{ p.reqLabel }}</a>
+                    </div>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ none }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:40px 0 20px;display:flex;flex-direction:column;align-items:flex-start;gap:18px">
+            <p style="font-size:clamp(24px,2.4vw,36px);line-height:1.1;letter-spacing:-.03em;max-width:24ch">{{ noneTitle }}</p>
+            <p style="font-size:15.5px;color:#4a3336;max-width:52ch">Check the spelling, try a material such as mesh or wanza, or search by Item ID. We also make pieces to order.</p>
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <button onClick="{{ clearAll }}" style="height:44px;padding:0 20px;border-radius:22px;background:#170a0b;color:#f7f4f4;font-size:14px" style-hover="background:#8c1c22">Clear search and filters</button>
+              <a href="Custom.dc.html" style="display:inline-flex;align-items:center;height:44px;padding:0 20px;border-radius:22px;box-shadow:inset 0 0 0 1px #170a0b;font-size:14px" style-hover="background:#170a0b;color:#f7f4f4">Ask about a custom piece</a>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ more }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:20px">
+                        <button onClick="{{ loadMore }}" style="height:50px;padding:0 28px;border-radius:25px;box-shadow:inset 0 0 0 1px #170a0b;font-size:14.5px" style-hover="background:#170a0b;color:#f7f4f4">Show more</button>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div onClick="{{ closeQuick }}" style="position:fixed;inset:0;z-index:160;background:rgba(20,6,7,.45);opacity:{{ qvOp }};pointer-events:{{ qvPe }};transition:opacity .35s"></div>
+<aside data-lenis-prevent="" role="dialog" aria-modal="true" aria-label="Quick view" aria-hidden="{{ qvHidden }}" style="position:fixed;top:0;right:0;bottom:0;z-index:170;width:min(940px,100%);background:#f7f4f4;color:#170a0b;display:flex;flex-direction:column;overflow-y:auto;transform:translateX({{ qvX }});visibility:{{ qvVis }};transition:transform .55s cubic-bezier(.16,1,.3,1),visibility .55s;box-shadow:-30px 0 60px -30px rgba(20,6,7,.35)">
+  <div style="position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:18px 24px;background:#f7f4f4;border-bottom:1px solid #dcd6d6">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364;white-space:nowrap">Quick view · {{ qvSku }}</span>
+    <button onClick="{{ closeQuick }}" style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#6e6364;padding:8px 0" style-hover="color:#170a0b">Close</button>
+  </div>
+  <sc-if value="{{ hasQuick }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-wrap:wrap;gap:28px;padding:24px">
+      <div style="flex:1 1 340px;min-width:0;display:flex;flex-direction:column;gap:10px">
+        <div style="position:relative;aspect-ratio:4/5;overflow:hidden;background:#dad4d4">
+          <sc-for list="{{ qvImgs }}" as="i" hint-placeholder-count="0">
+            <img src="{{ i.src }}" loading="lazy" alt="{{ i.alt }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:{{ i.op }};transition:opacity .4s">
+          </sc-for>
+          <sc-if value="{{ qvSale }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:12px;left:12px;display:inline-flex;align-items:center;height:26px;padding:0 11px;border-radius:13px;background:#8c1c22;color:#f7f4f4;font-size:12px;font-weight:600">{{ qvBadge }}</span></sc-if>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px">
+          <sc-for list="{{ qvThumbs }}" as="t" hint-placeholder-count="0">
+            <button onClick="{{ t.pick }}" aria-label="{{ t.aria }}" style="aspect-ratio:1;overflow:hidden;background:#dad4d4;opacity:{{ t.op }};box-shadow:{{ t.ring }};transition:opacity .2s" style-hover="opacity:1"><img src="{{ t.src }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover"></button>
+          </sc-for>
+        </div>
+      </div>
+      <div style="flex:1 1 320px;min-width:0;display:flex;flex-direction:column;gap:18px">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <a href="{{ qvSubHref }}" style="align-self:flex-start;font-size:13.5px;color:#8c1c22;border-bottom:1px solid currentColor">{{ qvSub }}</a>
+          <h2 style="font-size:clamp(28px,2.6vw,40px);line-height:1;letter-spacing:-.035em;font-weight:500">{{ qvName }}</h2>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;padding:16px 0;border-top:1px solid #c7bebe;border-bottom:1px solid #c7bebe">
+          <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
+            <span style="font-size:28px;letter-spacing:-.03em;font-weight:500">{{ qvNow }}</span>
+            <sc-if value="{{ qvHasWas }}" hint-placeholder-val="{{ false }}"><s style="font-size:16px;color:#8e8485">{{ qvWas }}</s></sc-if>
+          </div>
+          <span style="font-size:14px;line-height:1.5;color:#4a3336">{{ qvNote }}</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span style="font-size:14px"><span style="color:#6e6364">Finish</span> · {{ qvFinName }}</span>
+          <div style="display:flex;flex-wrap:wrap;gap:10px">
+            <sc-for list="{{ qvFins }}" as="f" hint-placeholder-count="0">
+              <button onClick="{{ f.pick }}" title="{{ f.name }}" aria-pressed="{{ f.aria }}" style="width:36px;height:36px;border-radius:50%;background:{{ f.hex }};box-shadow:{{ f.ring }}"></button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;border:1px solid #c7bebe;border-radius:26px;height:52px">
+            <button onClick="{{ qvDec }}" aria-label="Fewer" style="width:44px;height:50px;font-size:18px">−</button>
+            <span style="min-width:28px;text-align:center;font-variant-numeric:tabular-nums">{{ qvQty }}</span>
+            <button onClick="{{ qvInc }}" aria-label="More" style="width:44px;height:50px;font-size:18px">+</button>
+          </div>
+          <button onClick="{{ qvPrimary }}" style="flex:1;min-width:190px;height:52px;padding:0 22px;border-radius:26px;background:{{ qvPrimaryBg }};color:#f7f4f4;font-size:15px;font-weight:500;transition:background .3s" style-hover="background:#8c1c22">{{ qvPrimaryLabel }}</button>
+        </div>
+        <button onClick="{{ qvSecondary }}" style="height:48px;border-radius:24px;box-shadow:inset 0 0 0 1px #170a0b;font-size:14.5px;font-weight:500;transition:background .25s,color .25s" style-hover="background:#170a0b;color:#f7f4f4">{{ qvSecondaryLabel }}</button>
+        <div role="table" aria-label="Key details" style="display:flex;flex-direction:column;font-size:14px;border-top:1px solid #dcd6d6">
+          <sc-for list="{{ qvSpecs }}" as="r" hint-placeholder-count="0">
+            <div role="row" style="display:grid;grid-template-columns:110px minmax(0,1fr);gap:12px;padding:10px 0;border-bottom:1px solid #dcd6d6"><span role="rowheader" style="color:#6e6364">{{ r.k }}</span><span role="cell">{{ r.v }}</span></div>
+          </sc-for>
+        </div>
+        <a href="{{ qvHref }}" style="align-self:flex-start;font-size:14.5px;border-bottom:1px solid currentColor" style-hover="color:#8c1c22">Full details, photos and FAQ →</a>
+      </div>
+    </div>
+  </sc-if>
+</aside>
+<dc-import name="Footer" hint-size="100%,900px"></dc-import>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const PAGE = 24;
+const TRIES = ['Executive chair', 'Mesh', 'Sofa', 'ZMOF-0770', 'Dining table', 'Wanza', 'Bed'];
+const FLAGS = [
+  ['stock', 'In stock', (p) => p.stock === 'In stock'],
+  ['new', 'New this season', (p) => p.tags.includes('new')],
+  ['bulk', 'Bulk pricing from 10', (p) => p.tags.includes('bulk')],
+  ['brand', 'Can carry your logo', (p) => p.tags.includes('brand')],
+  ['made', 'Made in our workshop', (p) => p.origin === 'made'],
+  ['imported', 'Imported', (p) => p.origin === 'imported'],
+];
+const PRICES = [
+  ['all', 'Any', () => true],
+  ['shown', 'Price shown', (p) => p.show],
+  ['sale', 'On sale', (p) => p.show && p.off],
+  ['request', 'On request', (p) => !p.show],
+];
+const LEADN = (l) => parseInt(l, 10) || 9;
+
+class Component extends DCLogic {
+  state = (() => {
+    const u = new URLSearchParams(location.search);
+    const q = u.get('q') || '';
+    return {
+      q, room: u.get('room') || '', cat: u.get('cat') || '', price: u.get('price') || 'all', fins: [], flags: [],
+      sort: u.get('sort') || (q ? 'relevance' : 'featured'), sortTouched: !!u.get('sort'), view: u.get('view') === 'list' ? 'list' : 'grid',
+      limit: PAGE, quick: null, qvImg: 0, qvFin: null, qvQty: 1, narrow: window.innerWidth < 900, showFilters: false, tick: 0,
+    };
+  })();
+
+  componentDidMount() {
+    this.w = () => (window.ZEF ? this.forceUpdate() : (this.t = setTimeout(this.w, 30)));
+    this.w();
+    this.onList = () => this.setState({ tick: this.state.tick + 1 });
+    window.addEventListener('zef:list', this.onList);
+    this.onR = () => this.setState({ narrow: window.innerWidth < 900 });
+    window.addEventListener('resize', this.onR);
+    this.onKey = (e) => { if (e.key === 'Escape' && this.state.quick) this.setState({ quick: null }); };
+    window.addEventListener('keydown', this.onKey);
+  }
+  componentWillUnmount() {
+    clearTimeout(this.t); clearTimeout(this.urlT);
+    window.removeEventListener('zef:list', this.onList); window.removeEventListener('resize', this.onR); window.removeEventListener('keydown', this.onKey);
+  }
+  componentDidUpdate(_, prev) {
+    prev = prev || {};
+    const s = this.state;
+    if (['q', 'room', 'cat', 'price', 'sort', 'view'].some((k) => prev[k] !== s[k])) {
+      clearTimeout(this.urlT);
+      this.urlT = setTimeout(() => {
+        const u = new URLSearchParams();
+        if (s.q.trim()) u.set('q', s.q.trim());
+        if (s.room) u.set('room', s.room);
+        if (s.cat) u.set('cat', s.cat);
+        if (s.price !== 'all') u.set('price', s.price);
+        if (s.sortTouched) u.set('sort', s.sort);
+        if (s.view === 'list') u.set('view', 'list');
+        const qs = u.toString();
+        history.replaceState(null, '', location.pathname + (qs ? '?' + qs : ''));
+        document.title = s.q.trim() ? `“${s.q.trim()}” · All Products | Zefmesh` : 'All Products | Zefmesh Furniture';
+      }, 250);
+    }
+    if (!!prev.quick !== !!s.quick) { const L = window.__zefLenis; if (L) s.quick ? L.stop() : L.start(); }
+  }
+
+  setQ(v) {
+    const s = this.state;
+    const has = !!v.trim();
+    this.setState({ q: v, limit: PAGE, sort: s.sortTouched ? s.sort : has ? 'relevance' : 'featured' });
+  }
+  toggle(key, v) { const a = this.state[key]; this.setState({ [key]: a.includes(v) ? a.filter((x) => x !== v) : [...a, v], limit: PAGE }); }
+  scrollToResults() {
+    const el = document.getElementById('results');
+    if (!el) return;
+    const L = window.__zefLenis;
+    L ? L.scrollTo(el, { offset: -80, duration: 0.9 }) : window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+  }
+
+  renderVals() {
+    const Z = window.ZEF;
+    const s = this.state;
+    const narrow = s.narrow;
+    const base = {
+      narrow, searchRef: this.searchRef, q: s.q, hasQ: !!s.q.trim(), sort: s.sort,
+      asideShow: !narrow || s.showFilters ? 'flex' : 'none', asidePos: narrow ? 'static' : 'sticky', asideMaxH: narrow ? 'none' : 'calc(100vh - 112px)', asideMaxW: narrow ? '100%' : '300px',
+      barTop: narrow ? '64px' : '72px', toggleFilters: () => this.setState({ showFilters: !s.showFilters }), filtersLabel: s.showFilters ? 'Hide filters' : 'Filters',
+      onQ: (e) => this.setQ(e.target.value),
+      onQKey: (e) => { if (e.key === 'Enter') { e.preventDefault(); e.target.blur(); this.scrollToResults(); } if (e.key === 'Escape') this.setQ(''); },
+      clearQ: () => { this.setQ(''); this.searchEl && this.searchEl.focus(); },
+      tries: TRIES.map((label) => ({ label, pick: () => { this.setQ(label); } })),
+      isGrid: s.view === 'grid', isList: s.view === 'list', colMin: narrow ? '160px' : '230px',
+      setGrid: () => this.setState({ view: 'grid' }), setList: () => this.setState({ view: 'list' }),
+      gridAria: s.view === 'grid' ? 'true' : 'false', listAria: s.view === 'list' ? 'true' : 'false',
+      gridBg: s.view === 'grid' ? '#f7f4f4' : 'transparent', listBg: s.view === 'list' ? '#f7f4f4' : 'transparent',
+      onSort: (e) => this.setState({ sort: e.target.value, sortTouched: true }),
+      closeQuick: () => this.setState({ quick: null }),
+      qvOp: s.quick ? 1 : 0, qvPe: s.quick ? 'auto' : 'none', qvX: s.quick ? '0%' : '104%', qvVis: s.quick ? 'visible' : 'hidden', qvHidden: s.quick ? 'false' : 'true',
+    };
+    const ic = (on) => (on ? '#170a0b' : '#8e8485');
+    Object.assign(base, { gridIc: ic(s.view === 'grid'), gridIc2: ic(s.view === 'grid'), gridIc3: ic(s.view === 'grid'), gridIc4: ic(s.view === 'grid'), listIc: ic(s.view === 'list'), listIc2: ic(s.view === 'list'), listIc3: ic(s.view === 'list') });
+    if (!Z) return { ...base, rail: [], roomOpts: [], catOpts: [], priceOpts: [], finOpts: [], flagOpts: [], applied: [], rows: [], qCats: [], qvImgs: [], qvThumbs: [], qvFins: [], qvSpecs: [] };
+
+    const q = s.q.trim();
+    const ranked = q ? Z.rank(q) : null;
+    const pool = ranked || Z.PRODUCTS.map((p, i) => ({ p, score: 0, tier: 1, sale: !!(p.show && p.off), at: -1, len: 0, i }));
+    const [cr, cg, cs] = s.cat ? s.cat.split('/') : [];
+    const fRoom = (r) => !s.room || r.p.room === s.room;
+    const fCat = (r) => !s.cat || (r.p.room === cr && r.p.group === cg && (!cs || r.p.sub === cs));
+    const fPrice = (r) => PRICES.find((x) => x[0] === s.price)[2](r.p);
+    const fFin = (r) => !s.fins.length || r.p.finishes.some((f) => s.fins.includes(f));
+    const fFlags = (r) => s.flags.every((k) => FLAGS.find((x) => x[0] === k)[2](r.p));
+    const all = [fRoom, fCat, fPrice, fFin, fFlags];
+    const except = (skip) => pool.filter((r) => all.every((fn) => fn === skip || fn(r)));
+    let list = except(null);
+
+    const featuredKey = (r) => (r.p.tags.includes('bestseller') ? 0 : r.p.tags.includes('new') ? 1 : r.sale ? 2 : 3);
+    const idx = (r) => (r.i != null ? r.i : Z.PRODUCTS.indexOf(r.p));
+    const byFeat = (a, b) => featuredKey(a) - featuredKey(b) || idx(a) - idx(b);
+    const sorters = {
+      relevance: q ? null : byFeat,
+      featured: byFeat,
+      sale: (a, b) => b.sale - a.sale || (b.p.off || 0) - (a.p.off || 0) || byFeat(a, b),
+      new: (a, b) => b.p.tags.includes('new') - a.p.tags.includes('new') || byFeat(a, b),
+      'price-asc': (a, b) => (!!b.p.show - !!a.p.show) || (a.p.now || 0) - (b.p.now || 0),
+      'price-desc': (a, b) => (!!b.p.show - !!a.p.show) || (b.p.now || 0) - (a.p.now || 0),
+      name: (a, b) => a.p.name.localeCompare(b.p.name),
+    };
+    const sorter = sorters[s.sort];
+    if (sorter) list = [...list].sort(sorter);
+
+    const card = (r, k) => {
+      const p = r.p;
+      const pr = Z.priceInfo(p);
+      const inList = Z.list.has(p.slug);
+      let pre = p.name, hit = '', post = '';
+      if (r.at >= 0 && r.len) { pre = p.name.slice(0, r.at); hit = p.name.slice(r.at, r.at + r.len); post = p.name.slice(r.at + r.len); }
+      const badges = [];
+      if (q && s.sort === 'relevance' && k === 0 && r.tier === 1) badges.push({ label: 'Best match', bg: '#170a0b', fg: '#f7f4f4' });
+      if (pr.kind === 'sale') badges.push({ label: `Sale ${pr.label}`, bg: '#8c1c22', fg: '#f7f4f4' });
+      if (p.tags.includes('new')) badges.push({ label: 'New', bg: '#f7f4f4', fg: '#170a0b' });
+      const sub = Z.sub(p.room, p.group, p.sub);
+      return {
+        isItem: true, isHead: false, span: 'auto', key: p.slug,
+        href: Z.href.product(p.slug), href2: Z.href.product(p.slug), img: Z.img(p.img, 640), alt: `${p.name}, ${Z.FINISHES[p.finishes[0]][0].toLowerCase()}`,
+        pre, hit, post, subName: sub ? sub.name : '', sku: p.sku, dims: `${p.dims.w} × ${p.dims.d} × ${p.dims.h} cm`,
+        now: pr.now, was: pr.was, hasWas: !!pr.was, priceColor: pr.kind === 'request' ? '#4a3336' : '#170a0b',
+        lead: p.stock === 'In stock' ? `In stock · ${p.lead}` : `Made to order · ${p.lead}`, stockDot: p.stock === 'In stock' ? '#3a9d64' : '#c98a2d',
+        badges,
+        addLabel: inList ? 'In list · add another' : 'Add to list', addBg: inList ? '#170a0b' : 'transparent', addFg: inList ? '#f7f4f4' : '#170a0b',
+        add: () => Z.list.add(p.slug),
+        req: Z.href.request(p.slug), reqLabel: pr.kind === 'request' ? 'Get price' : 'Request',
+        quick: () => this.setState({ quick: p.slug, qvImg: 0, qvFin: null, qvQty: 1 }),
+      };
+    };
+    const head = (title, sub, first) => ({ isHead: true, isItem: false, span: '1 / -1', hTitle: title, hSub: sub, hPad: first ? '0 0 2px' : '28px 0 2px', hLine: first ? '0' : '1px solid #dcd6d6', badges: [] });
+
+    let rows = [];
+    let items = 0;
+    const push = (arr) => arr.forEach((r) => { if (items < s.limit) { rows.push(card(r, items)); items++; } });
+    if (q && s.sort === 'relevance') {
+      const top = list.filter((r) => r.tier === 1);
+      const rest = list.filter((r) => r.tier > 1);
+      const topSale = top.filter((r) => r.sale).length;
+      if (top.length) { rows.push(head(`Top results for “${q}”`, topSale ? 'Sale pieces first' : 'Name and Item ID matches', true)); push(top); }
+      if (rest.length && items < s.limit) { rows.push(head(top.length ? 'Related pieces' : `Pieces related to “${q}”`, 'Matched on category, material or description', !top.length)); push(rest); }
+    } else push(list);
+
+    const roomCounts = except(fRoom).concat([]);
+    const roomOpts = [{ slug: '', name: 'All rooms' }, ...Z.ROOMS].map((r) => {
+      const on = s.room === r.slug;
+      return { label: r.name, count: r.slug ? roomCounts.filter((x) => x.p.room === r.slug).length : roomCounts.length, aria: on ? 'true' : 'false', bg: on ? '#170a0b' : 'transparent', fg: on ? '#f7f4f4' : '#170a0b', pick: () => this.setState({ room: r.slug, cat: r.slug && s.cat && !s.cat.startsWith(r.slug + '/') ? '' : s.cat, limit: PAGE }) };
+    });
+    const catBase = except(fCat);
+    const roomsForCats = s.room ? [Z.room(s.room)] : Z.ROOMS;
+    const catOpts = roomsForCats.flatMap((R) => R.groups.map((G) => {
+      const key = `${R.slug}/${G.slug}`;
+      const on = s.cat === key, inside = s.cat.startsWith(key + '/');
+      return {
+        label: s.room ? G.name : `${G.name} · ${R.name}`, count: catBase.filter((x) => x.p.room === R.slug && x.p.group === G.slug).length,
+        aria: on ? 'true' : 'false', weight: on || inside ? '600' : '500', color: on ? '#8c1c22' : '#170a0b',
+        pick: () => this.setState({ cat: on ? '' : key, room: R.slug, limit: PAGE }),
+        subs: s.room ? G.subs.map((S) => { const k2 = `${key}/${S.slug}`; const on2 = s.cat === k2; return { label: S.name, count: catBase.filter((x) => x.p.room === R.slug && x.p.group === G.slug && x.p.sub === S.slug).length, aria: on2 ? 'true' : 'false', color: on2 ? '#8c1c22' : '#4a3336', line: on2 ? '#8c1c22' : '#dcd6d6', pick: () => this.setState({ cat: on2 ? key : k2, room: R.slug, limit: PAGE }) }; }) : [],
+      };
+    })).filter((g) => g.count > 0 || s.room);
+    const priceBase = except(fPrice);
+    const priceOpts = PRICES.map(([k, label, fn]) => { const on = s.price === k; return { label, count: priceBase.filter((r) => fn(r.p)).length, aria: on ? 'true' : 'false', bg: on ? '#170a0b' : 'transparent', fg: on ? '#f7f4f4' : '#170a0b', line: on ? '#170a0b' : '#dcd6d6', pick: () => this.setState({ price: k, limit: PAGE }) }; });
+    const finBase = except(fFin);
+    const finKeys = [...new Set(finBase.flatMap((r) => r.p.finishes))];
+    const finOpts = finKeys.map((k) => { const on = s.fins.includes(k); return { name: Z.FINISHES[k][0], hex: Z.FINISHES[k][1], aria: on ? 'true' : 'false', aria2: `Finish: ${Z.FINISHES[k][0]}`, ring: on ? '0 0 0 2px #f7f4f4, 0 0 0 3.5px #170a0b' : 'inset 0 0 0 1px rgba(23,10,11,.18)', pick: () => this.toggle('fins', k) }; });
+    const flagBase = except(fFlags);
+    const flagOpts = FLAGS.map(([k, label, fn]) => { const on = s.flags.includes(k); return { label, count: flagBase.filter((r) => fn(r.p)).length, aria: on ? 'true' : 'false', boxLine: on ? '#170a0b' : '#c7bebe', boxBg: on ? '#170a0b' : 'transparent', tick: on ? 1 : 0, pick: () => this.toggle('flags', k) }; });
+
+    const catName = () => { if (!s.cat) return ''; const G = Z.group(cr, cg); if (cs) { const S = Z.sub(cr, cg, cs); return S ? S.name : cs; } return G ? G.name : cg; };
+    const applied = [
+      ...(q ? [{ label: `“${q}”`, remove: () => this.setQ('') }] : []),
+      ...(s.room ? [{ label: Z.room(s.room).name, remove: () => this.setState({ room: '', cat: '' }) }] : []),
+      ...(s.cat ? [{ label: catName(), remove: () => this.setState({ cat: '' }) }] : []),
+      ...(s.price !== 'all' ? [{ label: PRICES.find((x) => x[0] === s.price)[1], remove: () => this.setState({ price: 'all' }) }] : []),
+      ...s.fins.map((k) => ({ label: Z.FINISHES[k][0], remove: () => this.toggle('fins', k) })),
+      ...s.flags.map((k) => ({ label: FLAGS.find((x) => x[0] === k)[1], remove: () => this.toggle('flags', k) })),
+    ];
+    const clearAll = () => this.setState({ q: '', room: '', cat: '', price: 'all', fins: [], flags: [], limit: PAGE, sort: s.sortTouched ? s.sort : 'featured' });
+
+    const groupsAll = Z.ROOMS.flatMap((R) => R.groups.map((G) => ({ R, G })));
+    const rail = groupsAll.map(({ R, G }) => {
+      const key = `${R.slug}/${G.slug}`;
+      const on = s.cat === key || s.cat.startsWith(key + '/');
+      return { label: G.name, meta: R.name, img: Z.img(G.img, 200), aria: on ? 'true' : 'false', bg: on ? '#170a0b' : '#f7f4f4', fg: on ? '#f7f4f4' : '#170a0b', line: on ? '#170a0b' : '#dcd6d6', pick: () => { this.setState({ cat: on ? '' : key, room: on ? '' : R.slug, limit: PAGE }); } };
+    });
+    const allOn = !s.cat && !s.room;
+
+    let qCats = [];
+    if (q) {
+      const toks = q.toLowerCase().split(/\s+/).map((t) => t.replace(/(es|s)$/, '')).filter((t) => t.length > 2);
+      qCats = groupsAll.flatMap(({ R, G }) => G.subs.map((S) => ({ R, G, S }))).filter(({ S }) => toks.some((t) => S.name.toLowerCase().includes(t))).slice(0, 4)
+        .map(({ R, G, S }) => ({ label: S.name, count: S.count, pick: () => this.setState({ cat: `${R.slug}/${G.slug}/${S.slug}`, room: R.slug, limit: PAGE }) }));
+    }
+    const total = list.length;
+    const nCats = groupsAll.reduce((a, x) => a + x.G.subs.length, 0);
+
+    let qv = {};
+    const P = s.quick && Z.product(s.quick);
+    if (P) {
+      const pr = Z.priceInfo(P);
+      const sub = Z.sub(P.room, P.group, P.sub);
+      const pics = [...new Set([P.img, ...P.alt, sub.img])].slice(0, 4);
+      const fin = s.qvFin || P.finishes[0];
+      const inList = Z.list.has(P.slug);
+      const req = () => { location.href = Z.href.request(P.slug, s.qvQty, fin); };
+      const add = () => { Z.list.add(P.slug, { qty: s.qvQty, finish: fin }); };
+      const isReq = pr.kind === 'request';
+      qv = {
+        hasQuick: true, qvSku: P.sku, qvName: P.name, qvSub: sub.name, qvSubHref: Z.href.sub(P.room, P.group, P.sub), qvHref: Z.href.product(P.slug),
+        qvImgs: pics.map((u, k) => ({ src: Z.img(u, 1000), alt: k === 0 ? P.name : `${P.name} in a room`, op: k === s.qvImg ? 1 : 0 })),
+        qvThumbs: pics.map((u, k) => ({ src: Z.img(u, 200), aria: `Photo ${k + 1}`, op: k === s.qvImg ? 1 : 0.55, ring: k === s.qvImg ? 'inset 0 0 0 2px #170a0b' : 'none', pick: () => this.setState({ qvImg: k }) })),
+        qvSale: pr.kind === 'sale', qvBadge: `Sale ${pr.label}`, qvNow: pr.now, qvWas: pr.was, qvHasWas: !!pr.was,
+        qvNote: isReq ? 'The price depends on finish, quantity and delivery. Request it and we reply with an exact price within one working day.' : pr.kind === 'sale' ? 'Sale price, held on your quote until 7 January.' : 'Shown price includes VAT. Delivery is confirmed in your quote.',
+        qvFinName: Z.FINISHES[fin][0],
+        qvFins: P.finishes.map((k) => ({ name: Z.FINISHES[k][0], hex: Z.FINISHES[k][1], aria: k === fin ? 'true' : 'false', ring: k === fin ? '0 0 0 3px #f7f4f4, 0 0 0 4.5px #170a0b' : 'inset 0 0 0 1px rgba(23,10,11,.2)', pick: () => this.setState({ qvFin: k }) })),
+        qvQty: s.qvQty, qvInc: () => this.setState({ qvQty: s.qvQty + 1 }), qvDec: () => this.setState({ qvQty: Math.max(1, s.qvQty - 1) }),
+        qvPrimary: isReq ? req : add, qvPrimaryLabel: isReq ? 'Request the price →' : inList ? 'Added · add more' : 'Add to quote list', qvPrimaryBg: !isReq && inList ? '#1f6f45' : '#170a0b',
+        qvSecondary: isReq ? add : req, qvSecondaryLabel: isReq ? (inList ? 'In your list · add more' : 'Add to quote list') : 'Request this piece now →',
+        qvSpecs: [['Item ID', P.sku], ['Size', `W ${P.dims.w} × D ${P.dims.d} × H ${P.dims.h} cm`], ['Materials', P.materials], ['Ready in', `${P.lead} · ${P.stock}`], ['On display', P.display.map((k) => Z.showroom(k).name).join(', ')]].map(([k, v]) => ({ k, v })),
+      };
+    }
+
+    return {
+      ...base, qvSku: '', ...qv, hasQuick: !!P,
+      qvImgs: qv.qvImgs || [], qvThumbs: qv.qvThumbs || [], qvFins: qv.qvFins || [], qvSpecs: qv.qvSpecs || [],
+      total: Z.PRODUCTS.length, statLine: `${Z.PRODUCTS.length} pieces · ${Z.ROOMS.length} rooms · ${nCats} categories`,
+      qCount: `${total} ${total === 1 ? 'result' : 'results'}`,
+      qNote: q ? (total ? 'Exact name and Item ID matches come first, with sale pieces at the front.' : '') : '', qCats,
+      rail, allCats: () => this.setState({ cat: '', room: '', limit: PAGE }), allAria: allOn ? 'true' : 'false', allBg: allOn ? '#170a0b' : '#f7f4f4', allFg: allOn ? '#f7f4f4' : '#170a0b', allLine: allOn ? '#170a0b' : '#dcd6d6',
+      roomOpts, catOpts, priceOpts, finOpts, flagOpts, applied, hasApplied: applied.length > 0, clearAll,
+      shownLabel: q ? `Results for “${q}”` : applied.length ? 'Filtered pieces' : 'Every piece',
+      rows, none: total === 0, noneTitle: q ? `Nothing matches “${q}” with these filters.` : 'No pieces match these filters.',
+      more: total > s.limit, moreNote: `Showing ${Math.min(s.limit, total)} of ${total}`, loadMore: () => this.setState({ limit: s.limit + PAGE }),
+    };
+  }
+
+  searchRef = (el) => { this.searchEl = el; };
+}
+
+</script>
+</body>
+</html>

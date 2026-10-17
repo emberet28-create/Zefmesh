@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<script src="zef-data.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#f0eeee;color:#170a0b;font-family:'Instrument Sans',system-ui,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+a:hover{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+img{display:block;max-width:100%}
+h1,h2,h3,h4,p{margin:0}
+@keyframes zefPage{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<dc-import name="Header" page="collection" hint-size="100%,0px"></dc-import>
+<main data-page="" data-screen-label="Collection" style="animation:zefPage .45s cubic-bezier(.16,1,.3,1) both">
+
+  <section data-dark="1" style="position:relative;height:72svh;min-height:520px;overflow:hidden;background:#140607;color:#f7f4f4">
+    <div data-parallax="0.08" style="position:absolute;inset:0;overflow:hidden"><img src="{{ heroImg }}" loading="lazy" alt="{{ heroAlt }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,6,7,.55),rgba(20,6,7,.05) 40%,rgba(20,6,7,.85))"></div>
+    <div style="position:absolute;left:clamp(16px,3vw,44px);right:clamp(16px,3vw,44px);bottom:clamp(24px,4vw,48px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px 48px">
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <nav aria-label="Breadcrumb" style="display:flex;gap:8px;font-size:13px;color:#e4c9ca"><a href="Home.dc.html" style-hover="color:#f7f4f4">Home</a><span>/</span><a href="Collections.dc.html" style-hover="color:#f7f4f4">Collections</a><span>/</span><span style="color:#f7f4f4">{{ crumb }}</span></nav>
+        <span style="align-self:flex-start;display:inline-flex;align-items:center;height:30px;padding:0 13px;border-radius:15px;background:{{ tagBg }};color:{{ tagFg }};font-size:12.5px;font-weight:600">{{ tag }}</span>
+        <h1 style="font-size:clamp(52px,8.4vw,150px);line-height:.86;letter-spacing:-.055em;font-weight:500;max-width:12ch">{{ title }}</h1>
+      </div>
+      <p style="flex:0 1 420px;font-size:16.5px;line-height:1.55;color:#ece2e2">{{ heroSub }}</p>
+    </div>
+  </section>
+
+  <sc-if value="{{ isSet }}" hint-placeholder-val="{{ false }}">
+    <section style="padding:clamp(36px,4vw,64px) clamp(16px,3vw,44px) clamp(72px,9vw,120px);display:flex;flex-wrap:wrap;gap:32px clamp(24px,3vw,56px);align-items:flex-start">
+      <div style="flex:1.5 1 520px;min-width:0;display:flex;flex-direction:column;gap:clamp(28px,3vw,40px)">
+
+        <sc-if value="{{ isFixed }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding-bottom:14px;border-bottom:1px solid #170a0b">
+              <h2 style="font-size:clamp(26px,2.4vw,36px);letter-spacing:-.03em;font-weight:500">In this set</h2>
+              <span style="font-size:13.5px;color:#6e6364">Quantities per set</span>
+            </div>
+            <sc-for list="{{ items }}" as="it" hint-placeholder-count="0">
+              <div style="display:grid;grid-template-columns:96px minmax(0,1fr) auto;gap:18px;align-items:center;padding:16px 0;border-bottom:1px solid #c7bebe">
+                <a href="{{ it.href }}" style="display:block;aspect-ratio:4/5;overflow:hidden;background:#dad4d4"><img src="{{ it.img }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover"></a>
+                <div style="display:flex;flex-direction:column;gap:4px;min-width:0">
+                  <a href="{{ it.href2 }}" style="font-size:18px;font-weight:500;letter-spacing:-.015em;line-height:1.2" style-hover="color:#8c1c22">{{ it.name }}</a>
+                  <span style="font-size:13px;color:#6e6364">{{ it.meta }}</span>
+                  <span style="font-size:14px;color:{{ it.priceColor }}">{{ it.price }}</span>
+                </div>
+                <span style="font-size:clamp(22px,2vw,30px);letter-spacing:-.03em;font-variant-numeric:tabular-nums">× {{ it.qty }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start;padding:18px 20px;border-radius:14px;background:#e6e2e2;font-size:14.5px;line-height:1.5;color:#2b1a1b">
+            <span aria-hidden="true" style="flex:none;position:relative;width:16px;height:18px;margin-top:2px"><span style="position:absolute;left:3px;top:0;width:10px;height:9px;border:1.6px solid #170a0b;border-bottom:0;border-radius:5px 5px 0 0"></span><span style="position:absolute;left:0;bottom:0;width:16px;height:10px;border-radius:2px;background:#170a0b"></span></span>
+            <span>This is a fixed set: the pieces are matched and sold together as shown. For a different mix, <a href="Collections.dc.html?kind=build" style="border-bottom:1px solid currentColor">build your own set</a> or ask for a custom set in the request notes.</span>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isBuild }}" hint-placeholder-val="{{ false }}">
+          <sc-for list="{{ slots }}" as="sl" hint-placeholder-count="0">
+            <div style="display:flex;flex-direction:column;gap:16px;padding-bottom:clamp(24px,3vw,36px);border-bottom:1px solid #c7bebe">
+              <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px">
+                <div style="display:flex;align-items:baseline;gap:14px">
+                  <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#8c1c22">{{ sl.n }}</span>
+                  <h2 style="font-size:clamp(24px,2.2vw,34px);letter-spacing:-.03em;font-weight:500;line-height:1">{{ sl.label }}</h2>
+                  <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364">{{ sl.req }}</span>
+                </div>
+                <sc-if value="{{ sl.optional }}" hint-placeholder-val="{{ false }}">
+                  <button onClick="{{ sl.toggle }}" role="switch" aria-checked="{{ sl.aria }}" style="display:inline-flex;align-items:center;gap:10px;height:38px;padding:0 6px 0 14px;border-radius:19px;box-shadow:inset 0 0 0 1px #c7bebe;font-size:13.5px">
+                    <span>{{ sl.toggleLabel }}</span>
+                    <span style="position:relative;width:34px;height:22px;border-radius:11px;background:{{ sl.track }};transition:background .25s"><span style="position:absolute;top:3px;left:{{ sl.knob }};width:16px;height:16px;border-radius:50%;background:#f7f4f4;transition:left .3s cubic-bezier(.16,1,.3,1)"></span></span>
+                  </button>
+                </sc-if>
+              </div>
+              <sc-if value="{{ sl.on }}" hint-placeholder-val="{{ false }}">
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,180px),1fr));gap:12px">
+                  <sc-for list="{{ sl.opts }}" as="o" hint-placeholder-count="0">
+                    <button onClick="{{ o.pick }}" aria-pressed="{{ o.aria }}" style="display:flex;flex-direction:column;gap:10px;padding:10px;border-radius:14px;text-align:left;background:#f7f4f4;box-shadow:{{ o.ring }};transition:box-shadow .25s">
+                      <span style="position:relative;display:block;aspect-ratio:4/3;overflow:hidden;border-radius:8px;background:#dad4d4"><img src="{{ o.img }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover"><span style="position:absolute;top:8px;right:8px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:{{ o.dotBg }};box-shadow:inset 0 0 0 1.5px {{ o.dotLine }}"><span style="width:8px;height:4px;border-left:1.6px solid #f7f4f4;border-bottom:1.6px solid #f7f4f4;transform:rotate(-45deg) translate(1px,-1px);opacity:{{ o.tick }}"></span></span></span>
+                      <span style="font-size:15px;font-weight:500;line-height:1.25">{{ o.name }}</span>
+                      <span style="display:flex;justify-content:space-between;gap:8px;font-size:12.5px;color:#6e6364"><span>{{ o.origin }}</span><span style="color:{{ o.priceColor }}">{{ o.price }}</span></span>
+                    </button>
+                  </sc-for>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px">
+                  <div style="display:flex;align-items:center;gap:12px">
+                    <span style="font-size:13.5px;color:#6e6364">Quantity</span>
+                    <div style="display:flex;align-items:center;border:1px solid #c7bebe;border-radius:19px;height:38px">
+                      <button onClick="{{ sl.dec }}" aria-label="Fewer" style="width:38px;height:36px;font-size:16px;opacity:{{ sl.decOp }}">−</button>
+                      <span style="min-width:28px;text-align:center;font-variant-numeric:tabular-nums">{{ sl.qty }}</span>
+                      <button onClick="{{ sl.inc }}" aria-label="More" style="width:38px;height:36px;font-size:16px;opacity:{{ sl.incOp }}">+</button>
+                    </div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:8px">
+                    <span style="font-size:13.5px;color:#6e6364">Finish · {{ sl.finName }}</span>
+                    <sc-for list="{{ sl.fins }}" as="f" hint-placeholder-count="0">
+                      <button onClick="{{ f.pick }}" title="{{ f.name }}" aria-pressed="{{ f.aria }}" style="width:26px;height:26px;border-radius:50%;background:{{ f.hex }};box-shadow:{{ f.ring }}"></button>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ sl.off }}" hint-placeholder-val="{{ false }}">
+                <p style="font-size:14.5px;color:#6e6364">Skipped. Turn it on to add it to the set.</p>
+              </sc-if>
+            </div>
+          </sc-for>
+        </sc-if>
+      </div>
+
+      <aside style="flex:1 1 340px;max-width:{{ asideMax }};position:{{ asidePos }};top:96px;display:flex;flex-direction:column;gap:18px;padding:clamp(20px,2.2vw,30px);border-radius:22px;background:#f7f4f4;border:1px solid #dcd6d6">
+        <h2 style="font-size:24px;letter-spacing:-.025em;font-weight:500">{{ sumTitle }}</h2>
+        <sc-if value="{{ isFixed }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:14px;padding-bottom:16px;border-bottom:1px solid #dcd6d6">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+              <span style="font-size:14.5px">Number of sets</span>
+              <div style="display:flex;align-items:center;border:1px solid #c7bebe;border-radius:20px;height:40px">
+                <button onClick="{{ decSets }}" aria-label="Fewer sets" style="width:40px;height:38px;font-size:16px">−</button>
+                <span style="min-width:30px;text-align:center;font-variant-numeric:tabular-nums">{{ setQty }}</span>
+                <button onClick="{{ incSets }}" aria-label="More sets" style="width:40px;height:38px;font-size:16px">+</button>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+              <span style="font-size:14.5px">Finish · {{ setFinName }}</span>
+              <div style="display:flex;gap:8px">
+                <sc-for list="{{ setFins }}" as="f" hint-placeholder-count="0">
+                  <button onClick="{{ f.pick }}" title="{{ f.name }}" aria-pressed="{{ f.aria }}" style="width:30px;height:30px;border-radius:50%;background:{{ f.hex }};box-shadow:{{ f.ring }}"></button>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+        <div style="display:flex;flex-direction:column">
+          <sc-for list="{{ lines }}" as="l" hint-placeholder-count="0">
+            <div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:9px 0;border-bottom:1px solid #ebe5e5;font-size:14px">
+              <span style="font-weight:500">{{ l.name }}</span>
+              <span style="color:{{ l.priceColor }};text-align:right">{{ l.price }}</span>
+              <span style="font-size:12.5px;color:#6e6364">× {{ l.qty }} · {{ l.finish }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span style="font-size:14.5px;color:#6e6364">Total</span><span style="font-size:clamp(24px,2vw,30px);letter-spacing:-.03em;font-weight:500">{{ total }}</span></div>
+          <span style="font-size:13px;line-height:1.45;color:#6e6364">{{ totalNote }}</span>
+        </div>
+        <button onClick="{{ addSet }}" style="height:56px;border-radius:28px;background:{{ addBg }};color:#f7f4f4;font-size:15.5px;font-weight:500;transition:background .3s" style-hover="background:#8c1c22">{{ addLabel }}</button>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button onClick="{{ requestSet }}" style="flex:1 1 160px;height:48px;border-radius:24px;box-shadow:inset 0 0 0 1px #170a0b;font-size:14px;font-weight:500" style-hover="background:#170a0b;color:#f7f4f4">Request this set now</button>
+          <a href="{{ waHref }}" target="_blank" rel="noreferrer" style="flex:1 1 140px;display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;border-radius:24px;box-shadow:inset 0 0 0 1px #c7bebe;font-size:14px" style-hover="box-shadow:inset 0 0 0 1px #1f6f45;color:#1f6f45"><span style="width:7px;height:7px;border-radius:50%;background:#3ccf7d"></span>WhatsApp</a>
+        </div>
+        <p style="font-size:12.5px;line-height:1.5;color:#6e6364">No payment online. We reply within one working day with the price for the whole set, a delivery or pick-up date, or a time to see it at a showroom.</p>
+      </aside>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ isSeries }}" hint-placeholder-val="{{ false }}">
+    <section style="padding:clamp(56px,7vw,100px) clamp(16px,3vw,44px) 0;display:flex;flex-wrap:wrap;gap:24px clamp(40px,6vw,100px)">
+      <span style="flex:0 1 240px;font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#6e6364">About the series</span>
+      <p data-reveal="" style="flex:1 1 520px;font-size:clamp(24px,2.6vw,40px);line-height:1.18;letter-spacing:-.03em;text-wrap:pretty;max-width:30ch">{{ story }}</p>
+    </section>
+    <sc-if value="{{ hasSeriesSets }}" hint-placeholder-val="{{ false }}">
+      <section style="padding:clamp(48px,6vw,80px) clamp(16px,3vw,44px) 0">
+        <h2 data-reveal="" style="font-size:clamp(28px,2.8vw,44px);letter-spacing:-.035em;font-weight:500;margin-bottom:20px">Sets in this series</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:14px">
+          <sc-for list="{{ seriesSets }}" as="x" hint-placeholder-count="0">
+            <a href="{{ x.href }}" style="display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;align-items:center;padding:12px;border-radius:16px;background:#f7f4f4;border:1px solid #dcd6d6;transition:border-color .2s" style-hover="border-color:#170a0b">
+              <span style="display:block;aspect-ratio:1;overflow:hidden;border-radius:10px;background:#dad4d4"><img src="{{ x.img }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover"></span>
+              <span style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#8c1c22">{{ x.tag }}</span><span style="font-size:19px;font-weight:500;letter-spacing:-.015em">{{ x.name }}</span><span style="font-size:13.5px;line-height:1.45;color:#6e6364">{{ x.blurb }}</span></span>
+            </a>
+          </sc-for>
+        </div>
+      </section>
+    </sc-if>
+    <section style="padding:clamp(48px,6vw,80px) clamp(16px,3vw,44px) clamp(72px,9vw,120px)">
+      <h2 data-reveal="" style="font-size:clamp(28px,2.8vw,44px);letter-spacing:-.035em;font-weight:500;margin-bottom:24px">Pieces in the series</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:36px 18px">
+        <sc-for list="{{ pieces }}" as="p" hint-placeholder-count="0">
+          <dc-import name="ProductCard" p="{{ p }}" hint-size="100%,440px"></dc-import>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <section style="padding:clamp(56px,7vw,96px) clamp(16px,3vw,44px);background:#e6e2e2">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:24px">
+      <h2 data-reveal="" style="font-size:clamp(28px,2.8vw,44px);letter-spacing:-.035em;font-weight:500">More sets</h2>
+      <a href="Collections.dc.html" style="font-size:14.5px;border-bottom:1px solid currentColor" style-hover="color:#8c1c22">All sets and collections</a>
+    </div>
+    <div data-stagger="" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:28px 18px">
+      <sc-for list="{{ others }}" as="x" hint-placeholder-count="0">
+        <a href="{{ x.href }}" style="display:flex;flex-direction:column;gap:12px" style-hover="color:#8c1c22">
+          <span style="display:block;aspect-ratio:4/3;overflow:hidden;background:#dad4d4"><img src="{{ x.img }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.16,1,.3,1)" style-hover="transform:scale(1.05)"></span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#6e6364">{{ x.tag }} · {{ x.room }}</span>
+          <span style="font-size:22px;letter-spacing:-.025em;font-weight:500;line-height:1.1">{{ x.name }}</span>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+</main>
+<dc-import name="Footer" hint-size="100%,900px"></dc-import>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { qty: 1, fin: null, picks: null, added: false, tick: 0, wide: window.innerWidth >= 1100 };
+  componentDidMount() {
+    this.w = () => (window.ZEF ? this.ready() : (this.t = setTimeout(this.w, 30)));
+    this.w();
+    this.onList = () => this.setState({ tick: this.state.tick + 1 });
+    window.addEventListener('zef:list', this.onList);
+  }
+  componentWillUnmount() { clearTimeout(this.t); clearTimeout(this.addT); window.removeEventListener('zef:list', this.onList); }
+  ready() {
+    const d = this.doc();
+    const name = d.set ? d.set.name : d.series.name + ' series';
+    document.title = `${name} | Zefmesh Furniture`;
+    if (d.set && d.set.kind === 'build') this.setState({ picks: d.set.slots.map(([, req, opts, min]) => ({ slug: opts[0], qty: min, on: req, fin: null })) });
+    else this.forceUpdate();
+  }
+  doc() {
+    const Z = window.ZEF;
+    const u = new URLSearchParams(location.search);
+    const set = Z.SETS.find((x) => x.slug === u.get('set'));
+    if (set) return { set };
+    return { series: Z.COLLECTIONS.find((x) => x.slug === u.get('c')) || Z.COLLECTIONS[0] };
+  }
+  patch(i, p) { const picks = this.state.picks.map((x, k) => (k === i ? { ...x, ...p } : x)); this.setState({ picks }); }
+  renderVals() {
+    const Z = window.ZEF;
+    const s = this.state;
+    const base = { asidePos: s.wide ? 'sticky' : 'static', asideMax: s.wide ? '520px' : '100%' };
+    if (!Z) return { ...base, items: [], slots: [], lines: [], setFins: [], seriesSets: [], pieces: [], others: [] };
+    const d = this.doc();
+    const ring = (on) => (on ? '0 0 0 2px #f7f4f4, 0 0 0 3.5px #170a0b' : 'inset 0 0 0 1px rgba(23,10,11,.2)');
+    const priced = (p, q) => (p.show ? Z.fmt(p.now * q) : 'On request');
+    const others = Z.SETS.filter((x) => !d.set || x.slug !== d.set.slug).slice(0, 4).map((x) => ({ href: Z.href.set(x.slug), img: Z.img(x.img, 700), name: x.name, room: Z.room(x.room).name, tag: x.kind === 'fixed' ? 'Fixed set' : 'Build your own' }));
+
+    if (d.series) {
+      const c = d.series;
+      return {
+        ...base, isSet: false, isSeries: true, isFixed: false, isBuild: false, others,
+        heroImg: Z.img(c.img, 1800), heroAlt: c.name, crumb: c.name, tag: c.kicker, tagBg: '#f7f4f4', tagFg: '#170a0b', title: c.name, heroSub: c.blurb,
+        story: Z.COLL_STORY[c.slug] || c.blurb,
+        seriesSets: Z.SETS.filter((x) => x.series === c.slug).map((x) => ({ href: Z.href.set(x.slug), img: Z.img(x.img, 300), name: x.name, blurb: x.blurb, tag: x.kind === 'fixed' ? 'Fixed set' : 'Build your own' })),
+        hasSeriesSets: Z.SETS.some((x) => x.series === c.slug),
+        pieces: (Z.COLL_PIECES[c.slug] || []).map((sl) => Z.product(sl)).filter(Boolean),
+        items: [], slots: [], lines: [], setFins: [],
+      };
+    }
+
+    const set = d.set;
+    const fixed = set.kind === 'fixed';
+    let lines = [], items = [], slots = [], setFins = [], setFinName = '';
+    if (fixed) {
+      const main = Z.product(set.items[0][0]);
+      const fin = s.fin || main.finishes[0];
+      setFinName = Z.FINISHES[fin][0];
+      setFins = main.finishes.map((k) => ({ name: Z.FINISHES[k][0], hex: Z.FINISHES[k][1], aria: k === fin ? 'true' : 'false', ring: ring(k === fin), pick: () => this.setState({ fin: k }) }));
+      items = set.items.map(([sl, q]) => {
+        const p = Z.product(sl);
+        return { href: Z.href.product(sl), href2: Z.href.product(sl), img: Z.img(p.img, 300), name: p.name, meta: `${Z.sub(p.room, p.group, p.sub).name} · ${Z.ORIGIN[p.origin].short}`, qty: q, price: p.show ? Z.fmt(p.now) + ' each' : 'Price on request', priceColor: p.show ? '#170a0b' : '#6e6364' };
+      });
+      lines = set.items.map(([sl, q]) => { const p = Z.product(sl); const f = p.finishes.includes(fin) ? fin : p.finishes[0]; return { slug: sl, p, qty: q * s.qty, fin: f }; });
+    } else if (s.picks) {
+      slots = set.slots.map(([label, req, opts, min, max], i) => {
+        const pk = s.picks[i];
+        const p = Z.product(pk.slug);
+        const fin = pk.fin && p.finishes.includes(pk.fin) ? pk.fin : p.finishes[0];
+        return {
+          n: String(i + 1).padStart(2, '0'), label, req: req ? 'Required' : 'Optional', optional: !req, on: pk.on, off: !pk.on,
+          aria: pk.on ? 'true' : 'false', toggleLabel: pk.on ? 'Included' : 'Add', track: pk.on ? '#170a0b' : '#c7bebe', knob: pk.on ? '15px' : '3px',
+          toggle: () => this.patch(i, { on: !pk.on }),
+          opts: opts.map((sl) => { const o = Z.product(sl); const on = sl === pk.slug; return { name: o.name, img: Z.img(o.img, 400), origin: Z.ORIGIN[o.origin].short, price: o.show ? Z.fmt(o.now) : 'On request', priceColor: o.show ? '#170a0b' : '#6e6364', aria: on ? 'true' : 'false', ring: on ? 'inset 0 0 0 2px #170a0b' : 'inset 0 0 0 1px #dcd6d6', dotBg: on ? '#170a0b' : 'transparent', dotLine: on ? '#170a0b' : '#c7bebe', tick: on ? 1 : 0, pick: () => this.patch(i, { slug: sl, fin: null }) }; }),
+          qty: pk.qty, dec: () => this.patch(i, { qty: Math.max(min, pk.qty - 1) }), inc: () => this.patch(i, { qty: Math.min(max, pk.qty + 1) }), decOp: pk.qty > min ? 1 : 0.35, incOp: pk.qty < max ? 1 : 0.35,
+          finName: Z.FINISHES[fin][0], fins: p.finishes.map((k) => ({ name: Z.FINISHES[k][0], hex: Z.FINISHES[k][1], aria: k === fin ? 'true' : 'false', ring: ring(k === fin), pick: () => this.patch(i, { fin: k }) })),
+        };
+      });
+      lines = s.picks.filter((x) => x.on).map((x) => { const p = Z.product(x.slug); return { slug: x.slug, p, qty: x.qty, fin: x.fin && p.finishes.includes(x.fin) ? x.fin : p.finishes[0] }; });
+    }
+    const pricedLines = lines.filter((l) => l.p.show);
+    const sum = pricedLines.reduce((a, l) => a + l.p.now * l.qty, 0);
+    const allPriced = lines.length && pricedLines.length === lines.length;
+    const total = !lines.length ? '—' : allPriced ? Z.fmt(sum) : pricedLines.length ? `${Z.fmt(sum)} + on request` : 'Price on request';
+    const totalNote = !lines.length ? 'Choose at least one piece.' : allPriced ? 'Shown prices include VAT. Delivery is confirmed in your quote.' : 'Pieces without a shown price are confirmed in your quote within one working day.';
+    const note = `Part of ${set.name}${fixed ? ' (fixed set)' : ''}`;
+    const addAll = () => {
+      lines.forEach((l) => Z.list.add(l.slug, { qty: l.qty, finish: l.fin, note, silent: true }));
+      window.dispatchEvent(new CustomEvent('zef:list', { detail: { action: 'add', name: set.name } }));
+    };
+    const msg = `Hello Zefmesh, I would like a price for the ${set.name}: ` + lines.map((l) => `${l.qty} × ${l.p.name} (${Z.FINISHES[l.fin][0]})`).join('; ') + '.';
+    return {
+      ...base, isSet: true, isSeries: false, isFixed: fixed, isBuild: !fixed, others,
+      heroImg: Z.img(set.img, 1800), heroAlt: set.name, crumb: set.name, title: set.name, heroSub: set.blurb,
+      tag: fixed ? 'Fixed set · pieces locked' : 'Build your own', tagBg: fixed ? '#170a0b' : '#f7f4f4', tagFg: fixed ? '#f7f4f4' : '#170a0b',
+      items, slots, setFins, setFinName, setQty: s.qty, incSets: () => this.setState({ qty: s.qty + 1 }), decSets: () => this.setState({ qty: Math.max(1, s.qty - 1) }),
+      sumTitle: fixed ? 'Your set' : 'Your selection',
+      lines: lines.map((l) => ({ name: l.p.name, qty: l.qty, finish: Z.FINISHES[l.fin][0], price: priced(l.p, l.qty), priceColor: l.p.show ? '#170a0b' : '#6e6364' })),
+      total, totalNote,
+      addLabel: s.added ? 'Added to your quote list' : fixed ? (s.qty > 1 ? `Add ${s.qty} sets to quote list` : 'Add set to quote list') : 'Add selection to quote list', addBg: s.added ? '#1f6f45' : '#170a0b',
+      addSet: () => { if (!lines.length) return; addAll(); this.setState({ added: true }); clearTimeout(this.addT); this.addT = setTimeout(() => this.setState({ added: false }), 2200); },
+      requestSet: () => { if (!lines.length) return; addAll(); location.href = Z.href.quote; },
+      waHref: 'https://wa.me/251941444555?text=' + encodeURIComponent(msg),
+    };
+  }
+}
+
+</script>
+</body>
+</html>
